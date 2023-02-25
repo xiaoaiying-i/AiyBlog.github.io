@@ -5,6 +5,9 @@ on:
     branches:
       - master # default branch
 
+runs:
+  using: 'node16'
+
 jobs:
   pages:
     runs-on: ubuntu-latest
