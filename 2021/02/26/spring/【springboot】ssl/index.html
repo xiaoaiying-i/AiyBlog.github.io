@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      【springboot】ssl 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">文章</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【springboot】ssl</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-02-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/springboot/" title="springboot">
+                    <b>#</b> springboot
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/springboot/" title="springboot">
+                    #springboot
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p><img src="../../Typora/img/image.png" alt="输入图片说明"></p>
+<ul>
+<li>数字证书文件格式（cer和pfx）的区别<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">作为文件形式存在的证书一般有这几种格式：</span><br><span class="line">1.带有私钥的证书由Public Key Cryptography Standards #12，PKCS#12标准定义，包含了公钥和私钥的二进制格式的证书形式，以pfx作为证书文件后缀名。</span><br><span class="line">2.二进制编码的证书 证书中没有私钥，DER 编码二进制格式的证书文件，以cer作为证书文件后缀名。</span><br><span class="line">3.Base64编码的证书证书中没有私钥，BASE64 编码格式的证书文件，也是以cer作为证书文件后缀名。</span><br><span class="line">由定义可以看出，只有pfx格式的数字证书是包含有私钥的，cer格式的数字证书里面只有公钥没有私钥。</span><br><span class="line">在pfx证书的导入过程中有一项是“标志此密钥是可导出的。这将您在稍候备份或传输密钥”。一般是不选中的，如果选中，别人就有机会备份你的密钥了。如果是不选中，其实密钥也导入了，只是不能再次被导出。这就保证了密钥的安全。</span><br><span class="line">如果导入过程中没有选中这一项，做证书备份时“导出私钥”这一项是灰色的，不能选。只能导出cer格式的公钥。如果导入时选中该项，则在导出时“导出私钥”这一项就是可选的。</span><br><span class="line">如果要导出私钥（pfx),是需要输入密码的，这个密码就是对私钥再次加密，这样就保证了私钥的安全，别人即使拿到了你的证书备份（pfx),不知道加密私钥的密码，也是无法导入证书的。相反，如果只是导入导出cer格式的证书，是不会提示你输入密码的。因为公钥一般来说是对外公开的，不用加密。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="springboot配置ssl："><a href="#springboot配置ssl：" class="headerlink" title="springboot配置ssl："></a>springboot配置ssl：</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xcy0_o/article/details/124523713">https://blog.csdn.net/xcy0_o/article/details/124523713</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43118617/article/details/122199258">https://blog.csdn.net/weixin_43118617/article/details/122199258</a></li>
+</ul>
+<h3 id="keytool"><a href="#keytool" class="headerlink" title="keytool"></a>keytool</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 生成密钥文件</span><br><span class="line"># keytool.exe -genkey -keyalg RSA -keystore server.jks</span><br><span class="line">keytool.exe -genkey -keyalg RSA -keysize 2048 -keystore server.jks</span><br><span class="line"></span><br><span class="line"># 转换为pkcs12格式</span><br><span class="line">keytool -importkeystore -srckeystore server.jks -destkeystore server.jks -deststoretype pkcs12</span><br><span class="line"></span><br><span class="line"># 校验原链路</span><br><span class="line">keytool -list -v -keystore server.jks</span><br><span class="line"></span><br><span class="line">#springboot配置</span><br><span class="line">server:</span><br><span class="line">  port: 9443</span><br><span class="line">  ssl:</span><br><span class="line">    key-store: file:E:\myLean\20220726-ssl\server.jks</span><br><span class="line">    key-store-password: rootroot</span><br><span class="line">    key-store-type: pkcs12</span><br></pre></td></tr></table></figure>
+
+<h3 id="http自动跳转https"><a href="#http自动跳转https" class="headerlink" title="http自动跳转https"></a>http自动跳转https</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43118617/article/details/122199258">https://blog.csdn.net/weixin_43118617/article/details/122199258</a></li>
+</ul>
+<p>配置http自动跳转https, 在启动类中加入如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">public class SouthApplication &#123;</span><br><span class="line"></span><br><span class="line">	// http 请求端口，线上配置为 8080</span><br><span class="line">	@Value(&quot;$&#123;server.port-http&#125;&quot;)</span><br><span class="line">	private int serverPortHttp;</span><br><span class="line"></span><br><span class="line">	// 服务器运行端口，等同于 HTTPS 请求端口，线上 443</span><br><span class="line">	@Value(&quot;$&#123;server.port&#125;&quot;)</span><br><span class="line">	private int serverPortHttps;</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">	 * http重定向到https</span><br><span class="line">	 */</span><br><span class="line">	@Bean</span><br><span class="line">	public TomcatServletWebServerFactory servletContainer() &#123;</span><br><span class="line">		TomcatServletWebServerFactory tomcat;</span><br><span class="line">		tomcat = new TomcatServletWebServerFactory() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			protected void postProcessContext(Context context) &#123;</span><br><span class="line">				SecurityConstraint constraint = new SecurityConstraint();</span><br><span class="line">				constraint.setUserConstraint(&quot;CONFIDENTIAL&quot;);</span><br><span class="line">				SecurityCollection collection = new SecurityCollection();</span><br><span class="line">				collection.addPattern(&quot;/*&quot;);</span><br><span class="line">				constraint.addCollection(collection);</span><br><span class="line">				context.addConstraint(constraint);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		tomcat.addAdditionalTomcatConnectors(httpConnector());</span><br><span class="line">		return tomcat;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Bean</span><br><span class="line">	public Connector httpConnector() &#123;</span><br><span class="line">		Connector connector = new Connector(Http11NioProtocol.class.getName());</span><br><span class="line">		connector.setScheme(&quot;http&quot;);</span><br><span class="line">		//Connector监听的http的端口号</span><br><span class="line">		connector.setPort(serverPortHttp);</span><br><span class="line">		connector.setSecure(false);</span><br><span class="line">		//监听到http的端口号后转向到的https的端口号</span><br><span class="line">		connector.setRedirectPort(serverPortHttps);</span><br><span class="line">		return connector;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="openssl-生成证书"><a href="#openssl-生成证书" class="headerlink" title="openssl 生成证书"></a>openssl 生成证书</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 通过openssl来生成，如果linux中没有安装openssl，需要安装一下，执行：</span><br><span class="line">yum install openssl openssl-devel -y</span><br><span class="line"></span><br><span class="line"># 生成一个RSA密钥 （私钥）</span><br><span class="line">openssl genrsa -out server.key 2048</span><br><span class="line"></span><br><span class="line"># 生成一个证书请求</span><br><span class="line">openssl req -new -key server.key -out server.csr -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=power Inc./OU=Web Security/CN=power.com&quot;</span><br><span class="line"></span><br><span class="line"># 自己签发证书</span><br><span class="line">openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</span><br><span class="line"></span><br><span class="line">字段解读</span><br><span class="line">C字段：Country，单位所在国家，为两位数的国家缩写，如：CN 表示中国；</span><br><span class="line">ST 字段：State/Province，单位所在州或省；</span><br><span class="line">L 字段：Locality，单位所在城市/或县区；</span><br><span class="line">O 字段：Organization，此网站的单位名称；</span><br><span class="line">OU 字段：Organization Unit，下属部门名称，也常常用于显示其他证书相关信息，如证书类型，证书产品名称或身份验证类型或验证内容等；</span><br><span class="line">CN 字段：Common Name，网站的域名；</span><br><span class="line"></span><br><span class="line"># 转换为pkcs12格式（因为在Java中使用证书，需要转换一下格式）</span><br><span class="line">openssl pkcs12 -export -clcerts -in server.crt -inkey server.key -out server.p12</span><br><span class="line">openssl pkcs12 -export -clcerts -in server.crt -inkey server.key -out server.pkcs12</span><br><span class="line"></span><br><span class="line"># 转换为jks格式（因为在Java中使用证书，需要转换一下格式，jks是java独有的）</span><br><span class="line">keytool -importkeystore -srckeystore server.pkcs12 -destkeystore server.jks -srcstoretype pkcs12 -deststoretype jks</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-test"><a href="#2-test" class="headerlink" title="2-test"></a>2-test</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 生成证书</span><br><span class="line">keytoo1 -genkeypair -alias bootserverkeystore -keya1lg RsA -keysize 2048 -keypass 123456 -storetype ]Ks -keystore d: \bootserverkeystore.jks -storepass 123456-va1idity 3650</span><br><span class="line"></span><br><span class="line">#端口号配多少都行，没有要求，443就是默认的，SSL的情况下，不用写端口号，非443就要写端口号</span><br><span class="line">server.port=443</span><br><span class="line">#证书</span><br><span class="line">server.ss1.key-store=classpath :bootserverkeystore.jks</span><br><span class="line">#证书密码</span><br><span class="line">server.ss1.keystoreType=JKS</span><br><span class="line">server.ss1.key-store-password=123456</span><br><span class="line">server.ss1.enab1ed=true</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="other"><a href="#other" class="headerlink" title="other"></a>other</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 1-keytool命令生成服务端证书</span><br><span class="line">keytool -genkey -alias tomcat -keypass 123456 -keyalg RSA -keysize 1024 -validity 365 -keystore D:/keys/tomcat.keystore -storepass 123456</span><br><span class="line"></span><br><span class="line"># 2-生成客户端证书（ps:如果不需要双向验证，其实不用生成客户端SSL证书）</span><br><span class="line">keytool -genkey -alias client1 -keypass 123456 -keyalg RSA -keysize 1024 -validity 365 -storetype PKCS12 -keystore D:/keys/client1.p12 -storepass 123456</span><br><span class="line"></span><br><span class="line"># 3-让服务器端信任客户端,将client1.p12文件生成client.cer(这种就是客户端的证书）</span><br><span class="line">keytool -export -alias client1 -keystore D:/keys/client1.p12 -storetype PKCS12 -keypass 123456 -file D:/keys/client.cer</span><br><span class="line">#  将该文件导入到服务器的证书库，添加为一个信任证书</span><br><span class="line">keytool -import -v -file D:/keys/client.cer -keystore D:/keys/tomcat.keystor</span><br><span class="line"></span><br><span class="line"># 4-让客户端信任服务证书,由于不能直接将keystore格式的证书库导入，必须先把服务器证书导出为一个单独的CER文件：</span><br><span class="line">keytool -keystore D:/keys/tomcat.keystore -export -alias tomcat -file D:/keys/server.cer</span><br><span class="line"># 双击server.cer文件，按照提示安装证书，将证书填入到“受信任的根证书颁发机构”</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/01/26/react-%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-02-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/springboot/" title="springboot">
+                        <b>#</b> springboot
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/springboot/" title="springboot">
+                        #springboot
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91%E5%88%9D%E8%AF%86/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#springboot%E9%85%8D%E7%BD%AEssl%EF%BC%9A"><span class="toc-text">springboot配置ssl：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#keytool"><span class="toc-text">keytool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http%E8%87%AA%E5%8A%A8%E8%B7%B3%E8%BD%AChttps"><span class="toc-text">http自动跳转https</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openssl-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6"><span class="toc-text">openssl 生成证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-test"><span class="toc-text">2-test</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other"><span class="toc-text">other</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90springboot%E3%80%91ssl + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F02%2F26%2Fspring%2F%25E3%2580%2590springboot%25E3%2580%2591ssl%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91ssl/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

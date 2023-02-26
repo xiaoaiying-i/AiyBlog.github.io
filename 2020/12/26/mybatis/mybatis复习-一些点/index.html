@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      mybatis复习-一些点 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">文章</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">mybatis复习-一些点</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2020-12-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/mybatis/" title="mybatis">
+                    <b>#</b> mybatis
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/mybatis/" title="mybatis">
+                    #mybatis
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="POINT-一些点"><a href="#POINT-一些点" class="headerlink" title="POINT-一些点"></a>POINT-一些点</h2><h3 id="1、sql插入后，返回自增主键值"><a href="#1、sql插入后，返回自增主键值" class="headerlink" title="1、sql插入后，返回自增主键值"></a><strong>1、sql插入后，返回自增主键值</strong></h3><p>mybatis也是利用statement.getGenreatedKeys()。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">属性：</span><br><span class="line">useGeneratedKeys=&quot;true&quot; 使用自增主键获取主键值策略</span><br><span class="line">keyProperty 指定对应的主键属性，也就是mybatis获取到主键值以后，将这个值封装给javaBean的哪个属性--&gt;</span><br><span class="line">例如：</span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;addEmp&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;com.atguigy.mybatis.bean.Employee&quot;</span> <span class="attr">useGeneratedKeys</span>=<span class="string">&quot;true&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;id&quot;</span>&gt;</span></span><br><span class="line">    insert into tbl_employee(last_name,email,gender)values(#&#123;lastName&#125; ,#&#123;emai1&#125; ,#&#123;gender&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>oracle不支持自增，但使用序列来模拟自增。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- 每次插入的数据的主键是从序列中拿到的值;如何获取到这个值;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;addEmp&quot;</span> <span class="attr">databaseId</span>=<span class="string">&quot;oracle&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">            keyProperty:查出的主键值封装给javaBean的哪个属性order=&quot;BEFORE&quot;:当前s.ql在插入sgl之前运行</span></span><br><span class="line"><span class="comment">            resultType:查出的数据的返回值类型</span></span><br><span class="line"><span class="comment">      --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">keyProperty</span>=<span class="string">&quot;id&quot;</span> <span class="attr">order</span>=<span class="string">&quot;BEFORE&quot;</span><span class="attr">resultType</span>=<span class="string">&quot;Integer&quot;</span>&gt;</span></span><br><span class="line">            &lt;! --编写查询主键的s.gl语句--&gt;</span><br><span class="line">            select EMPLOYEES_SEQ.nextval from dual</span><br><span class="line">      <span class="tag">&lt;/<span class="name">selectkey</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 插入时的主键是从序列中拿到的   其实也可以直接在sql里写从序列里取值，即#&#123;id&#125;替换为employees_seq.nextval --&gt;</span></span><br><span class="line">      insert into employees(EMPLOYEE_ID,LAST_NAME ,EMAIL)values(#&#123;id&#125; ,#&#123;lastName&#125; ,#&#123;email&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1、对于接口方法中传递参数处理"><a href="#1、对于接口方法中传递参数处理" class="headerlink" title="1、对于接口方法中传递参数处理"></a><strong>1、对于接口方法中传递参数处理</strong></h3><h4 id="Param-“”-来指定参数对应的值"><a href="#Param-“”-来指定参数对应的值" class="headerlink" title="@Param(“”)来指定参数对应的值"></a><strong>@Param(“”)来指定参数对应的值</strong></h4><ul>
+<li>当接口方法传递多个参数时，对应mapper.xml默认使用map存储，key=param1…paramn表示，value=参数值，所以在sql中通过#{}取值时要通过param1…paramn来取</li>
+<li>若想指定参数的key需要在接口参数前添加@Param(“xxx”)来指定。</li>
+<li>即接口中传递过来的参数可以是pojo也可以是一个map，因为最后都是转为一个map</li>
+</ul>
+<blockquote>
+<p>To: 如果多个参数不是业务模型中的数据，但是经常要使用，推荐来编写一个TO (Transfer object）数据传输对象</p>
+<p>明确即接口对应.xml配置sql文件可传递：pojo、map、To(数据传输对象)</p>
+</blockquote>
+<p><strong>参数封装</strong></p>
+<ul>
+<li>对于传过来的collectio类型，或数组，若没有＠Param注解表示，需要用list来取值，因为也是封装成一个map，但是key=list</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">例如：</span><br><span class="line">public Employee getEmpById(List<span class="tag">&lt;<span class="name">Integer</span>&gt;</span> ids);</span><br><span class="line">取值:取出第一个id的值:</span><br><span class="line">    错误：#&#123;param1[0]&#125;，#&#123;ids[0]&#125;都是错的  </span><br><span class="line">    正确：#&#123;list[0]&#125;，</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、关于-与-取值时的预编译与拼接"><a href="#3、关于-与-取值时的预编译与拼接" class="headerlink" title="3、关于#{}与${}取值时的预编译与拼接"></a><strong>3、关于#{}与${}取值时的预编译与拼接</strong></h3><ul>
+<li>#{}:是以预编译的形式，将参数设置到sql语句中;Preparedstatement:防止sql注入</li>
+<li>${}:取出的值直接拼装在sql语句中;会有安全问题;<ul>
+<li>大多情况下，我们去参数的值都应该去使用#{};</li>
+<li>原生jdbc不支持占位符的地方我们就可以使用${}进行取值，比如按照年份分表拆分，分表、排序等；</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> $&#123;<span class="keyword">year</span>&#125;_salary <span class="keyword">where</span> XXX3</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> tbl_employee <span class="keyword">order</span> <span class="keyword">by</span> $&#123;if_name&#125; $&#123;<span class="keyword">order</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、-更丰富的用法"><a href="#4、-更丰富的用法" class="headerlink" title="4、#{}更丰富的用法:"></a><strong>4、#{}更丰富的用法:</strong></h3><ul>
+<li>规定参数的一些规则:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javaType、jdbcType. mode（存储过程)、numericScale、</span><br><span class="line">resultMap、typeHandler、jdbcTypeName、expression(未来准备支持的功能)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>jdbcType通常需要在某种特定的条件下被设置:</li>
+<li>在我们数据为null的时候，有些数据库可能不能识别mybatis对null的默认处理。比如Oracle(报错)﹔</li>
+<li>JdbcType OTHER=无效的类型,因为mybatis对所有的nul1都映射的是原生Jdbc的OTHER类型，oracle不能处理。</li>
+<li>由于全局配置中:jdbcTypeForNull=OTHER; oracle不支持;可通过以下两种方法解决。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、#&#123;emai1,jdbcType=OTHER];</span><br><span class="line">2、jdbc TlypeForNu11=NULLl</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、Other"><a href="#5、Other" class="headerlink" title="5、Other"></a>5、Other</h3><ul>
+<li><p>resultType：如果返回的是一个集合，要写集合中存储元素的类型，而不是list类型</p>
+</li>
+<li><p>可以在接口方法中通过@MapKey(“xxx”)来指定接口对应.xml配置文件对应方法的sql语句返回类型为map时用什么来作为map的键</p>
+</li>
+</ul>
+<h3 id="6、批量插入数据"><a href="#6、批量插入数据" class="headerlink" title="6、批量插入数据"></a>6、批量插入数据</h3><ul>
+<li>多个数据一起插入，mysql支持values后面跟‘，’分割的多个‘()’。而oracle则不支持。</li>
+</ul>
+<blockquote>
+<p>如：insert into student values(101,”xhangsan”),(102,”lisi”),</p>
+</blockquote>
+<ul>
+<li>解决oracle多数据插入：</li>
+</ul>
+<p>1–多个insert语句放在begin … end 里面</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// oracle可使用：</span><br><span class="line">begin</span><br><span class="line">    insert into employees(employee_id,last_name , email)</span><br><span class="line">    values(employees_seq.nextval, &#x27;test_001&#x27; , &#x27;test_001@xiaoai.com&#x27;);</span><br><span class="line">    insert into employees (employee_id,last_name , email)</span><br><span class="line">    values(employees_seq.nextval, &#x27;test_002&#x27; , &#x27;test_0e02@xiaoai.com&#x27;);</span><br><span class="line">end;</span><br><span class="line"></span><br><span class="line">// mabatis使用则为：</span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;addEmps&quot;</span> <span class="attr">databaseId</span>=<span class="string">&quot;oracLe&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- oracle第一种批量方式--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;emps&quot;</span> <span class="attr">item</span>= <span class="string">&quot;emp&quot;</span> <span class="attr">open</span>=<span class="string">&quot;begin&quot;</span> <span class="attr">close</span>=<span class="string">&quot;end&quot;</span>&gt;</span></span><br><span class="line">        insert into employees(employee_id,1ast_name, email)</span><br><span class="line">        values(employees_seq.nextval,#&#123;emp. lastName&#125;,#&#123;emp.emai1&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2–利用中间表</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// sql语句：</span><br><span class="line">insert into employees(employee_id, last_name, email)</span><br><span class="line">select employees_seq.nextval, lastName , email from(</span><br><span class="line">	select &#x27;test_a_01&#x27;, lastName, &#x27;test_a_eO1’ email from dual</span><br><span class="line">	union</span><br><span class="line">	select &#x27;test_a_02&#x27;, lastName, &#x27;test_a_e02&#x27; email from dual</span><br><span class="line">	union</span><br><span class="line">	select &#x27;test_a_03&#x27;, lastName, &#x27;test_a_e03&#x27; email from dual</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// mabatis使用：</span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;addEmps&quot;</span> <span class="attr">databaseId</span>=<span class="string">&quot;oracLe&quot;</span>&gt;</span></span><br><span class="line">    &lt;! -- oracle第二种批量方式--&gt;</span><br><span class="line">    insert into employees(employee_id,last_name, email)</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;emps &quot;</span> <span class="attr">item</span>=<span class="string">&quot;emp&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;union&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">open</span>=<span class="string">&quot; select employees_seq.nextva1,lastName , email from(&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">close</span>=<span class="string">&quot;)&quot;</span>&gt;</span></span><br><span class="line">        select #&#123;emp.lastName&#125; lastName, #&#123;emp.email&#125; email from dual</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7、两个默认内置参数"><a href="#7、两个默认内置参数" class="headerlink" title="7、两个默认内置参数"></a>7、两个默认内置参数</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">_parameter:代表整个参数</span><br><span class="line">    单个参数:_parameter就是这个参数</span><br><span class="line">    多个参数:参数会被封装为一个map:_parameter就是代表这个map</span><br><span class="line">_databaseId:如果配置了databaseIdProvider标签。</span><br><span class="line">    _databaseId就是代表当前数据库的别名|</span><br><span class="line"></span><br><span class="line">使用：当相同数据在不同数据库时，判断当前使用什么数据库对应查询什么表</span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;getEmpsTestInnerParameter&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.xiaoai.employee&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;_databaseId==&#x27;mysqL&#x27;&quot;</span>&gt;</span></span><br><span class="line">        select * from tbl_employee</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;_databaseld==&#x27;oracle&#x27;&quot;</span>&gt;</span></span><br><span class="line">        select * from employees</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">&lt;/ select&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h3 id="一级缓存-本地缓存"><a href="#一级缓存-本地缓存" class="headerlink" title="一级缓存(本地缓存)"></a><strong>一级缓存(本地缓存)</strong></h3><p>一级缓存是一直开启的，缓存即SqlSession级别的一个map</p>
+<p>一级缓存失效情况：(即没有使用到当前一级缓存的情况，需要再向数据库发出查询)</p>
+<ul>
+<li>sqlsession不同</li>
+<li>sqlsession相同，查询条件不同(即当前一级缓存中还没有要查询的数据&gt;</li>
+<li>sqlsession相同，查询条件相同，但是两次查询之间进行过增删改操作(怕增删改对数据进行了更改)。</li>
+<li>手动清除了一级缓存，即通过sqlsession.clearCache()清除缓存; <ul>
+<li> .clearCache()只清除一级缓存，增删改时一、二级缓存都会清除。</li>
+</ul>
+</li>
+</ul>
+<h3 id="二级缓存-全局缓存"><a href="#二级缓存-全局缓存" class="headerlink" title="二级缓存(全局缓存)"></a><strong>二级缓存(全局缓存)</strong></h3><p>常用数据放到二级缓存中，基于namespace级别的缓存，一个namespace对应一个二级缓存。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">工作机制</span><br><span class="line">1、一个会话，查询一条数据，这个数据就会被放在当前会话的一级缓存中;</span><br><span class="line">2、如果会话关闭;一级缓存中的数据会被保存到二级缓存中；新的会话查询信息，就可以参照二级缓存中的内容。</span><br></pre></td></tr></table></figure>
+
+<h3 id="缓存设置"><a href="#缓存设置" class="headerlink" title="缓存设置"></a>缓存设置</h3><p>在接口对应.xml配置文件中通过【cache】标签设置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">eviction</span>=<span class="string">&quot;&quot;</span> <span class="attr">flushInterval</span>=<span class="string">&quot;&quot;</span> <span class="attr">readOnly</span>=<span class="string">&quot;&quot;</span> <span class="attr">size</span>=<span class="string">&quot;&quot;</span> <span class="attr">type</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">cache标签属性</th>
+<th align="left">说明</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">eviction</td>
+<td align="left">缓仔的回收策略</td>
+<td align="left">当缓存慢了以后，需要删除一些数据，会根据设置的策略进行删除 默认的是LRU。<br/> <strong>LRU</strong> 最近最少使用的:移除最长时间不被使用的对象。<br/><strong>FIFO</strong> 先进先出:按对象进入缓存的顺序来移除它们。<br/><strong>SOFT</strong> 软引用:移除基于垃圾回收器状态和软引用规则的对象。<br/><strong>WEAK</strong> 弱引用:更积极地移除基于垃圾收集器状态和弱引用规则的对象。</td>
+</tr>
+<tr>
+<td align="left">flushInterval</td>
+<td align="left">缓存刷新间隔</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">readOnly</td>
+<td align="left">是否只读</td>
+<td align="left"><strong>true</strong>:只读; mybatis认为所有从缓存中获取数据的操作都是只读操作，不会修改数据。 mybatis为了加快获取速度，直接就会将数据在缓存中的引用交给用户。不安全，速度快。<br/><strong>false</strong>:非只读:mybatis觉得获取的数据可能会被修改。 mybatis会利用序列化&amp;反序列的技术克隆一份新的数据给你。安全，速席慢|</td>
+</tr>
+<tr>
+<td align="left">size</td>
+<td align="left">缓存存放多少元素</td>
+<td align="left">缓存存放多少元素;</td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">指定自定义缓存的全类名</td>
+<td align="left">指定自定义缓存的全类名;实现Cache接口即可;</td>
+</tr>
+</tbody></table>
+<h3 id="二级缓存使用"><a href="#二级缓存使用" class="headerlink" title="二级缓存使用"></a>二级缓存使用</h3><p>查出的数据默认放在一级缓存中，只有当sqlsession会话提交或者关闭后数据才会转移到二级缓存中。但前提是二级缓存开启了。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">二级缓存的使用：</span><br><span class="line">1--让Mybatis框架支持二级缓存(在主配置文件中配置)</span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span> </span><br><span class="line">    <span class="comment">&lt;!-- 开启二级缓存的支持 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;cacheEnabled&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span> </span><br><span class="line"></span><br><span class="line">2--让当前接口方法的.xml映射文件支持二级缓存(在接口对应配置文件中配置)</span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.itheima.dao.IUserDao&quot;</span>&gt;</span>  </span><br><span class="line">    <span class="comment">&lt;!-- 开启二级缓存的支持 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span>&gt;</span><span class="tag">&lt;/<span class="name">cache</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br><span class="line"></span><br><span class="line">3--让当前操作支持二级缓存(在select等操作标签中配置)</span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findById&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;user&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">useCache</span>=<span class="string">&quot;true&quot;</span>&gt;</span>  </span><br><span class="line">    select * from user where id = #&#123;uid&#125; </span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2020/12/26/mybatis/mybatis%E5%A4%8D%E4%B9%A0-%E6%B3%A8%E8%A7%A3/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2020-12-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/mybatis/" title="mybatis">
+                        <b>#</b> mybatis
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/mybatis/" title="mybatis">
+                        #mybatis
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2020/12/26/docker/docker%E5%9F%BA%E7%A1%80/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#POINT-%E4%B8%80%E4%BA%9B%E7%82%B9"><span class="toc-text">POINT-一些点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81sql%E6%8F%92%E5%85%A5%E5%90%8E%EF%BC%8C%E8%BF%94%E5%9B%9E%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E5%80%BC"><span class="toc-text">1、sql插入后，返回自增主键值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%AF%B9%E4%BA%8E%E6%8E%A5%E5%8F%A3%E6%96%B9%E6%B3%95%E4%B8%AD%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86"><span class="toc-text">1、对于接口方法中传递参数处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Param-%E2%80%9C%E2%80%9D-%E6%9D%A5%E6%8C%87%E5%AE%9A%E5%8F%82%E6%95%B0%E5%AF%B9%E5%BA%94%E7%9A%84%E5%80%BC"><span class="toc-text">@Param(“”)来指定参数对应的值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%85%B3%E4%BA%8E-%E4%B8%8E-%E5%8F%96%E5%80%BC%E6%97%B6%E7%9A%84%E9%A2%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%8B%BC%E6%8E%A5"><span class="toc-text">3、关于#{}与${}取值时的预编译与拼接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81-%E6%9B%B4%E4%B8%B0%E5%AF%8C%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-text">4、#{}更丰富的用法:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81Other"><span class="toc-text">5、Other</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">6、批量插入数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E4%B8%A4%E4%B8%AA%E9%BB%98%E8%AE%A4%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-text">7、两个默认内置参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98"><span class="toc-text">缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98-%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98"><span class="toc-text">一级缓存(本地缓存)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98-%E5%85%A8%E5%B1%80%E7%BC%93%E5%AD%98"><span class="toc-text">二级缓存(全局缓存)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E8%AE%BE%E7%BD%AE"><span class="toc-text">缓存设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="toc-text">二级缓存使用</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + mybatis%E5%A4%8D%E4%B9%A0-%E4%B8%80%E4%BA%9B%E7%82%B9 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2020%2F12%2F26%2Fmybatis%2Fmybatis%25E5%25A4%258D%25E4%25B9%25A0-%25E4%25B8%2580%25E4%25BA%259B%25E7%2582%25B9%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2020/12/26/mybatis/mybatis%E5%A4%8D%E4%B9%A0-%E4%B8%80%E4%BA%9B%E7%82%B9/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

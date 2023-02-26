@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      【freemarker】简单使用 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">文章</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【freemarker】简单使用</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-08-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/java/" title="java">
+                    <b>#</b> java
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/freemarker/" title="freemarker">
+                    #freemarker
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="freemarker简单使用"><a href="#freemarker简单使用" class="headerlink" title="freemarker简单使用"></a>freemarker简单使用</h2><ul>
+<li>依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- feermarker --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.freemarker<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>freemarker<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.28<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建对象</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;<span class="comment">//姓名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;<span class="comment">//年龄</span></span><br><span class="line">    <span class="meta">@JsonProperty(&quot;dd.MM.yyyy HH:mm:ss&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Date birthday;<span class="comment">//生日</span></span><br><span class="line">    <span class="keyword">private</span> Float money;<span class="comment">//钱包</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Student&gt; friends;<span class="comment">//朋友列表</span></span><br><span class="line">    <span class="keyword">private</span> Student bestFriend;<span class="comment">//最好的朋友</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建模板【ftl1.ftl】 </li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf‐8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello $&#123;name&#125;!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>1-对象<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    &lt;#--</span><br><span class="line">        // 1-放置对象</span><br><span class="line">        Student stu1 = new Student();</span><br><span class="line">        stu1.setName(&quot;xiaoai&quot;);</span><br><span class="line">        stu1.setAge(21);</span><br><span class="line">        stu1.setMoney(1000.86f);</span><br><span class="line">        stu1.setBirthday(new Date());</span><br><span class="line">        map.put(&quot;stu1&quot;,stu1);//向数据模型放数据</span><br><span class="line">    --&gt;</span><br><span class="line">    -----stu1-----<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    name：$&#123;stu1.name&#125;<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    age:$&#123;stu1.age&#125;<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    money:$&#123;stu1.money&#125;<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    birthday:$&#123;stu1.birthday?string(&quot;yyyy年MM月dd日 HH:mm:ss&quot;)&#125;<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>2-列表遍历  + if判断<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    &lt;#--</span><br><span class="line">    --&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1px solid&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>年龄<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>出生日期<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>钱包<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>最好的朋友<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>朋友个数<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>朋友列表<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        &lt;#if stuList??&gt; &lt;#--如果stuList存在--&gt;</span><br><span class="line">            &lt;#list stuList as stu&gt;</span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span></span></span><br><span class="line"><span class="tag">                       &lt;#<span class="attr">if</span> <span class="attr">stu.name</span> ==<span class="string">&#x27;xiaoai&#x27;</span>&gt;</span></span><br><span class="line">                            style=&quot;background:red;&quot;</span><br><span class="line">                       &lt;/#if&gt;</span><br><span class="line">                    &gt;</span><br><span class="line">                        $&#123;stu.name!&#x27;&#x27;&#125;</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;stu.age&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;(stu.birthday?date)!&#x27;&#x27;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;stu.money&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;(stu.bestFriend.name)!&#x27;&#x27;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;(stu.friends?size)!0&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">                        &lt;#if stu.friends??&gt;</span><br><span class="line">                            &lt;#list stu.friends as firend&gt;</span><br><span class="line">                                $&#123;firend.name!&#x27;&#x27;&#125;<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">                            &lt;/#list&gt;</span><br><span class="line">                        &lt;/#if&gt;</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            &lt;/#list&gt;</span><br><span class="line">        &lt;/#if&gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>3-list<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    &lt;#--</span><br><span class="line"></span><br><span class="line">    --&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1px solid&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>序号<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>年龄<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>钱包<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        &lt;#list stuList as stu&gt;</span><br><span class="line">            <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;stu_index + 1&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;stu.name&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;stu.age&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;stu.money&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        &lt;/#list&gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>4-map<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    &lt;#--</span><br><span class="line">    --&gt;</span><br><span class="line">    输出学生信息：<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    -----stu1-----<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    name：$&#123;stuMap[&#x27;stu1&#x27;].name&#125;<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    age:$&#123;stuMap[&#x27;stu1&#x27;].age&#125;<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    -----stu2-----<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    name:$&#123;stuMap.stu2.name&#125;<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    age:$&#123;stuMap.stu2.age&#125;<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    遍历学生：<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1px solid&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>序号<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>年龄<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>钱包<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        &lt;#list stuMap?keys as key&gt;</span><br><span class="line">            <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;key_index +1 &#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;stuMap[key].name&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;stuMap[key].age&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;stuMap[key].money&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        &lt;/#list&gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>指令1：if<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    &lt;#--</span><br><span class="line"></span><br><span class="line">    --&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>内建函数：<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    1-集合大小：$&#123;stuList?size&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">&lt;#--    2-函数引用：$&#123;stu1?toString&#125;--&gt;</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>end...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加接口</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/freemarker&quot;)</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FreemarkerController</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    @Autowired</span></span><br><span class="line"><span class="comment">//    RestTemplate restTemplate;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/ftl1&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">freemarker</span><span class="params">(Map&lt;String, Object&gt; map)</span>&#123;</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>,<span class="string">&quot;xiaoai&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1-放置对象</span></span><br><span class="line">        <span class="type">Student</span> <span class="variable">stu1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">        stu1.setName(<span class="string">&quot;xiaoai&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">21</span>);</span><br><span class="line">        stu1.setMoney(<span class="number">1000.86f</span>);</span><br><span class="line">        stu1.setBirthday(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">        map.put(<span class="string">&quot;stu1&quot;</span>,stu1);<span class="comment">//向数据模型放数据</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2-列表</span></span><br><span class="line">        <span class="type">Student</span> <span class="variable">stu2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">        stu2.setName(<span class="string">&quot;xiaoai2&quot;</span>);</span><br><span class="line">        stu2.setAge(<span class="number">25</span>);</span><br><span class="line">        stu2.setMoney(<span class="number">4000.86f</span>);</span><br><span class="line">        stu2.setBirthday(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">        <span class="comment">// 朋友列表</span></span><br><span class="line">        <span class="type">Student</span> <span class="variable">stu3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">        stu3.setName(<span class="string">&quot;xiaoai3&quot;</span>);</span><br><span class="line">        stu3.setAge(<span class="number">23</span>);</span><br><span class="line">        stu3.setMoney(<span class="number">43300.86f</span>);</span><br><span class="line">        stu3.setBirthday(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">        List&lt;Student&gt; friends = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        friends.add(stu1);</span><br><span class="line">        friends.add(stu3);</span><br><span class="line">        stu2.setFriends(friends);</span><br><span class="line">        stu2.setBestFriend(stu1);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3-list</span></span><br><span class="line">        List&lt;Student&gt; stuList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        stuList.add(stu1);</span><br><span class="line">        stuList.add(stu2);</span><br><span class="line">        map.put(<span class="string">&quot;stuList&quot;</span>,stuList); <span class="comment">//向数据模型放数据</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//map</span></span><br><span class="line">        HashMap&lt;String,Student&gt; stuMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        stuMap.put(<span class="string">&quot;stu1&quot;</span>,stu1);</span><br><span class="line">        stuMap.put(<span class="string">&quot;stu2&quot;</span>,stu2);</span><br><span class="line">        map.put(<span class="string">&quot;stuMap&quot;</span>,stuMap);<span class="comment">//向数据模型放数据</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//返回模板文件名称</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;ftl1&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="静态化"><a href="#静态化" class="headerlink" title="静态化"></a>静态化</h3><p><strong>一、简单模板静态化</strong></p>
+<ul>
+<li>创建模板【test.ftl】</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;cityId&quot;</span><span class="punctuation">:</span> $<span class="punctuation">&#123;</span>cityId<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cityName&quot;</span><span class="punctuation">:</span> $<span class="punctuation">&#123;</span>cityName<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cky2&quot;</span><span class="punctuation">:</span>  $<span class="punctuation">&#123;</span>cky2<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;countryId&quot;</span><span class="punctuation">:</span> $<span class="punctuation">&#123;</span>contryId<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建工具类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FreeMarkerUtils</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getDate</span><span class="params">(String filepath, Map&lt;Object,Object&gt; mode)</span></span><br><span class="line">            <span class="keyword">throws</span> IOException, TemplateException &#123;</span><br><span class="line">        <span class="type">StringWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringWriter</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建配置类</span></span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">cfg</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>(Configuration.getVersion());</span><br><span class="line">        <span class="comment">// 设置模板加载机制：</span></span><br><span class="line">        <span class="comment">// 1、类加载机制加载模板</span></span><br><span class="line">        cfg.setClassForTemplateLoading(FreeMarkerUtils.class,<span class="string">&quot;/freemarker&quot;</span>);</span><br><span class="line">        <span class="comment">// 2-1、目录路径加载模板</span></span><br><span class="line"><span class="comment">//        cfg.setDirectoryForTemplateLoading(new File(&quot;/freemarker&quot;));</span></span><br><span class="line">        <span class="comment">// 2-2、目录路径加载模板</span></span><br><span class="line"><span class="comment">//        String classpath = FreeMarkerUtils.class.getResource(&quot;/&quot;).getPath();</span></span><br><span class="line"><span class="comment">//        cfg.setDirectoryForTemplateLoading(new File(classpath +&quot;/freemarker&quot;));</span></span><br><span class="line">        <span class="comment">// 设置字符集</span></span><br><span class="line">        cfg.setDefaultEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 加载模板</span></span><br><span class="line">        <span class="type">Template</span> <span class="variable">template</span> <span class="operator">=</span> cfg.getTemplate(filepath);</span><br><span class="line">        <span class="comment">// 静态化内容：</span></span><br><span class="line">        <span class="comment">// 1.</span></span><br><span class="line">        template.process(mode,writer);</span><br><span class="line">        <span class="comment">// 2.</span></span><br><span class="line">        <span class="keyword">return</span> writer.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testFreeMarkerToJson</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;testFm.ftl&quot;</span>;</span><br><span class="line">    Map&lt;Object, Object&gt; mode = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    mode.put(<span class="string">&quot;cityId&quot;</span>,<span class="string">&quot;1001&quot;</span>);</span><br><span class="line">    mode.put(<span class="string">&quot;cityName&quot;</span>,<span class="string">&quot;深圳&quot;</span>);</span><br><span class="line">    mode.put(<span class="string">&quot;cky2&quot;</span>,<span class="string">&quot;800&quot;</span>);</span><br><span class="line">    mode.put(<span class="string">&quot;contryId&quot;</span>,<span class="string">&quot;000001&quot;</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">date</span> <span class="operator">=</span> FreeMarkerUtils.getDate(filePath, mode);</span><br><span class="line">        System.out.println(date);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (TemplateException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>二、一次性收集模板(xml)</strong></p>
+<ul>
+<li>创建xml解析类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@XmlRootElement(name = &quot;mappingItem&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MappingItem</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String solutionName;</span><br><span class="line">    <span class="keyword">private</span> String templateName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlAttribute(name = &quot;solutionName&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getSolutionName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> solutionName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSolutionName</span><span class="params">(String solutionName)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.solutionName = solutionName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlAttribute(name = &quot;templationName&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getTemplateName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> templateName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setTemplateName</span><span class="params">(String templateName)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.templateName = templateName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//----------</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@XmlRootElement(name = &quot;templateMapping&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateMapping</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;MappingItem&gt; mappingItemList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@XmlElement(name = &quot;mappingItem&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;MappingItem&gt; <span class="title function_">getMappingItemList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mappingItemList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMappingItemList</span><span class="params">(List&lt;MappingItem&gt; mappingItemList)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.mappingItemList = mappingItemList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建工具类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FreeMarkerUtils</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">LOGGER</span> <span class="operator">=</span> LoggerFactory.getLogger(FreeMarkerUtils.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Configuration</span> <span class="variable">cfg</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>(Configuration.VERSION_2_3_28);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            cfg.setDefaultEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">            cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);</span><br><span class="line">            cfg.setClassForTemplateLoading(FreeMarkerUtils.class,<span class="string">&quot;/freemarker_template&quot;</span>);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex)&#123;</span><br><span class="line">            LOGGER.error(<span class="string">&quot;FreeMaerkerUtils error.&quot;</span> + ex.getMessage(), ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FreeMarkerUtils</span><span class="params">()</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">processData</span><span class="params">(Map&lt;String,Object&gt; model, String templateName)</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">StringWriter</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringWriter</span>())&#123;</span><br><span class="line">            <span class="type">Locale</span> <span class="variable">locale</span> <span class="operator">=</span> LocaleContextHolder.getLocale();</span><br><span class="line">            <span class="type">Template</span> <span class="variable">template</span> <span class="operator">=</span> cfg.getTemplate(templateName, locale);</span><br><span class="line">            template.process(model, out);</span><br><span class="line">            result = out.toString();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException | TemplateException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 1、通过xml配置文件获取模板</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Map&lt;String, String&gt; <span class="title function_">getTemplateConfig</span><span class="params">()</span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; templateConfig = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> FreeMarkerUtils.class.getResourceAsStream(</span><br><span class="line">                <span class="string">&quot;/freemarker_template/freemarker_template_mapping.xml&quot;</span>))&#123;</span><br><span class="line">            <span class="comment">// 读取jar包内置文件</span></span><br><span class="line">            <span class="type">JAXBContext</span> <span class="variable">context</span> <span class="operator">=</span> JAXBContext.newInstance(TemplateMapping.class);</span><br><span class="line">            <span class="type">Unmarshaller</span> <span class="variable">unmarshaller</span> <span class="operator">=</span> context.createUnmarshaller();</span><br><span class="line"></span><br><span class="line">            <span class="type">XMLInputFactory</span> <span class="variable">xif</span> <span class="operator">=</span> XMLInputFactory.newFactory();</span><br><span class="line">            xif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES,<span class="literal">false</span>);</span><br><span class="line">            xif.setProperty(XMLInputFactory.SUPPORT_DTD, <span class="literal">false</span>);</span><br><span class="line">            <span class="type">XMLStreamReader</span> <span class="variable">xsr</span> <span class="operator">=</span> xif.createXMLStreamReader(inputStream);</span><br><span class="line"></span><br><span class="line">            <span class="type">TemplateMapping</span> <span class="variable">templateMapping</span> <span class="operator">=</span> (TemplateMapping) unmarshaller.unmarshal(xsr);</span><br><span class="line"></span><br><span class="line">            List&lt;MappingItem&gt; mappingItemList = templateMapping.getMappingItemList();</span><br><span class="line">            <span class="keyword">for</span> (MappingItem mappingItem : mappingItemList) &#123;</span><br><span class="line">                templateConfig.put(mappingItem.getSolutionName(), mappingItem.getTemplateName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex)&#123;</span><br><span class="line">            LOGGER.error(ex.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> templateConfig;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2、通过路径获取模板</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, String&gt; templateFiles = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;template.base-template-path:/freemarker_template&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String baceTemplatePath;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;template.base-template-path:.ftl&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String templateSuffix;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">initTemplateFile</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">URL</span> <span class="variable">resource</span> <span class="operator">=</span> FreeMarkerUtils.class.getResource(baceTemplatePath);</span><br><span class="line">            <span class="type">String</span> <span class="variable">rootPath</span> <span class="operator">=</span> resource.getPath();</span><br><span class="line">            <span class="type">File</span> <span class="variable">rootFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(rootPath);</span><br><span class="line">            File[] listFiles = rootFile.listFiles();</span><br><span class="line">            Objects.requireNonNull(listFiles, String.format(Locale.ROOT, <span class="string">&quot;[%s] no template file.&quot;</span>, baceTemplatePath));</span><br><span class="line">            <span class="keyword">for</span> (File file : listFiles) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!Objects.isNull(file) &amp;&amp; file.isFile() &amp;&amp; file.getName().endsWith(templateSuffix))&#123;</span><br><span class="line">                    <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> file.getPath();</span><br><span class="line">                    <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> file.getName();</span><br><span class="line">                    templateFiles.put(</span><br><span class="line">                            fileName.substring(<span class="number">0</span>,fileName.lastIndexOf(<span class="string">&quot;.&quot;</span>)), filePath.substring(rootPath.length())</span><br><span class="line">                    );</span><br><span class="line">                    LOGGER.info(<span class="string">&quot;get template path:&quot;</span> + filePath);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception exception)&#123;</span><br><span class="line">            LOGGER.error(<span class="string">&quot;initTemplateFile faild.&quot;</span>, exception.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Map&lt;String, String&gt; <span class="title function_">getTemplateFiles</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> templateFiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建目录及定义模板</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 【/freemarker_template/freemarker_template_mapping.xml】</span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">templateMapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappingItem</span> <span class="attr">solutionName</span>=<span class="string">&quot;test1&quot;</span> <span class="attr">templationName</span>=<span class="string">&quot;test1.ftl&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">mappingItem</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappingItem</span> <span class="attr">solutionName</span>=<span class="string">&quot;test2&quot;</span> <span class="attr">templationName</span>=<span class="string">&quot;test2.ftl&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">mappingItem</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappingItem</span> <span class="attr">solutionName</span>=<span class="string">&quot;test3&quot;</span> <span class="attr">templationName</span>=<span class="string">&quot;test3.ftl&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">mappingItem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">templateMapping</span>&gt;</span></span><br><span class="line">name: $&#123;name&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建测试接口</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/testTemplate&quot;, method = RequestMethod.GET)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">freemarker</span><span class="params">(Map&lt;String, Object&gt; map, String name)</span>&#123;</span><br><span class="line">    Map&lt;String, String&gt; templateConfig = FreeMarkerUtils.getTemplateConfig();</span><br><span class="line">    Map&lt;String, Object&gt; mode = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    mode.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">templateName</span> <span class="operator">=</span> templateConfig.get(<span class="string">&quot;test1&quot;</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> FreeMarkerUtils.processData(mode, templateName);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/06/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BD%93%E9%AA%8C/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-08-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/java/" title="java">
+                        <b>#</b> java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/freemarker/" title="freemarker">
+                        #freemarker
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2022/01/26/%E3%80%90ELK%E3%80%91elk%E5%AD%A6%E4%B9%A0/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#freemarker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-text">freemarker简单使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%8C%96"><span class="toc-text">静态化</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90freemarker%E3%80%91%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F08%2F26%2F%25E3%2580%2590freemarker%25E3%2580%2591%25E7%25AE%2580%25E5%258D%2595%25E4%25BD%25BF%25E7%2594%25A8%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/08/26/%E3%80%90freemarker%E3%80%91%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

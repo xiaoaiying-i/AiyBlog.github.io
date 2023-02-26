@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      【springboot】总结 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">文章</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【springboot】总结</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-02-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/springboot/" title="springboot">
+                    <b>#</b> springboot
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/springboot/" title="springboot">
+                    #springboot
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><ul>
+<li>引入父工程，父工程里会检测个人编写的配置文件，父工程引用了父工程:spring-boot-dependencies,其限定了所需要的jar的一些版本，实现jar版本的管理</li>
+</ul>
+<h2 id="自动配置"><a href="#自动配置" class="headerlink" title="自动配置"></a>自动配置</h2><ul>
+<li>@SpringBootApplication注解包含<ul>
+<li>@SpringBootConfiguration注解 <ul>
+<li>包含@Configuration 即最终配置注解</li>
+</ul>
+</li>
+<li>@EnableAutoConfiguration 自动配置  <ul>
+<li>包含@Import({AutoConfigurationImportSelector.class})  即引入了配置类</li>
+<li>AutoConfigurationImportSelector类：加载配置</li>
+<li> 同配置类包下：META-INF/spring.factories文件  -》ServletWebServerFactoryAutoConfiguration类引入了 -》ServerProperties类通过注解  -》@ConfigurationProperties加载默认配置 通过其josn文件</li>
+</ul>
+</li>
+<li>@ComponentScan  组件扫描  即自动扫描@SpringBootApplication注解同级及子孙包</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>在启动类上添加@SpringBootApplication即可具备以上三个注解作用。</p>
+</blockquote>
+<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><p><code>父工程</code>扫描文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">fi1tering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">directory</span>&gt;</span>$ &#123;basedir&#125; /src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span>\</span><br><span class="line">            <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">include</span>&gt;</span>**/application*. yml&lt;/ include&gt;</span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/application*.yaml&lt;/ include&gt;</span><br><span class="line">				<span class="tag">&lt;<span class="name">include</span>&gt;</span>**/application*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resourcs</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>要修改配置只要覆盖默认配置即可 如：<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务器端口</span></span><br><span class="line"><span class="attr">server.port</span>=<span class="string">8081</span></span><br><span class="line"><span class="comment">#当前web应用的名称</span></span><br><span class="line"><span class="attr">server.servlet.context-path</span>=<span class="string">/demo1</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="yml语法"><a href="#yml语法" class="headerlink" title="yml语法"></a>yml语法</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8082</span></span><br><span class="line"></span><br><span class="line"><span class="attr">name:</span> <span class="string">zhangsan</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#对象配置</span></span><br><span class="line"><span class="attr">person:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">zhangsan</span></span><br><span class="line">  <span class="attr">age:</span> <span class="number">18</span></span><br><span class="line">  <span class="attr">addr:</span> <span class="string">beijing</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 行内配置</span></span><br><span class="line"><span class="attr">person:</span> &#123;<span class="attr">name:</span> <span class="string">zhangsan</span>,<span class="attr">age:</span> <span class="number">18</span>,<span class="attr">addr:</span> <span class="string">beijing</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置数组</span></span><br><span class="line"><span class="attr">city:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">beijing</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">tianjin</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">chongqing</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">shanghai</span></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="attr">city:</span> [<span class="string">beijing</span>,<span class="string">tianjin</span>,<span class="string">chongqing</span>,<span class="string">shanghai</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置数据、集合（对象数据）</span></span><br><span class="line"><span class="attr">student:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tom</span></span><br><span class="line">    <span class="attr">age:</span> <span class="number">18</span></span><br><span class="line">    <span class="attr">addr:</span> <span class="string">beijing</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">lucy</span></span><br><span class="line">    <span class="attr">age:</span> <span class="number">17</span></span><br><span class="line">    <span class="attr">addr:</span> <span class="string">tianjing</span></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="attr">student:</span> [&#123;<span class="attr">name:</span> <span class="string">tom</span>,<span class="attr">age:</span> <span class="number">18</span>,<span class="attr">addr:</span> <span class="string">beijing</span>&#125;,&#123;<span class="attr">name:</span> <span class="string">lucy</span>,<span class="attr">age:</span> <span class="number">17</span>,<span class="attr">addr:</span> <span class="string">tianjing</span>&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># map配置</span></span><br><span class="line"><span class="attr">map:</span></span><br><span class="line">  <span class="attr">key1:</span> <span class="string">value1</span></span><br><span class="line">  <span class="attr">key2:</span> <span class="string">value2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取配置文件所定义的属性"><a href="#获取配置文件所定义的属性" class="headerlink" title="获取配置文件所定义的属性"></a>获取配置文件所定义的属性</h3><ul>
+<li>方式1：@Value（”${配置名}”）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value(&quot;$&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="meta">@Value(&quot;$&#123;person.addr&#125;&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String addr;</span><br></pre></td></tr></table></figure></li>
+<li>方式2：@ConfigurationProperties(prefix = “配置前缀”)  +  getxxx()方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;person&quot;)</span>放在类上</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义属性</span></span><br><span class="line"><span class="keyword">private</span> String name; </span><br><span class="line"></span><br><span class="line"><span class="comment">//提供get方法：</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;<span class="keyword">return</span> name;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;<span class="built_in">this</span>.name = name;&#125;</span><br></pre></td></tr></table></figure></li>
+<li>@EnableConfigurationProperties(属性类字节码对象) 可以载入属性类</li>
+</ul>
+<h2 id="整合其他技术"><a href="#整合其他技术" class="headerlink" title="整合其他技术"></a>整合其他技术</h2><p><strong>整合junit测试</strong></p>
+<ul>
+<li>引入启动器</li>
+<li>编写测试类，测试类需添加注解</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@SpringBootTest(classes = 启动类字节码文件)</span><br></pre></td></tr></table></figure>
+<h2 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h2><h3 id="一、配置文件"><a href="#一、配置文件" class="headerlink" title="一、配置文件"></a>一、配置文件</h3><p>可以导入配置文件处理器，这样在配置文件和实体类可以建立映射</p>
+<ul>
+<li>@ConfigurationProperties(prefix=”xxx”) 通过前缀把配置中的信息绑定到实体类中</li>
+<li>@Value(“${xxx}”)  绑定配置文件中属性到实体类属性</li>
+<li>@PropertySource(value=-“classpath:xxxx.xx”) 引入属性文件(即导入spring配置文件)</li>
+<li>@ImportResource(“locations={classth:xxx.xml,xxxx.xxx,…}”) 自己配置的文件不生效，通过注解引入配置文件，让其生效</li>
+</ul>
+<p>多配置文件时，激活指定的配置文件（激活程序某一种环境）：</p>
+<ul>
+<li><p>properties：</p>
+<ul>
+<li>先给配置文件名称添加标识：如：application-dev.properties<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">application.properties</span></span><br><span class="line"><span class="attr">application-dev.properties</span></span><br><span class="line"><span class="attr">application-prod.properties</span></span><br></pre></td></tr></table></figure></li>
+<li>在默认配置文件中指定配置文件： 如：spring.profiles.active = xxx<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server.port</span>=<span class="string">8081</span></span><br><span class="line"><span class="attr">spring.profiles.active</span>=<span class="string">dev</span></span><br></pre></td></tr></table></figure></li>
+<li>当启动后其会使用application-dev.properties这个配置文件了</li>
+</ul>
+</li>
+<li><p>yml: yml支持多文档块方式，即通过”—“来分隔表示不同的配置文件。修改：在默认的文档块中指定</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">port: 8081spring:</span></span><br><span class="line"><span class="attr">profiles:</span></span><br><span class="line"><span class="attr">active:</span> <span class="string">prod</span>  <span class="comment"># 由于激活了prod，所以程序运行后会使用prod配置块</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">	<span class="attr">port:</span> <span class="number">8083</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="attr">profilis:</span> <span class="string">dev</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">	<span class="attr">port:</span> <span class="number">8084</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="attr">profiles:</span> <span class="string">prod</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>配置文件加载顺序：先加载带后缀的，先加载外部的后加载内部的。</p>
+</blockquote>
+<h3 id="二、自动配置"><a href="#二、自动配置" class="headerlink" title="二、自动配置"></a>二、自动配置</h3><p>springboot就是为了减去繁杂的配置而生，个人认为一切配置都有一个与之对应的配置类，就是把配置文件都转换成了配置类来进行操作。</p>
+<ul>
+<li>1-开启：@EnableAutoConfiguration –》 <ul>
+<li>利用@EnableAutoConfigurationImportSelector给容器中导入组件 –》 </li>
+<li>springFacrorieaLoader.loadFacroryNames() 扫描所有jar包装路径下MERA-INF/spring.facrories</li>
+</ul>
+</li>
+<li>xxxAutoConfigurationl类都是容器中一个组件(即类)，都加入到了容器中用来做自动配置<ul>
+<li>xxxProperties是通过前缀封装了配置文件中属性的类，属性与配置文件中相关配置绑定</li>
+</ul>
+</li>
+<li>使用springboot，即可以看其有没有自动配置类，【有&amp;不满意】可以通过配置文件覆盖来修改【没有】自己编写配置类并添加到配置类，自己编写的配置类还可以和配置文件绑定来做配置。</li>
+</ul>
+<p>**派生注解：@ConditionalXXX **</p>
+<ul>
+<li>作用：必须是该注解指定的条件成立，才能给容器中添加组件，添加了组件配置里面配置的内容才能生效</li>
+<li>如在某个配置类上加了这个注解：@conditionalOnClass({xxx.class，xxx.class，…})  即表示：项目中有这些类，配置才能生效</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">@Conditional扩展注解</th>
+<th align="left">作用（判断是否满足当前指定条件)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">@ConditionalOnJava</td>
+<td align="left">系统的java版本是否符合要求</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnBean</td>
+<td align="left">容器中存在指定Bean;</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnMissingBean</td>
+<td align="left">容器中不存在指定Bean;</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnExpression</td>
+<td align="left">满足spEL表达式指定</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnClass</td>
+<td align="left">系统中有指定的类</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnMissingClass</td>
+<td align="left">系统中没有指定的类</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnSingleCandidate</td>
+<td align="left">容器中只有一个指定的Bean，或者这个Bean是首选Beat</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnProperty</td>
+<td align="left">系统中指定的属性是否有指定的值</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnResource</td>
+<td align="left">类路径下是否存在指定资源文件</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnWebApplication</td>
+<td align="left">当前是web环境</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnNotWebApplication</td>
+<td align="left">当前不是web环境</td>
+</tr>
+<tr>
+<td align="left">@ConditionalOnJndi</td>
+<td align="left">JNDI存在指定项</td>
+</tr>
+</tbody></table>
+<p>自动配置类必须在一定的条件下才能生效：</p>
+<blockquote>
+<p>配置文件中配置：<code>debug=true</code> 即开启springboot的debug模式<br>在控制台就可以知道哪些类用了自动配置，哪些类没有用自动配置(因为配置的条件不满足)</p>
+</blockquote>
+<p><img src="https://img2020.cnblogs.com/blog/1594818/202011/1594818-20201121163928399-2046859621.png"></p>
+<h3 id="三、日记处理"><a href="#三、日记处理" class="headerlink" title="三、日记处理"></a>三、日记处理</h3><ul>
+<li>springboot底层是spring框架</li>
+<li>spring默认用jcl日记框架</li>
+<li>而springboot用的是slf4j抽象层和logback实现层。</li>
+</ul>
+<h4 id="日记门面-即抽象层或接口层"><a href="#日记门面-即抽象层或接口层" class="headerlink" title="日记门面(即抽象层或接口层)"></a><strong>日记门面(即抽象层或接口层)</strong></h4><ul>
+<li>jcl(jakarta commons-logging)</li>
+<li>slf4j(simple logging facade for java)</li>
+<li>jboss-logging</li>
+<li>…</li>
+</ul>
+<h4 id="日志实现"><a href="#日志实现" class="headerlink" title="日志实现"></a><strong>日志实现</strong></h4><ul>
+<li>log4j</li>
+<li>jul(java.util.logging)</li>
+<li>log4j2</li>
+<li>logback</li>
+<li>…</li>
+</ul>
+<blockquote>
+<p>可以说logback是对log4j的完善升级。</p>
+</blockquote>
+<h4 id="日志的使用"><a href="#日志的使用" class="headerlink" title="日志的使用"></a><strong>日志的使用</strong></h4><ul>
+<li>接口搭配对应的实现类<blockquote>
+<p>程序–》接口层面–》对应的实现类</p>
+</blockquote>
+</li>
+<li>接口搭配非对应实现类，需要通过适配器类来转换<blockquote>
+<p>程序–》接口层面–》适配器类层–》非对应实现类</p>
+</blockquote>
+</li>
+</ul>
+<p>遗留问题：框架中使用了其他框架，其他框架各自使用了不同日志，如何统一日志记录，使用同一日志框架进行输出呢？<br>解决：即通过适配器类来偷换jar实现包，以完成统一框架输出</p>
+<ul>
+<li>1-系统中其他日志框架先排除出去</li>
+<li>2-使用中间包来替换原有日志框架</li>
+<li>3-导入所使用日志接口的实现类</li>
+</ul>
+<h4 id="springboot日志关系-使用"><a href="#springboot日志关系-使用" class="headerlink" title="springboot日志关系(使用)"></a><strong>springboot日志关系(使用)</strong></h4><ul>
+<li>1-springboot底层使用slf4j + logback的方式进行日志记录</li>
+<li>2-springboot把其他日志都替换成了slf4j 接口来完成统一</li>
+<li>3-即把中间替换包引入</li>
+<li>4-如果引入其他框架，一定要把该框架默认日志依赖先移除</li>
+</ul>
+<p>springboot能自动适配所有日志，底层使用【slf4j】 + 【logback】的方式记录日志，要想换成其他日志实现框架时，只需要把这个框架的日志配置放入到程序资源文件即可。</p>
+<h4 id="日志类：Logger类"><a href="#日志类：Logger类" class="headerlink" title="日志类：Logger类"></a><strong>日志类：Logger类</strong></h4><ul>
+<li><p>获取：loggerFacroty.getLogger(getClass())</p>
+</li>
+<li><p>.trace(“xxxx信息”);</p>
+</li>
+<li><p>.debug(“xxxx信息”);</p>
+</li>
+<li><p>.info(“xxxx信息”);</p>
+</li>
+<li><p>.warn(“xxxx信息”);</p>
+</li>
+<li><p>.error(“xxxx信息”);</p>
+<blockquote>
+<p>以上五个方法也是日记的级别，由低到高。 spring默认设置日志级别是：info<br>可以调整日志的输出级别：其只会打印所设置级别即后面级别的日志信息。 </p>
+</blockquote>
+</li>
+<li><p>设置级别：在配置文件中指定–logging.level.xxx包 = 级别名称  (不填写具体的包，即每个包的日记级别都设置)</p>
+</li>
+<li><p>logging.file = 文件名或路径  –表示把日志打印到所设置的文件或路径中</p>
+</li>
+<li><p>logging.path = 指定path  –表示在指定目录下记录日志（与logging.file是冲突的，如果设置了logging.file后就会在其设置的文件或路径下输出日志）</p>
+</li>
+<li><p>logging.pattern.console = xxxxx  –设置在控制台输出的日志格式</p>
+<ul>
+<li>如：%d{yyyy-MM-dd} [%thread] %-5level %logger{50} - %msg%n</li>
+</ul>
+</li>
+<li><p>logging.pattern.file = xxxxx  –设置在指定文件中输出的日志格式</p>
+</li>
+</ul>
+<h4 id="profile特性"><a href="#profile特性" class="headerlink" title="profile特性"></a><strong>profile特性</strong></h4><p>多环境日志的格式切换</p>
+<ul>
+<li><p>1-给日志配置文件填加【-spring】后缀</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logback-spring.xml</span><br></pre></td></tr></table></figure></li>
+<li><p>2-在日志配置文件中添加：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">appender</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">layout</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.classic.PatternLayout&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">&quot;dev&quot;</span> &gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%d&#123;yyyy-MM-dd HH:mm:ss.ssS&#125; ----&gt;[%thread] ---&gt;%-5level %logger&#123;50&#125;<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">&quot;!dev&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%d&#123;yyyy-MM-dd HH:mm:ss.sss&#125; ==== [%thread] ==== %-5level %logger&#123;50]&#125;<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="指定日志配置文件"><a href="#指定日志配置文件" class="headerlink" title="指定日志配置文件"></a><strong>指定日志配置文件</strong></h4><p>给类路径下放上日志框架自己的配置文件即可，springboot就不使用默认的日志配置了</p>
+<h4 id="切换日志框架"><a href="#切换日志框架" class="headerlink" title="切换日志框架"></a><strong>切换日志框架</strong></h4><ul>
+<li>即上面所提的适配器类模式：把对应其他框架通过中间替换类替换统一接口</li>
+<li>把默认日志实现类去掉，导入所用日志实现类</li>
+<li>把日志配置文件导入到类路径下。</li>
+</ul>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="springboot对静态资源的映射规则"><a href="#springboot对静态资源的映射规则" class="headerlink" title="springboot对静态资源的映射规则"></a>springboot对静态资源的映射规则</h3><p>可以取webjars网站下载对应的静态资源对应的maven ，如jq、sootstrap等<br><strong>webjars</strong>以jar包的方式引入静态资源  </p>
+<ul>
+<li>1-【/webjars/**】访问，都去classpath:/META-INF/resources/webjars/所找资源;<br><img src="https://img2020.cnblogs.com/blog/1594818/202011/1594818-20201122234236041-132225176.png"></li>
+</ul>
+<p><img src="https://img2020.cnblogs.com/blog/1594818/202011/1594818-20201123000632710-1519783494.png"></p>
+<ul>
+<li><p>2-【/**】访问的任何资源，如果没有处理都默认去以下路径查找</p>
+<ul>
+<li>“classpath:/META-INF/resources/“</li>
+<li>“classpath:/resources/“</li>
+<li>“classpath:/static/“</li>
+<li>“classpath:/public/“</li>
+<li>“/“<br><img src="https://img2020.cnblogs.com/blog/1594818/202011/1594818-20201123001055775-1239380531.png"></li>
+</ul>
+</li>
+<li><p>3-【欢迎页】：静态资源文件下所有的index.html</p>
+</li>
+<li><p>4-【网页图标】：所有的**/favicon.ico都是在静态资源文件下找;</p>
+</li>
+</ul>
+<p>修改默认的静态资源访问路径：配置文件配置：spring.resources.static-locations=路径，路径，…  如：classpath:/hello/,classpath:/xiaoai/</p>
+<h3 id="模板引擎：thymeleaf"><a href="#模板引擎：thymeleaf" class="headerlink" title="模板引擎：thymeleaf"></a>模板引擎：thymeleaf</h3><p>模板引擎：jsp、velocity、freemarker、thymeleaf</p>
+<p><strong>thymeleaf的使用</strong></p>
+<ul>
+<li>引入thymeleaf，即maven添加依赖<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">grouprd</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    &lt;-- springboot2以上版本不用改这些 --&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">thymeleaf.version</span>&gt;</span>3.0.2.RELEASE<span class="tag">&lt;/<span class="name">thymeleaf.version</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--布局功能的支持程序thymeLeaf3主程序layout2以上版本--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">thymeleaf-layout-dialect.version</span>&gt;</span>2.1.1<span class="tag">&lt;/<span class="name">thymeleaf-layout-dialect.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>只要把HTML页面放在classpath:/templates/，thymeleaf就能自动渲染</li>
+</ul>
+<h4 id="thymeleaf的语法"><a href="#thymeleaf的语法" class="headerlink" title="thymeleaf的语法"></a><strong>thymeleaf的语法</strong></h4><p>可以在页面上导入名称空间：<html xmlns:th="http://www.thymeleaf.org"> 可以不导入，导入就是为了获得语法提示</p>
+<ul>
+<li>语法<br><img src="https://img2020.cnblogs.com/blog/1594818/202011/1594818-20201123003701376-1563099079.png"><blockquote>
+<p>可以通过【th:属性名=${xxx}】修改任意属性<br><img src="https://img2020.cnblogs.com/blog/1594818/202011/1594818-20201123005110934-731033128.png"></p>
+</blockquote>
+</li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91%E7%BC%93%E5%AD%98%E7%AD%89/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-02-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/springboot/" title="springboot">
+                        <b>#</b> springboot
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/springboot/" title="springboot">
+                        #springboot
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96"><span class="toc-text">依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">自动配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE"><span class="toc-text">修改配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#yml%E8%AF%AD%E6%B3%95"><span class="toc-text">yml语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%89%80%E5%AE%9A%E4%B9%89%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">获取配置文件所定义的属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E5%90%88%E5%85%B6%E4%BB%96%E6%8A%80%E6%9C%AF"><span class="toc-text">整合其他技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot"><span class="toc-text">SpringBoot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">一、配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">二、自动配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%97%A5%E8%AE%B0%E5%A4%84%E7%90%86"><span class="toc-text">三、日记处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E8%AE%B0%E9%97%A8%E9%9D%A2-%E5%8D%B3%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%88%96%E6%8E%A5%E5%8F%A3%E5%B1%82"><span class="toc-text">日记门面(即抽象层或接口层)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0"><span class="toc-text">日志实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">日志的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#springboot%E6%97%A5%E5%BF%97%E5%85%B3%E7%B3%BB-%E4%BD%BF%E7%94%A8"><span class="toc-text">springboot日志关系(使用)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E7%B1%BB%EF%BC%9ALogger%E7%B1%BB"><span class="toc-text">日志类：Logger类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#profile%E7%89%B9%E6%80%A7"><span class="toc-text">profile特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">指定日志配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6"><span class="toc-text">切换日志框架</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#springboot%E5%AF%B9%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E7%9A%84%E6%98%A0%E5%B0%84%E8%A7%84%E5%88%99"><span class="toc-text">springboot对静态资源的映射规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%EF%BC%9Athymeleaf"><span class="toc-text">模板引擎：thymeleaf</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#thymeleaf%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-text">thymeleaf的语法</span></a></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90springboot%E3%80%91%E6%80%BB%E7%BB%93 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F02%2F26%2Fspring%2F%25E3%2580%2590springboot%25E3%2580%2591%25E6%2580%25BB%25E7%25BB%2593%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91%E6%80%BB%E7%BB%93/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

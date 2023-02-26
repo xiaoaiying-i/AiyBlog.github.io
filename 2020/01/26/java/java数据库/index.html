@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      java数据库 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">文章</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">java数据库</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2020-01-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/java/" title="java">
+                    <b>#</b> java
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/java/" title="java">
+                    #java
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="java数据库"><a href="#java数据库" class="headerlink" title="java数据库"></a>java数据库</h2><h3 id="一、事务："><a href="#一、事务：" class="headerlink" title="一、事务："></a>一、事务：</h3><ul>
+<li>事务四大特征：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">特征</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">原子性</td>
+<td align="left">是不可分割的最小操作单位，要么同时成功，要么同时失败。</td>
+</tr>
+<tr>
+<td align="left">持久性</td>
+<td align="left">当事务提交或回滚后，数据库会持久化的保存数据。</td>
+</tr>
+<tr>
+<td align="left">隔离性</td>
+<td align="left">当事务提交或回滚后，数据库会持久化的保存数据。</td>
+</tr>
+<tr>
+<td align="left">一致性</td>
+<td align="left">事务操作前后，数据总量不变</td>
+</tr>
+</tbody></table>
+<ul>
+<li>事务隔离级别</li>
+</ul>
+<p>概念：多个事务之间隔离的，相互独立的。但是如果多个事务操作同一批数据，则会引发一些问题，设置不同的隔离级别就可以解决这些问题。</p>
+<table>
+<thead>
+<tr>
+<th align="left">存在问题：</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">脏读</td>
+<td align="left">一个事务，读取到另一个事务中没有提交的数据</td>
+</tr>
+<tr>
+<td align="left">不可重复读(虚读)</td>
+<td align="left">在同一个事务中，两次读取到的数据不一样。</td>
+</tr>
+<tr>
+<td align="left">幻读</td>
+<td align="left">一个事务操作(DML)数据表中所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">隔离级别：</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">【read uncommitted】读未提交</td>
+<td align="left">产生的问题：脏读、不可重复读、幻读</td>
+</tr>
+<tr>
+<td align="left">【read committed】读已提交 （Oracle）</td>
+<td align="left">产生的问题：不可重复读、幻读</td>
+</tr>
+<tr>
+<td align="left">【repeatable read】可重复读 （MySQL默认）</td>
+<td align="left">产生的问题：幻读</td>
+</tr>
+<tr>
+<td align="left">【serializable】串行化</td>
+<td align="left">可以解决所有的问题</td>
+</tr>
+</tbody></table>
+<pre><code>    ### 二、数据库连接池
+</code></pre>
+<p><strong>【C3P0】</strong>  数据库连接池技术</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 导入jar包 (两个)</span><br><span class="line">	c3p0-<span class="number">0.9</span><span class="number">.5</span><span class="number">.2</span>.jar 	</span><br><span class="line">	mchange-commons-java-<span class="number">0.2</span><span class="number">.12</span>.jar</span><br><span class="line">	不要忘记导入数据库驱动jar包</span><br><span class="line"></span><br><span class="line"># 定义配置文件</span><br><span class="line">	c3p0-config.xml	</span><br><span class="line">	</span><br><span class="line">#创建核心对象		</span><br><span class="line">	数据库连接池对象 ComboPooledDataSource</span><br><span class="line">	<span class="comment">//默认使用默认配置，</span></span><br><span class="line">	<span class="type">DataSource</span> <span class="variable">ds</span>  <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ComboPooledDataSource</span>();</span><br><span class="line">	<span class="comment">//使用自定义配置,otherc3p0为在配置文件定义的名称</span></span><br><span class="line">	<span class="type">DataSource</span> <span class="variable">ds</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ComboPooledDataSource</span>(<span class="string">&quot;otherc3p0&quot;</span>);</span><br><span class="line">	</span><br><span class="line"># 获取连接： 			</span><br><span class="line">	getConnection</span><br><span class="line">	<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> ds.getConnection();</span><br></pre></td></tr></table></figure>
+
+<p><strong>【Druid】</strong>    数据库连接池实现技术，由阿里巴巴提供的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#　导入jar包 </span><br><span class="line">	druid-<span class="number">1.0</span><span class="number">.9</span>.jar</span><br><span class="line"></span><br><span class="line"># 定义配置文件：</span><br><span class="line">	properties形式的,可以叫任意名称，可以放在任意目录下</span><br><span class="line"></span><br><span class="line"># 加载配置文件。 Properties</span><br><span class="line">	<span class="type">Properties</span> <span class="variable">pro</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>(); <span class="comment">//c创建配置流对象</span></span><br><span class="line">	<span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> DruidDemo.class.getClassLoader().getResourceAsStream(<span class="string">&quot;druid.properties&quot;</span>);</span><br><span class="line">	pro.load(is);</span><br><span class="line"></span><br><span class="line"># 获取数据库连接池对象：通过工厂来来获取  DruidDataSourceFactory</span><br><span class="line">	<span class="type">DataSource</span> <span class="variable">ds</span> <span class="operator">=</span> DruidDataSourceFactory.createDataSource(pro);</span><br><span class="line"></span><br><span class="line"># 获取连接：getConnection</span><br><span class="line">	<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> ds.getConnection();</span><br></pre></td></tr></table></figure>
+
+<p><strong>【JdbcTemplate对象】</strong>    Spring框架对JDBC的简单封装。提供了一个JDBCTemplate对象简化JDBC的开发</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 导入jar包</span><br><span class="line">	spring-beans-<span class="number">5.0</span><span class="number">.0</span>.RELEASE.jar</span><br><span class="line">	spring-core-<span class="number">5.0</span><span class="number">.0</span>.RELEASE.jar</span><br><span class="line">	spring-jdbc-<span class="number">5.0</span><span class="number">.0</span>.RELEASE.jar</span><br><span class="line">	spring-tx-<span class="number">5.0</span><span class="number">.0</span>.RELEASE.jar</span><br><span class="line">		</span><br><span class="line"># 获取模板对象</span><br><span class="line">	<span class="type">JdbcTemplate</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JdbcTemplate</span>(DataSource对象);</span><br><span class="line">	参数：</span><br><span class="line">	sql封装对象的RowMapper</span><br><span class="line">	(<span class="keyword">new</span> <span class="title class_">BeanPropertyRowMapper</span>&lt;类型&gt;(类型.class)) </span><br><span class="line">	占位符数据	</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">update()</td>
+<td align="left">执行DML语句。增、删、改语句</td>
+</tr>
+<tr>
+<td align="left">query()</td>
+<td align="left">查询结果，将结果封装为JavaBean对象</td>
+</tr>
+<tr>
+<td align="left">queryForMap()</td>
+<td align="left">查询结果将结果集封装为map集合，将列名作为key，将值作为value 将这条记录封装为一个map集合 这个方法查询的结果集长度只能是1</td>
+</tr>
+<tr>
+<td align="left">queryForList()</td>
+<td align="left">查询结果将结果集封装为list集合    将每一条记录封装为一个Map集合，再将Map集合装载到List集合中</td>
+</tr>
+<tr>
+<td align="left">queryForObject()</td>
+<td align="left">查询结果，将结果封装为对象</td>
+</tr>
+</tbody></table>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2020/01/26/java/JavaIO%E6%B5%81/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2020-01-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/java/" title="java">
+                        <b>#</b> java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/java/" title="java">
+                        #java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2020/01/26/java/java-static%E5%85%B3%E9%94%AE%E5%AD%97/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">java数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BA%8B%E5%8A%A1%EF%BC%9A"><span class="toc-text">一、事务：</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + java%E6%95%B0%E6%8D%AE%E5%BA%93 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2020%2F01%2F26%2Fjava%2Fjava%25E6%2595%25B0%25E6%258D%25AE%25E5%25BA%2593%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2020/01/26/java/java%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

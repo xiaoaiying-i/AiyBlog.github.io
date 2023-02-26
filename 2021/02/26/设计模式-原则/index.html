@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      设计模式-原则 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">文章</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">设计模式-原则</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-02-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/java/" title="java">
+                    <b>#</b> java
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">
+                    #设计模式
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="七大设计原则"><a href="#七大设计原则" class="headerlink" title="七大设计原则"></a>七大设计原则</h1><p>所有原则都为了降低类之间的耦合。</p>
+<h2 id="一、单一职责"><a href="#一、单一职责" class="headerlink" title="一、单一职责"></a>一、单一职责</h2><ul>
+<li>降低类复杂度，一个类负责一项职责。</li>
+<li>提高类可读性，可维护性。</li>
+<li>降低变更引起的风险。</li>
+<li>通常情况下，应遵循。只有逻辑够简单，才可在代码级别(通过if…else…)违反；只有类方法数量足够少，才可在方法级别(定义不同方法实现不同操作)保持单一职责</li>
+</ul>
+<h2 id="二、接口隔离"><a href="#二、接口隔离" class="headerlink" title="二、接口隔离"></a>二、接口隔离</h2><p>客户端不应依赖不需要的接口，即对一个类的依赖，应该建立在最小接口上。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">如：接口Interface有1、2、3等方法，B类实现了Interface接口。A类通过接口依赖B类，但A只需要用到接口中1、2两个方法。</span><br><span class="line">按接口隔离原则应把接口分离：</span><br><span class="line">1、Interface分成两个接口：Interface1有方法1、2；Interface2有方法3；</span><br><span class="line">2、B类实现接口Interface1即可；</span><br><span class="line">3、如果后续某个类需要用到Interface中1、2、3方法，再让B实现Interface2。</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、依赖倒转"><a href="#三、依赖倒转" class="headerlink" title="三、依赖倒转"></a>三、依赖倒转</h2><ul>
+<li>底层模块尽量使用抽象类或接口，或两者都有，程序稳定性更好</li>
+<li>变量声明类型尽量用抽象类或接口。这样变量引用和实际对象存在一个缓冲层(即接口)，利用程序扩展和优化。</li>
+<li>继承时遵循里氏替换原则</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//客户使用端</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">       <span class="type">OpenAndCloseTv</span> <span class="variable">openAndCloseTv</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OpenAndCloseTv</span>();</span><br><span class="line">       openAndCloseTv.open(<span class="keyword">new</span> <span class="title class_">Changhong</span>());</span><br><span class="line">       openAndCloseTv.open(<span class="keyword">new</span> <span class="title class_">Kangjia</span>());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开关接口</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">IOpenAndCloseTv</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">open</span><span class="params">(ITV tv)</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实现</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">OpenAndCloseTv</span> <span class="keyword">implements</span> <span class="title class_">IOpenAndCloseTv</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">open</span><span class="params">(ITV tv)</span> &#123;</span><br><span class="line">        tv.play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//tv类型接口</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">ITV</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">play</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义不同tv类型</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Changhong</span> <span class="keyword">implements</span> <span class="title class_">ITV</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">play</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;长虹电视打开。。。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Kangjia</span> <span class="keyword">implements</span> <span class="title class_">ITV</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">play</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;康佳电视打开了。。。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line">长虹电视打开。。。</span><br><span class="line">康佳电视打开了。。。</span><br></pre></td></tr></table></figure>
+
+<p><strong>依赖关系传递三种方式：</strong></p>
+<ul>
+<li><p>接口传递</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//开关接口</span><br><span class="line">interface IOpenAndCloseTv&#123;</span><br><span class="line">    public void open(ITV tv);</span><br><span class="line">&#125;</span><br><span class="line">//实现</span><br><span class="line">class OpenAndCloseTv implements IOpenAndCloseTv&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void open(ITV tv) &#123;</span><br><span class="line">        tv.play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">---------------------使用</span><br><span class="line">public static void main(String[] args)&#123;</span><br><span class="line">    OpenAndCloseTv openAndCloseTv = new OpenAndCloseTv();</span><br><span class="line">    openAndCloseTv.open(new Changhong());</span><br><span class="line">    openAndCloseTv.open(new Kangjia());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>构造方法传递</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//开关接口</span><br><span class="line">interface IOpenAndCloseTv&#123;</span><br><span class="line">    public void open();</span><br><span class="line">&#125;</span><br><span class="line">//实现</span><br><span class="line">class OpenAndCloseTv implements IOpenAndCloseTv&#123;</span><br><span class="line">    private ITV tv; // 成员变量</span><br><span class="line">    public OpenAndCloseTv(ITV tv)&#123;</span><br><span class="line">        this.tv = tv;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void open() &#123;</span><br><span class="line">        tv.play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">---------------------使用</span><br><span class="line">public static void main(String[] args)&#123;</span><br><span class="line">    OpenAndCloseTv openAndCloseTv = new OpenAndCloseTv(new Changhong());</span><br><span class="line">    openAndCloseTv.open();</span><br><span class="line">    OpenAndCloseTv openAndCloseTv2 = new OpenAndCloseTv(new Kangjia());</span><br><span class="line">    openAndCloseTv2.open();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>setter方法传递</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//开关接口</span><br><span class="line">interface IOpenAndCloseTv&#123;</span><br><span class="line">    public void open();</span><br><span class="line">    public void setTv(ITV tv)</span><br><span class="line">&#125;</span><br><span class="line">//实现</span><br><span class="line">class OpenAndCloseTv implements IOpenAndCloseTv&#123;</span><br><span class="line">    private ITV tv; // 成员变量</span><br><span class="line">    </span><br><span class="line">    @Override    </span><br><span class="line">    public void setTv(ITV tv)&#123;</span><br><span class="line">        this.tv = tv;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void open() &#123;</span><br><span class="line">        tv.play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">---------------------使用</span><br><span class="line">public static void main(String[] args)&#123;</span><br><span class="line">    OpenAndCloseTv openAndCloseTv = new OpenAndCloseTv();</span><br><span class="line">    openAndCloseTv.setTv(new Changhong();</span><br><span class="line">    openAndCloseTv.open();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="四、里氏替换"><a href="#四、里氏替换" class="headerlink" title="四、里氏替换"></a>四、里氏替换</h2><p>一个类被其他类所继承，该类修改时，必须考虑所有子类。父类修改后，所有子类有可能产生故障。<br>如何正确使用继承？–》里氏替换原则</p>
+<ul>
+<li>使用基类的地方必须能透明使用子类对象。</li>
+<li>使用继承时，在子类中尽量不要重写父类方法。</li>
+<li>继承实际让两个类耦合性增强，在适当情况下可通过聚合，组合，依赖解决问题，不要通过继承。</li>
+</ul>
+<p>如某类子类需要改写父类方法，应把子类提升和父类一样的档次，把共同方法抽取，让子类和父类继承同一个更基层的基类。</p>
+<blockquote>
+<p>若要改变父，就不要做父子关系了，做兄弟关系吧。 </p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class Liskov &#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line"></span><br><span class="line">        A a = new A();</span><br><span class="line">        System.out.println(&quot;11-3=&quot;+a.func1(11,3));</span><br><span class="line">        System.out.println(&quot;1-8=&quot;+a.func1(1,8));</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;----------------------------&quot;);</span><br><span class="line">        B b = new B();</span><br><span class="line">        System.out.println(&quot;11-3=&quot;+b.func1(11,3)); // 这里其实已经覆写父类方法了，所以-的话是错误的。</span><br><span class="line">        System.out.println(&quot;1-8=&quot;+b.func1(1,8));</span><br><span class="line">        System.out.println(&quot;11+3+9=&quot;+b.func2(11,3));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class A &#123;</span><br><span class="line">    public int func1(int num1,int num2)&#123;</span><br><span class="line">        return num1 - num2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class B extends A&#123;</span><br><span class="line">    // 重新了A 类方法，可能是无意识</span><br><span class="line">    @Override</span><br><span class="line">    public int func1(int a,int b)&#123;</span><br><span class="line">        return a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    public int func2(int a,int b)&#123;</span><br><span class="line">        return func1(a,b)+9;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过里氏替换原则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public class Liskov2 &#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line"></span><br><span class="line">        A a = new A();</span><br><span class="line">        System.out.println(&quot;11-3=&quot;+ a.func1(11,3));</span><br><span class="line">        System.out.println(&quot;1-8=&quot;+ a.func1(1,8));</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;----------------------------&quot;);</span><br><span class="line">        B b = new B();</span><br><span class="line">        System.out.println(&quot;11+3=&quot;+ b.func1(11,3)); // 这里其实已经覆写父类方法了，所以-的话是错误的。</span><br><span class="line">        System.out.println(&quot;1+8=&quot;+ b.func1(1,8));</span><br><span class="line">        System.out.println(&quot;11+3+9=&quot;+ b.func2(11,3));</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;11-3=&quot;+ b.func3(11,3)); //实际调用的是A类的方法。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class base&#123;</span><br><span class="line">    //共有的更基础的方法、成员变量定义到该类</span><br><span class="line">    //如：</span><br><span class="line">    public int funcMult(int num1,int num2)&#123;</span><br><span class="line">        return num1*num2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class A extends base&#123;</span><br><span class="line">    public int func1(int num1,int num2)&#123;</span><br><span class="line">        return num1 - num2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class B extends base&#123;</span><br><span class="line">    private A  aobj = new A(); //通过组合方式解决继承问题-step1</span><br><span class="line"></span><br><span class="line">    public int func1(int a,int b)&#123;</span><br><span class="line">        return a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    public int func2(int a,int b)&#123;</span><br><span class="line">        return func1(a,b)+9;</span><br><span class="line">    &#125;</span><br><span class="line">    public int func3(int a,int b)&#123;</span><br><span class="line">        return aobj.func1(a,b); //通过组合方式解决继承问题-step2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">----------结果</span><br><span class="line">11-3=8</span><br><span class="line">1-8=-7</span><br><span class="line">----------------------------</span><br><span class="line">11+3=14</span><br><span class="line">1+8=9</span><br><span class="line">11+3+9=23</span><br><span class="line">11-3=8</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、开闭原则"><a href="#五、开闭原则" class="headerlink" title="五、开闭原则"></a>五、开闭原则</h2><ul>
+<li>最基础、最重要的设计原则</li>
+<li>一个实体如类、模块、函数应【扩展开发(对提供方)，修改关闭(对使用方)】。抽象构建框架，实现扩展细节。</li>
+<li>软件需变化，尽量通过扩展代码而不是修改已有代码。</li>
+<li>编程中遵循其他原则，及设计模式目的就是遵循开闭原则(核心)。</li>
+</ul>
+<p>不遵循OCP原则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">public class Ocp &#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        GraphicEditor graphicEditor = new GraphicEditor();</span><br><span class="line">        graphicEditor.drawShape(new Rectangle());</span><br><span class="line">        graphicEditor.drawShape(new Circle());</span><br><span class="line">        graphicEditor.drawShape(new Triangle());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//这是一个用于绘图的类 [使用方]</span><br><span class="line">class GraphicEditor &#123;</span><br><span class="line">    //接收Shape对象，调用draw方法</span><br><span class="line">    public void drawShape(Shape s) &#123;</span><br><span class="line">        if (s.m_type == 1)&#123;</span><br><span class="line">            drawRectangle();</span><br><span class="line">        &#125;else if (s.m_type == 2)&#123;</span><br><span class="line">            drawCircle();</span><br><span class="line">        &#125;else if (s.m_type == 3)&#123; //新增图形,使用方需要进行修改</span><br><span class="line">            drawTriangle();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public void drawRectangle()&#123; System.out.println(&quot; 绘制矩形 &quot;); &#125;</span><br><span class="line">    public void drawCircle() &#123; System.out.println(&quot; 绘制圆形 &quot;); &#125;</span><br><span class="line">    //新增图形,使用方需要进行修改</span><br><span class="line">    public void drawTriangle() &#123; System.out.println(&quot; 绘制三角形 &quot;); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//定义各种图形</span><br><span class="line">//Shape类，基类，</span><br><span class="line">abstract class Shape &#123;</span><br><span class="line">    int m_type;</span><br><span class="line">&#125;</span><br><span class="line">//矩形</span><br><span class="line">class Rectangle extends Shape &#123;</span><br><span class="line">    Rectangle() &#123; super.m_type = 1; &#125;</span><br><span class="line">&#125;</span><br><span class="line">//圆形</span><br><span class="line">class Circle extends Shape &#123;</span><br><span class="line">    Circle() &#123; super.m_type = 2; &#125;</span><br><span class="line">&#125;</span><br><span class="line">//新增三角形</span><br><span class="line">class Triangle extends Shape &#123;</span><br><span class="line">    Triangle() &#123; super.m_type = 3; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">----------结果</span><br><span class="line"> 绘制矩形 </span><br><span class="line"> 绘制圆形 </span><br><span class="line"> 绘制三角形 </span><br></pre></td></tr></table></figure>
+
+<p>遵循OCP原则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">public class Ocp &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //使用看看存在的问题</span><br><span class="line">        GraphicEditor graphicEditor = new GraphicEditor();</span><br><span class="line">        graphicEditor.drawShape(new Rectangle());</span><br><span class="line">        graphicEditor.drawShape(new Circle());</span><br><span class="line">        graphicEditor.drawShape(new Triangle());</span><br><span class="line">        graphicEditor.drawShape(new OtherGraphic());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//这是一个用于绘图的类 [使用方]</span><br><span class="line">class GraphicEditor &#123;</span><br><span class="line">    //接收Shape对象，调用draw方法</span><br><span class="line">    public void drawShape(Shape s) &#123; s.draw(); //只需要新增图形就可以，不需要修改代码。 &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Shape类，遵守ocp原则通过创建一个基类，</span><br><span class="line">abstract class Shape &#123;</span><br><span class="line">    public abstract void draw();//抽象方法</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//绘制不同图像时直接扩展，而不是修改。</span><br><span class="line">//矩形</span><br><span class="line">class Rectangle extends Shape &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void draw() &#123;System.out.println(&quot; 绘制矩形 &quot;); &#125;</span><br><span class="line">&#125;</span><br><span class="line">//圆形</span><br><span class="line">class Circle extends Shape &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void draw() &#123; System.out.println(&quot; 绘制圆形 &quot;); &#125;</span><br><span class="line">&#125;</span><br><span class="line">//新增画三角形</span><br><span class="line">class Triangle extends Shape &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void draw() &#123; System.out.println(&quot; 绘制三角形 &quot;); &#125;</span><br><span class="line">&#125;</span><br><span class="line">//新增一个图形</span><br><span class="line">class OtherGraphic extends Shape &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void draw() &#123; System.out.println(&quot; 绘制其它图形 &quot;); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">----------结果</span><br><span class="line"> 绘制矩形 </span><br><span class="line"> 绘制圆形 </span><br><span class="line"> 绘制三角形 </span><br><span class="line"> 绘制其它图形 </span><br></pre></td></tr></table></figure>
+
+<h2 id="六、迪米特法则"><a href="#六、迪米特法则" class="headerlink" title="六、迪米特法则"></a>六、迪米特法则</h2><p>核心是为了降低类之间的耦合。</p>
+<ul>
+<li>一个对象对其他对象保持最少了解。</li>
+<li>也叫【最少知道原则】，即一个被依赖的类不管多复杂，尽量将逻辑封装类内部，对外只提供public方法，不对外泄露任何信息。</li>
+<li>更简单定义：只与【直接朋友(两对象耦合即朋友，出现在成员变量，方法参数，方法返回值中的类为直接的朋友，出现在局部变量中的类不是直接的朋友，称陌生类)】通信。</li>
+<li>耦合方式：依赖、关联、组合、聚合等。</li>
+<li>陌生类最好不要以局部变量出现在类内部。</li>
+</ul>
+<p>非迪米特法则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">//客户端</span><br><span class="line">public class Demeter1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //创建了一个 SchoolManager 对象</span><br><span class="line">        SchoolManager schoolManager = new SchoolManager();</span><br><span class="line">        //输出学院的员工id 和  学校总部的员工信息</span><br><span class="line">        schoolManager.printAllEmployee(new CollegeManager());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//学校总部员工类</span><br><span class="line">class Employee &#123;</span><br><span class="line">    private String id;</span><br><span class="line">    public void setId(String id) &#123; this.id = id; &#125;</span><br><span class="line">    public String getId() &#123; return id; &#125;</span><br><span class="line">&#125;</span><br><span class="line">//学院员工类</span><br><span class="line">class CollegeEmployee &#123;</span><br><span class="line">    private String id;</span><br><span class="line">    public void setId(String id) &#123; this.id = id; &#125;</span><br><span class="line">    public String getId() &#123; return id; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//学院员工管理类</span><br><span class="line">class CollegeManager &#123;</span><br><span class="line">    //返回学院的所有员工</span><br><span class="line">    public List&lt;CollegeEmployee&gt; getAllEmployee() &#123;</span><br><span class="line">        List&lt;CollegeEmployee&gt; list = new ArrayList&lt;CollegeEmployee&gt;();</span><br><span class="line">        for (int i = 0; i &lt; 10; i++) &#123; //这里我们增加了10个员工到 list</span><br><span class="line">            CollegeEmployee emp = new CollegeEmployee();</span><br><span class="line">            emp.setId(&quot;学院员工id= &quot; + i);</span><br><span class="line">            list.add(emp);</span><br><span class="line">        &#125;</span><br><span class="line">        return list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//学校管理类</span><br><span class="line">//分析 SchoolManager 类的直接朋友类有哪些 Employee、CollegeManager</span><br><span class="line">//CollegeEmployee 不是 直接朋友 而是一个陌生类，这样违背了 迪米特法则 </span><br><span class="line">class SchoolManager &#123;</span><br><span class="line">    //返回学校总部的员工</span><br><span class="line">    public List&lt;Employee&gt; getAllEmployee() &#123;</span><br><span class="line">        List&lt;Employee&gt; list = new ArrayList&lt;Employee&gt;();</span><br><span class="line">        for (int i = 0; i &lt; 5; i++) &#123; //这里我们增加了5个员工到 list</span><br><span class="line">            Employee emp = new Employee();</span><br><span class="line">            emp.setId(&quot;学校总部员工id= &quot; + i);</span><br><span class="line">            list.add(emp);</span><br><span class="line">        &#125;</span><br><span class="line">        return list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //该方法完成输出学校总部和学院员工信息(id)</span><br><span class="line">    void printAllEmployee(CollegeManager sub) &#123;</span><br><span class="line">        //分析问题</span><br><span class="line">        //1. 这里的 CollegeEmployee 不是  SchoolManager的直接朋友</span><br><span class="line">        //2. CollegeEmployee 是以局部变量方式出现在 SchoolManager</span><br><span class="line">        //3. 违反了 迪米特法则 </span><br><span class="line"></span><br><span class="line">        //获取学院员工</span><br><span class="line">        List&lt;CollegeEmployee&gt; list1 = sub.getAllEmployee();</span><br><span class="line">        System.out.println(&quot;------------学院员工------------&quot;);</span><br><span class="line">        for (CollegeEmployee e : list1) &#123;</span><br><span class="line">            System.out.println(e.getId());</span><br><span class="line">        &#125;</span><br><span class="line">        //获取学校总部员工</span><br><span class="line">        List&lt;Employee&gt; list2 = this.getAllEmployee();</span><br><span class="line">        System.out.println(&quot;------------学校总部员工------------&quot;);</span><br><span class="line">        for (Employee e : list2) &#123;</span><br><span class="line">            System.out.println(e.getId());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">-----------结果</span><br><span class="line">------------学院员工------------</span><br><span class="line">学院员工id= 0</span><br><span class="line">学院员工id= 1</span><br><span class="line">学院员工id= 2</span><br><span class="line">学院员工id= 3</span><br><span class="line">学院员工id= 4</span><br><span class="line">学院员工id= 5</span><br><span class="line">学院员工id= 6</span><br><span class="line">学院员工id= 7</span><br><span class="line">学院员工id= 8</span><br><span class="line">学院员工id= 9</span><br><span class="line">------------学校总部员工------------</span><br><span class="line">学校总部员工id= 0</span><br><span class="line">学校总部员工id= 1</span><br><span class="line">学校总部员工id= 2</span><br><span class="line">学校总部员工id= 3</span><br><span class="line">学校总部员工id= 4</span><br></pre></td></tr></table></figure>
+<p>遵循迪米特法则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">//客户端</span><br><span class="line">public class Demeter1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;~~~使用迪米特法则的改进~~~&quot;);</span><br><span class="line">        //创建了一个 SchoolManager 对象</span><br><span class="line">        SchoolManager schoolManager = new SchoolManager();</span><br><span class="line">        //输出学院的员工id 和  学校总部的员工信息</span><br><span class="line">        schoolManager.printAllEmployee(new CollegeManager());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//学校总部员工类</span><br><span class="line">class Employee &#123;</span><br><span class="line">    private String id;</span><br><span class="line">    public void setId(String id) &#123; this.id = id; &#125;</span><br><span class="line">    public String getId() &#123; return id; &#125;</span><br><span class="line">&#125;</span><br><span class="line">//学院员工类</span><br><span class="line">class CollegeEmployee &#123;</span><br><span class="line">    private String id;</span><br><span class="line">    public void setId(String id) &#123; this.id = id; &#125;</span><br><span class="line">    public String getId() &#123; return id; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//学院员工管理类</span><br><span class="line">class CollegeManager &#123;</span><br><span class="line">    //返回学院的所有员工</span><br><span class="line">    public List&lt;CollegeEmployee&gt; getAllEmployee() &#123;</span><br><span class="line">        List&lt;CollegeEmployee&gt; list = new ArrayList&lt;CollegeEmployee&gt;();</span><br><span class="line">        for (int i = 0; i &lt; 10; i++) &#123; //这里我们增加了10个员工到 list</span><br><span class="line">            CollegeEmployee emp = new CollegeEmployee();</span><br><span class="line">            emp.setId(&quot;学院员工id= &quot; + i);</span><br><span class="line">            list.add(emp);</span><br><span class="line">        &#125;</span><br><span class="line">        return list;</span><br><span class="line">    &#125;</span><br><span class="line">    //输出学院员工的信息</span><br><span class="line">    public void printEmployee() &#123;</span><br><span class="line">        //获取到学院员工</span><br><span class="line">        List&lt;CollegeEmployee&gt; list1 = getAllEmployee();</span><br><span class="line">        System.out.println(&quot;------------学院员工------------&quot;);</span><br><span class="line">        for (CollegeEmployee e : list1) &#123;</span><br><span class="line">            System.out.println(e.getId());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//学校管理类</span><br><span class="line">//分析 SchoolManager 类的直接朋友类有哪些 Employee、CollegeManager</span><br><span class="line">//CollegeEmployee 不是 直接朋友 而是一个陌生类，这样违背了 迪米特法则</span><br><span class="line">class SchoolManager &#123;</span><br><span class="line">    //返回学校总部的员工</span><br><span class="line">    public List&lt;Employee&gt; getAllEmployee() &#123;</span><br><span class="line">        List&lt;Employee&gt; list = new ArrayList&lt;Employee&gt;();</span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; 5; i++) &#123; //这里我们增加了5个员工到 list</span><br><span class="line">            Employee emp = new Employee();</span><br><span class="line">            emp.setId(&quot;学校总部员工id= &quot; + i);</span><br><span class="line">            list.add(emp);</span><br><span class="line">        &#125;</span><br><span class="line">        return list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //该方法完成输出学校总部和学院员工信息(id)</span><br><span class="line">    void printAllEmployee(CollegeManager sub) &#123;</span><br><span class="line">        //分析问题</span><br><span class="line">        //1. 将输出学院的员工方法，封装到CollegeManager</span><br><span class="line">        sub.printEmployee();</span><br><span class="line"></span><br><span class="line">        //获取到学校总部员工</span><br><span class="line">        List&lt;Employee&gt; list2 = this.getAllEmployee();</span><br><span class="line">        System.out.println(&quot;------------学校总部员工------------&quot;);</span><br><span class="line">        for (Employee e : list2) &#123;</span><br><span class="line">            System.out.println(e.getId());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">----------结果</span><br><span class="line">~~~使用迪米特法则的改进~~~</span><br><span class="line">------------学院员工------------</span><br><span class="line">学院员工id= 0</span><br><span class="line">学院员工id= 1</span><br><span class="line">学院员工id= 2</span><br><span class="line">学院员工id= 3</span><br><span class="line">学院员工id= 4</span><br><span class="line">学院员工id= 5</span><br><span class="line">学院员工id= 6</span><br><span class="line">学院员工id= 7</span><br><span class="line">学院员工id= 8</span><br><span class="line">学院员工id= 9</span><br><span class="line">------------学校总部员工------------</span><br><span class="line">学校总部员工id= 0</span><br><span class="line">学校总部员工id= 1</span><br><span class="line">学校总部员工id= 2</span><br><span class="line">学校总部员工id= 3</span><br><span class="line">学校总部员工id= 4</span><br></pre></td></tr></table></figure>
+
+<h2 id="七、合成复用原则"><a href="#七、合成复用原则" class="headerlink" title="七、合成复用原则"></a>七、合成复用原则</h2><ul>
+<li>尽量使用组合/聚合的方式，不是使用继承。</li>
+</ul>
+<h2 id="类之间关系"><a href="#类之间关系" class="headerlink" title="类之间关系"></a>类之间关系</h2><p>所有都可以归为依赖。</p>
+<ul>
+<li><strong>依赖：</strong><ul>
+<li><strong>通过方法参数传递依赖进来。</strong></li>
+<li>类中用到了对方。</li>
+<li>类成员属性</li>
+<li>方法返回类型</li>
+<li>方法接收参数</li>
+<li>方法中使用</li>
+</ul>
+</li>
+<li>**泛化(继承):**依赖关系的特例<ul>
+<li>泛化关系就是继承关系。</li>
+</ul>
+</li>
+<li><strong>实现：</strong>依赖关系的特例<ul>
+<li>类实现了某一接口。</li>
+</ul>
+</li>
+<li><strong>关联：</strong>依赖关系的特例。类与类之间的联系。<ul>
+<li>具有导航性(单向或双向)，多重性(一对一、一对多等)</li>
+<li>如人和身份证类</li>
+</ul>
+</li>
+<li><strong>聚合：</strong>关联关系的特例。<ul>
+<li><strong>添加类属性，通过方法设置进来。</strong></li>
+<li>整体与部分的关系，整体与部分可以分开。即可有可无。</li>
+<li>导航性(a聚合b还是b聚合类)，多重性(单聚合-聚合一个还是多聚合-聚合多个)</li>
+<li>如：人和身份证、台式主机和显示器。</li>
+</ul>
+</li>
+<li><strong>组合：</strong>关联关系的特例。<ul>
+<li><strong>构建属性直接new一个出来。</strong></li>
+<li>整体与部分的关系，整体与部分不可分开。</li>
+<li>随着当前类创建而创建，销毁而销毁。</li>
+<li>如：人和自己的头</li>
+<li>级联删除即组合关系。</li>
+</ul>
+</li>
+</ul>
+<h2 id="设计原则核心思想"><a href="#设计原则核心思想" class="headerlink" title="设计原则核心思想"></a>设计原则核心思想</h2><ul>
+<li>找出可能需变化之处独立出来，不要和不需变化的代码混写。</li>
+<li>针对接口编程，不是具体实现类编程</li>
+<li>为交互对象之间低耦合设计努力</li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-02-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/java/" title="java">
+                        <b>#</b> java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">
+                        #设计模式
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/02/26/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-text">七大设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3"><span class="toc-text">一、单一职责</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB"><span class="toc-text">二、接口隔离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BE%9D%E8%B5%96%E5%80%92%E8%BD%AC"><span class="toc-text">三、依赖倒转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%87%8C%E6%B0%8F%E6%9B%BF%E6%8D%A2"><span class="toc-text">四、里氏替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99"><span class="toc-text">五、开闭原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99"><span class="toc-text">六、迪米特法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%90%88%E6%88%90%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99"><span class="toc-text">七、合成复用原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB"><span class="toc-text">类之间关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-text">设计原则核心思想</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%88%99 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F02%2F26%2F%25E8%25AE%25BE%25E8%25AE%25A1%25E6%25A8%25A1%25E5%25BC%258F-%25E5%258E%259F%25E5%2588%2599%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/02/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%88%99/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

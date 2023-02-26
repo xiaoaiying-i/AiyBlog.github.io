@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      java定时器 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">文章</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">java定时器</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-01-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/java/" title="java">
+                    <b>#</b> java
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/java/" title="java">
+                    #java
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="springboot中简单定时任务使用：Scheduled"><a href="#springboot中简单定时任务使用：Scheduled" class="headerlink" title="springboot中简单定时任务使用：Scheduled"></a>springboot中简单定时任务使用：Scheduled</h2><h3 id="1-导入依赖"><a href="#1-导入依赖" class="headerlink" title="1-导入依赖"></a>1-导入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context-support<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>6.0.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-编写定时器类"><a href="#2-编写定时器类" class="headerlink" title="2-编写定时器类"></a>2-编写定时器类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定时任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ScheduledDemo</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定时任务</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Scheduled</span> 设置定时任务</span></span><br><span class="line"><span class="comment">     * 1--cron属性：cron表达式，定时任务触发时间的一个字符串表达形式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Scheduled(cron = &quot;0/2 * * * * ?&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">scheduledMethod</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;定时器触发：&quot;</span>+<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong>：</p>
+<p>Cron,表达式是一个字符串，分为6或7个域，每一个域代表一个含义</p>
+<p>Cron有如下两种语法格式:</p>
+<ul>
+<li> Seconds Minutes Hours Day Month Week Year</li>
+<li> Seconds Minutes Hours Day Month Week  </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>时间域名</th>
+<th>允许值</th>
+<th>允许的特殊字符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>秒</td>
+<td>0-59</td>
+<td>, _ * /</td>
+</tr>
+<tr>
+<td>2</td>
+<td>分钟</td>
+<td>0-59</td>
+<td>, _ * /</td>
+</tr>
+<tr>
+<td>3</td>
+<td>小时</td>
+<td>0-23</td>
+<td>, _ * /</td>
+</tr>
+<tr>
+<td>4</td>
+<td>日期</td>
+<td>1-31</td>
+<td>, _ * / L W C   需配合月使用</td>
+</tr>
+<tr>
+<td>5</td>
+<td>月</td>
+<td>1-12</td>
+<td>, _ * /</td>
+</tr>
+<tr>
+<td>6</td>
+<td>星期</td>
+<td>1-7</td>
+<td>, _ * / ? L C #  1表示星期日，7表示星期一  星期也要配合日使用，一般只用一个</td>
+</tr>
+<tr>
+<td>7</td>
+<td>年(可选)</td>
+<td>1970-2099</td>
+<td>, _ * /</td>
+</tr>
+</tbody></table>
+<p>*<em>星号(</em>):*<em>可用在所有字段中s表示对应时间城的每一个时刻s例如s</em>在分钟字段时,表示”每分钟”<br>**问号(?)**该字符只在日期和星期字段中使用，它通常指定为”无意义的值”，相当于占位符<br>**减号(-):**表达一个范围，如在小时字段中使用”10-12”，则表示从10到12点,即10,11,12;<br>**逗号(,):*<em>表达一个列表值，如在星期字段中使用”MON,WED,FRI”，则表示星期一，星期三和星期五;<br><strong>斜杠(/):</strong> xly 表达一个等步长序列s×为起始值,y为增里步长值。如在分钟字段中使用0/15，则表示为0,15,30和45秒,而5/15在分钟字段中表示 5,20,35,50，也可以使用</em>/y，它等同于0/y3</p>
+<p>**L:**该字符只在日期和星期字段中使用，代表””Last”的意思，但它在两个字段中意思不同。</p>
+<ul>
+<li>L在日期字段中，表示这个月份的最后一天，如一月的31号,非i闰年二月的28号;</li>
+<li>如果L用在星期中，则表示星期六,等同于7○但是,如果L出现在星期字段里,而且在前面有一个数值X,则表示”这个月的最后X天””，</li>
+<li>例如，6L表示该月的最后星期五﹔</li>
+</ul>
+<p>**W:**该字符只能出现在日期字段里，是对前导日期的修饰，表示离该日期最近的工作日。</p>
+<ul>
+<li>例如15W表示离该月15号最近的工作日，如果该月15号是星期六，则匹配14号星期五﹔如果15日是星期日，则匹配16号星期一﹔如果15号是星期二，那结果就是15号星期二，但必须注意关联的匹配日期不能够跨月，</li>
+<li>如你指定1W，如果1号是星期六，结果匹配的是3号星期一，而非上个月最后的那天。W字符串只能指定单一日期。而不能指定日期范围;</li>
+</ul>
+<p>**LW组合:**在日期字段可以组合使用LW，它的意思是当月的最后一个工作日;<br>**#:**该字符只能在星期字段中使用v表示当月某个工作日 </p>
+<ul>
+<li>如6#3表示当月的第三个星期五(6表示星期五，#3表示当前的第三个)，</li>
+<li>4#5表示当月的第五个星期三，假设当月没有第五个星期三,忽略不触发;</li>
+</ul>
+<p>**C:**该字符只在日期和星期字段中使用，代表”Calendar”的意思。</p>
+<ul>
+<li>它的意思是计划所关联的日期,如果日期没有被关联，则相当于日历中所有日期</li>
+<li>例如5C在日期字段中就相当于日历5日以后的第一天o1C在星期字段中相当于星期日后的第一天。</li>
+<li>Cron表达式对特殊字符的大小写不敏感，对代表星期的缩写英文大小写也不敏感。</li>
+</ul>
+<p><img src="https://img2020.cnblogs.com/blog/1594818/202012/1594818-20201207232212962-1152807727.png"></p>
+<h3 id="3-启动类开启定时任务的使用"><a href="#3-启动类开启定时任务的使用" class="headerlink" title="3-启动类开启定时任务的使用"></a>3-启动类开启定时任务的使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableScheduling</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Sb1Application</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		SpringApplication.run(Sb1Application.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="第三方定时任务框架：Quartz"><a href="#第三方定时任务框架：Quartz" class="headerlink" title="第三方定时任务框架：Quartz"></a>第三方定时任务框架：Quartz</h2><ul>
+<li>1–job 任务 你要做啥</li>
+<li>2–Trigger 触发器 你什么时候去做</li>
+<li>3–Scheuler 任务调度 你什么时候需要去做什么事</li>
+</ul>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><h3 id="1-导入依赖添加坐标"><a href="#1-导入依赖添加坐标" class="headerlink" title="1-导入依赖添加坐标"></a>1-导入依赖添加坐标</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-编写任务"><a href="#2-编写任务" class="headerlink" title="2-编写任务"></a>2-编写任务</h3><p>定义class继承job重写execute方法，即定义任务类编写任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QuartzDemo</span> <span class="keyword">implements</span> <span class="title class_">Job</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 任务被触发是所执行的方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jobExecutionContext</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> JobExecutionException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">(JobExecutionContext jobExecutionContext)</span> <span class="keyword">throws</span> JobExecutionException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;quartz自动任务--cexcute方法执行。。。&quot;</span>+<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-编写调度类测试"><a href="#3-编写调度类测试" class="headerlink" title="3-编写调度类测试"></a>3-编写调度类测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.quartz.*;</span><br><span class="line"><span class="keyword">import</span> org.quartz.impl.StdSchedulerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QuartzMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SchedulerException &#123;</span><br><span class="line">        <span class="comment">//1-先创建job对象：做什么</span></span><br><span class="line">        <span class="type">JobDetail</span> <span class="variable">job</span> <span class="operator">=</span> JobBuilder.newJob(QuartzDemo.class).build();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2-创建Trigger对象：什么时间做</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 简单的trigger触发时间： 通过quartz提供一个方法来完成简单的重复调用</span></span><br><span class="line"><span class="comment">         * cron Trigger: 按照cron的表达式来给定触发时间</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="type">Trigger</span> <span class="variable">trigger</span> <span class="operator">=</span> TriggerBuilder.newTrigger()</span><br><span class="line"><span class="comment">//                .withSchedule(SimpleScheduleBuilder.repeatSecondlyForever())//通过内置方法设置定时 知己即每秒钟重复</span></span><br><span class="line">                .withSchedule(CronScheduleBuilder.cronSchedule(<span class="string">&quot;0/5 * * * * ?&quot;</span>)) <span class="comment">//通过cron表达式来设置定时</span></span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3-创建Scheduler对象： 任务调度，什么时候做什么事</span></span><br><span class="line">        <span class="type">Scheduler</span> <span class="variable">scheduler</span> <span class="operator">=</span> StdSchedulerFactory.getDefaultScheduler();</span><br><span class="line">        scheduler.scheduleJob(job,trigger);<span class="comment">//设置调度</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        scheduler.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="spring整合Quartz"><a href="#spring整合Quartz" class="headerlink" title="spring整合Quartz"></a>spring整合Quartz</h2><h3 id="1-引入依赖"><a href="#1-引入依赖" class="headerlink" title="1-引入依赖"></a>1-引入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--添加quartz坐标，springboot自带slf4j需排除--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--添加scheduled坐标--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context-support<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>6.0.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--spring tx 坐标--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-tx<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>6.0.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-编写任务类"><a href="#2-编写任务类" class="headerlink" title="2-编写任务类"></a>2-编写任务类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.quartz.Job;</span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionContext;</span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QuartzDemo</span> <span class="keyword">implements</span> <span class="title class_">Job</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 任务被触发是所执行的方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jobExecutionContext</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> JobExecutionException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">(JobExecutionContext jobExecutionContext)</span> <span class="keyword">throws</span> JobExecutionException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;quartz自动任务--cexcute方法执行。。。&quot;</span>+<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-创建配置类返回相应对象"><a href="#3-创建配置类返回相应对象" class="headerlink" title="3-创建配置类返回相应对象"></a>3-创建配置类返回相应对象</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.xiaoai.quartz.QuartzDemo;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.JobDetailFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.SchedulerFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * quartz配置类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QuartzConfig</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 1- 创建job对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> JobDetailFactoryBean <span class="title function_">jobDetailFactoryBean</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">JobDetailFactoryBean</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JobDetailFactoryBean</span>();</span><br><span class="line">        <span class="comment">//关联自己的job类</span></span><br><span class="line">        factory.setJobClass(QuartzDemo.class);</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 2- 创建Trigger对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SimpleTriggerFactoryBean <span class="title function_">simpleTriggerFactoryBean</span><span class="params">(JobDetailFactoryBean jobDetailFactoryBean)</span>&#123;</span><br><span class="line">        <span class="type">SimpleTriggerFactoryBean</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleTriggerFactoryBean</span>();</span><br><span class="line">        <span class="comment">//关联jobdetail对象</span></span><br><span class="line">        factory.setJobDetail(jobDetailFactoryBean.getObject());</span><br><span class="line">        <span class="comment">//设置一个执行的毫秒数</span></span><br><span class="line">        factory.setRepeatInterval(<span class="number">2000</span>);</span><br><span class="line">        <span class="comment">//重复次数</span></span><br><span class="line">        factory.setRepeatCount(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 1- 创建Scheduler对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SchedulerFactoryBean <span class="title function_">schedulerFactoryBean</span><span class="params">(SimpleTriggerFactoryBean simpleTriggerFactoryBean)</span>&#123;</span><br><span class="line">        <span class="type">SchedulerFactoryBean</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchedulerFactoryBean</span>();</span><br><span class="line">        <span class="comment">//关联Trigger</span></span><br><span class="line">        factory.setTriggers(simpleTriggerFactoryBean.getObject());</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-启动类开启定时任务"><a href="#4-启动类开启定时任务" class="headerlink" title="4-启动类开启定时任务"></a>4-启动类开启定时任务</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.EnableScheduling;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableScheduling</span> <span class="comment">//开启定时任务</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">quartzdemoApplication</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		SpringApplication.run(quartzdemoApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>可以在配置类中返回一个cron实例，实现通过cron表达式设置定时</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.xiaoai.quartz.QuartzDemo;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.CronTriggerFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.JobDetailFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.SchedulerFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * quartz配置类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QuartzConfig</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 1- 创建job对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> JobDetailFactoryBean <span class="title function_">jobDetailFactoryBean</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">JobDetailFactoryBean</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JobDetailFactoryBean</span>();</span><br><span class="line">        <span class="comment">//关联自己的job类</span></span><br><span class="line">        factory.setJobClass(QuartzDemo.class);</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 2- 创建Trigger对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="comment">//    @Bean</span></span><br><span class="line"><span class="comment">//    public SimpleTriggerFactoryBean simpleTriggerFactoryBean(JobDetailFactoryBean jobDetailFactoryBean)&#123;</span></span><br><span class="line"><span class="comment">//        SimpleTriggerFactoryBean factory = new SimpleTriggerFactoryBean();</span></span><br><span class="line"><span class="comment">//        //关联jobdetail对象</span></span><br><span class="line"><span class="comment">//        factory.setJobDetail(jobDetailFactoryBean.getObject());</span></span><br><span class="line"><span class="comment">//        //设置一个执行的毫秒数</span></span><br><span class="line"><span class="comment">//        factory.setRepeatInterval(2000);</span></span><br><span class="line"><span class="comment">//        //重复次数</span></span><br><span class="line"><span class="comment">//        factory.setRepeatCount(5);</span></span><br><span class="line"><span class="comment">//        return factory;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * cron trigger</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> CronTriggerFactoryBean <span class="title function_">cronTriggerFactoryBean</span><span class="params">(JobDetailFactoryBean jobDetailFactoryBean)</span>&#123;</span><br><span class="line">        <span class="type">CronTriggerFactoryBean</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CronTriggerFactoryBean</span>();</span><br><span class="line">        <span class="comment">//关联job</span></span><br><span class="line">        factory.setJobDetail(jobDetailFactoryBean.getObject());</span><br><span class="line">        <span class="comment">//设置触发时间</span></span><br><span class="line">        factory.setCronExpression(<span class="string">&quot;0/2 * * * * ?&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 1- 创建Scheduler对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SchedulerFactoryBean <span class="title function_">schedulerFactoryBean</span><span class="params">(CronTriggerFactoryBean cronTriggerFactoryBean)</span>&#123;</span><br><span class="line">        <span class="type">SchedulerFactoryBean</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchedulerFactoryBean</span>();</span><br><span class="line">        <span class="comment">//关联Trigger</span></span><br><span class="line">        factory.setTriggers(cronTriggerFactoryBean.getObject());</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="job类对象注入"><a href="#job类对象注入" class="headerlink" title="job类对象注入"></a>job类对象注入</h2>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/01/26/java/HttpClient%E4%BD%BF%E7%94%A8/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-01-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/java/" title="java">
+                        <b>#</b> java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/java/" title="java">
+                        #java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/01/26/nginx%E5%85%A5%E9%97%A8/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#springboot%E4%B8%AD%E7%AE%80%E5%8D%95%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BD%BF%E7%94%A8%EF%BC%9AScheduled"><span class="toc-text">springboot中简单定时任务使用：Scheduled</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-text">1-导入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E5%86%99%E5%AE%9A%E6%97%B6%E5%99%A8%E7%B1%BB"><span class="toc-text">2-编写定时器类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%90%AF%E5%8A%A8%E7%B1%BB%E5%BC%80%E5%90%AF%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">3-启动类开启定时任务的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E6%A1%86%E6%9E%B6%EF%BC%9AQuartz"><span class="toc-text">第三方定时任务框架：Quartz</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E6%B7%BB%E5%8A%A0%E5%9D%90%E6%A0%87"><span class="toc-text">1-导入依赖添加坐标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E5%86%99%E4%BB%BB%E5%8A%A1"><span class="toc-text">2-编写任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BC%96%E5%86%99%E8%B0%83%E5%BA%A6%E7%B1%BB%E6%B5%8B%E8%AF%95"><span class="toc-text">3-编写调度类测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring%E6%95%B4%E5%90%88Quartz"><span class="toc-text">spring整合Quartz</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-text">1-引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E5%86%99%E4%BB%BB%E5%8A%A1%E7%B1%BB"><span class="toc-text">2-编写任务类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E7%B1%BB%E8%BF%94%E5%9B%9E%E7%9B%B8%E5%BA%94%E5%AF%B9%E8%B1%A1"><span class="toc-text">3-创建配置类返回相应对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%90%AF%E5%8A%A8%E7%B1%BB%E5%BC%80%E5%90%AF%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-text">4-启动类开启定时任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#job%E7%B1%BB%E5%AF%B9%E8%B1%A1%E6%B3%A8%E5%85%A5"><span class="toc-text">job类对象注入</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + java%E5%AE%9A%E6%97%B6%E5%99%A8 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F01%2F26%2Fjava%2Fjava%25E5%25AE%259A%25E6%2597%25B6%25E5%2599%25A8%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/01/26/java/java%E5%AE%9A%E6%97%B6%E5%99%A8/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

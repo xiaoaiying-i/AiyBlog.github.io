@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      java s3操作工具类 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">文章</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">java s3操作工具类</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2022-03-21 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/java/" title="java">
+                    <b>#</b> java
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/s3/" title="s3">
+                    #s3
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/java/" title="java">
+                    #java
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h3 id="s3-java工具类"><a href="#s3-java工具类" class="headerlink" title="s3 java工具类"></a>s3 java工具类</h3><ul>
+<li>依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.amazonaws<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aws-java-sdk-s3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.12.83<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>code</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">S3Client</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, String&gt; config;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AmazonS3 client;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">S3Client</span><span class="params">(Map&lt;String, String&gt; config)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.config = config;</span><br><span class="line">        <span class="built_in">this</span>.client = client();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AmazonS3 <span class="title function_">client</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">AWSCredentials</span> <span class="variable">credentials</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BasicAWSCredentials</span>(config.get(<span class="string">&quot;access_key&quot;</span>), config.get(<span class="string">&quot;secret_key&quot;</span>));</span><br><span class="line">        <span class="type">ClientConfiguration</span> <span class="variable">clientConfiguration</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClientConfiguration</span>();</span><br><span class="line">        clientConfiguration.setProtocol(<span class="string">&quot;https&quot;</span>.equalsIgnoreCase(config.get(<span class="string">&quot;protocol&quot;</span>))</span><br><span class="line">            ? Protocol.HTTPS : Protocol.HTTP);</span><br><span class="line">        clientConfiguration.setSignerOverride(<span class="string">&quot;S3SignerType&quot;</span>);</span><br><span class="line">        clientConfiguration.setSocketTimeout(<span class="number">180000</span>);</span><br><span class="line">        clientConfiguration.setMaxConnections(<span class="number">50</span>);</span><br><span class="line">        clientConfiguration.setConnectionTimeout(<span class="number">10000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">AmazonS3ClientBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> AmazonS3ClientBuilder.standard()</span><br><span class="line">                .withCredentials(<span class="keyword">new</span> <span class="title class_">AWSStaticCredentialsProvider</span>(credentials))</span><br><span class="line">                .withClientConfiguration(clientConfiguration)</span><br><span class="line">                .withEndpointConfiguration(</span><br><span class="line">                        <span class="keyword">new</span> <span class="title class_">AwsClientBuilder</span>.EndpointConfiguration(config.get(<span class="string">&quot;endpoint&quot;</span>), config.get(<span class="string">&quot;region&quot;</span>)));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;true&quot;</span>.equalsIgnoreCase(config.get(<span class="string">&quot;enablePathStyle&quot;</span>))) &#123;</span><br><span class="line">            builder.enablePathStyleAccess();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> builder.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">upload</span><span class="params">(String key, File file)</span> &#123;</span><br><span class="line">        client.putObject(config.get(<span class="string">&quot;bucket&quot;</span>), key, file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getBucket</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> config.get(<span class="string">&quot;bucket&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ObjectMetadata <span class="title function_">getMetadata</span><span class="params">(String key)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> client.getObjectMetadata(<span class="keyword">new</span> <span class="title class_">GetObjectMetadataRequest</span>(getBucket(), key));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ObjectMetadata <span class="title function_">downloadFile</span><span class="params">(String key, File file)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> client.getObject(<span class="keyword">new</span> <span class="title class_">GetObjectRequest</span>(getBucket(), key), file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;S3ObjectSummary&gt; <span class="title function_">getFileList</span><span class="params">(Integer limit, String prefinx)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (limit == <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="type">ListObjectsV2Result</span> <span class="variable">result</span> <span class="operator">=</span> client.listObjectsV2(getBucket(), prefinx);</span><br><span class="line">            <span class="keyword">return</span> result.getObjectSummaries();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">ListObjectsV2Request</span> <span class="variable">listObjReq</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListObjectsV2Request</span>().withBucketName(getBucket())</span><br><span class="line">            .withMaxKeys(limit).withPrefix(prefinx);</span><br><span class="line">        <span class="type">ListObjectsV2Result</span> <span class="variable">result</span> <span class="operator">=</span> client.listObjectsV2(listObjReq);</span><br><span class="line">        result.setTruncated(<span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">return</span> result.getObjectSummaries();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Filedownload</span> &#123;</span><br><span class="line">    <span class="comment">//创建一个计数器锁。初始值为线程数量，每执行结束一个线程后计数器减去1 ，当计数器为0的时候await等待的线程会被唤醒继续执行。</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">akey</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">skey</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">endpoint</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">bucket</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">region</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;snapshot/main/aa&quot;</span>;</span><br><span class="line">        <span class="type">RandomAccessFile</span> <span class="variable">file</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">AWSCredentials</span> <span class="variable">credentials</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BasicAWSCredentials</span>(akey, skey);</span><br><span class="line">            <span class="type">ClientConfiguration</span> <span class="variable">clientConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClientConfiguration</span>();</span><br><span class="line">            clientConfig.setProtocol(Protocol.HTTP);</span><br><span class="line">            <span class="comment">// clientConfig.setSignerOverride(&quot;S3SignerType&quot;);</span></span><br><span class="line">            clientConfig.setSocketTimeout(<span class="number">180000</span>);</span><br><span class="line">            clientConfig.setMaxConnections(<span class="number">50</span>);</span><br><span class="line">            clientConfig.setConnectionTimeout(<span class="number">10000</span>);</span><br><span class="line">            <span class="comment">// AmazonS3 s3Client = new AmazonS3Client(credentials, clientConfig);</span></span><br><span class="line">            clientConfig.setSignerOverride(<span class="string">&quot;S3SignerType&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="type">AmazonS3ClientBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> AmazonS3ClientBuilder.standard()</span><br><span class="line">                .withCredentials(<span class="keyword">new</span> <span class="title class_">AWSStaticCredentialsProvider</span>(credentials))</span><br><span class="line">                .withClientConfiguration(clientConfig)</span><br><span class="line">                .withEndpointConfiguration(<span class="keyword">new</span> <span class="title class_">AwsClientBuilder</span>.EndpointConfiguration(endpoint, region));</span><br><span class="line">            builder.enablePathStyleAccess();</span><br><span class="line">            <span class="type">AmazonS3</span> <span class="variable">s3Client</span> <span class="operator">=</span> builder.build();</span><br><span class="line">            <span class="comment">// s3Client.setEndpoint(endpoint);</span></span><br><span class="line">            <span class="comment">// ObjectMetadata object = s3Client.getObject(new GetObjectRequest(bucket, key), new File(&quot;ttttttt.txt&quot;));</span></span><br><span class="line">            <span class="comment">// System.out.println(&quot;文件大小：&quot; +object.getContentLength());</span></span><br><span class="line">            <span class="comment">//获取对象大小</span></span><br><span class="line">            <span class="type">ObjectMetadata</span> <span class="variable">metadata</span> <span class="operator">=</span> s3Client.getObjectMetadata(<span class="keyword">new</span> <span class="title class_">GetObjectMetadataRequest</span>(bucket, key));</span><br><span class="line">            <span class="type">long</span> <span class="variable">filesize</span> <span class="operator">=</span> metadata.getInstanceLength();</span><br><span class="line">            System.out.println(<span class="string">&quot;文件大小：&quot;</span> + filesize);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// ExecutorService service = Executors.newFixedThreadPool(10);</span></span><br><span class="line">            <span class="comment">// long length = filesize;</span></span><br><span class="line">            <span class="comment">// long packageLength = length / 10;</span></span><br><span class="line">        <span class="comment">//     long leftLength = length % 10;</span></span><br><span class="line">            <span class="type">long</span> <span class="variable">pos</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//     long end = packageLength;</span></span><br><span class="line">        <span class="comment">//     file = new RandomAccessFile(filename, &quot;rw&quot;);</span></span><br><span class="line">        <span class="comment">//     //计算每个线程请求文件的开始和结束位置</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">//     for (int i = 0; i &lt; 10; i++) &#123;</span></span><br><span class="line">        <span class="comment">//         if (leftLength &gt; 0) &#123;</span></span><br><span class="line">        <span class="comment">//             packageLength++;</span></span><br><span class="line">        <span class="comment">//             leftLength--;</span></span><br><span class="line">        <span class="comment">//         &#125;</span></span><br><span class="line">        <span class="comment">//         System.out.println(&quot;pos: &quot; + pos + &quot;endpos: &quot; + packageLength);</span></span><br><span class="line">        <span class="comment">//         service.execute(new download(pos, packageLength, file, s3Client, bucket, key));</span></span><br><span class="line">        <span class="comment">//         pos = packageLength;</span></span><br><span class="line">        <span class="comment">//         packageLength = packageLength + end;</span></span><br><span class="line">        <span class="comment">//     &#125;</span></span><br><span class="line">        <span class="comment">//     //等待其他线程结束后继续向下执行</span></span><br><span class="line">        <span class="comment">//     try &#123;</span></span><br><span class="line">        <span class="comment">//         latch.await();</span></span><br><span class="line">        <span class="comment">//     &#125; catch (InterruptedException e) &#123;</span></span><br><span class="line">        <span class="comment">//         // TODO Auto-generated catch block</span></span><br><span class="line">        <span class="comment">//         e.printStackTrace();</span></span><br><span class="line">        <span class="comment">//     &#125;</span></span><br><span class="line">        <span class="comment">//     //关闭线程池</span></span><br><span class="line">        <span class="comment">//     service.shutdown();</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (AmazonServiceException e) &#123;</span><br><span class="line">            <span class="comment">// 服务端错误</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (file != <span class="literal">null</span>) &#123;</span><br><span class="line">                file.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">download</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> from;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> end;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RandomAccessFile file;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AmazonS3 client;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String buket;</span><br><span class="line">    <span class="keyword">private</span> String key;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">download</span><span class="params">(<span class="type">long</span> from, <span class="type">long</span> end, RandomAccessFile file, AmazonS3 client, String buket, String key)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.from = from;</span><br><span class="line">        <span class="built_in">this</span>.end = end;</span><br><span class="line">        <span class="built_in">this</span>.file = file;</span><br><span class="line">        <span class="built_in">this</span>.client = client;</span><br><span class="line">        <span class="built_in">this</span>.buket = buket;</span><br><span class="line">        <span class="built_in">this</span>.key = key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">S3Object</span> <span class="variable">objectPortion</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">input</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">BufferedInputStream</span> <span class="variable">buffer</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取对象指定范围的流写入文件</span></span><br><span class="line">            <span class="type">GetObjectRequest</span> <span class="variable">rangeObjectRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GetObjectRequest</span>(buket, key).withRange(from, end);</span><br><span class="line">            objectPortion = client.getObject(rangeObjectRequest);</span><br><span class="line"></span><br><span class="line">            input = objectPortion.getObjectContent();</span><br><span class="line">            buffer = <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(input);</span><br><span class="line"></span><br><span class="line">            <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">int</span> len;</span><br><span class="line">            <span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span> <span class="built_in">this</span>.from;</span><br><span class="line">            <span class="type">long</span> <span class="variable">stop</span> <span class="operator">=</span> <span class="built_in">this</span>.end;</span><br><span class="line">            <span class="keyword">for</span> (; ; ) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((len = buffer.read(buf)) == -<span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">synchronized</span> (file) &#123;</span><br><span class="line">                    file.seek(from);</span><br><span class="line">                    file.write(buf, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                from += len;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">&quot;文件片段 &quot;</span> + start + <span class="string">&quot;~&quot;</span> + stop + <span class="string">&quot;下载完成&quot;</span>);</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Filedownload</span>().latch.countDown();<span class="comment">//线程结束计数器减1</span></span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (buffer != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    buffer.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (input != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    input.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (objectPortion != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    objectPortion.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.amazonaws.ClientConfiguration;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.Protocol;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.auth.AWSCredentials;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.auth.AWSStaticCredentialsProvider;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.auth.BasicAWSCredentials;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.client.builder.AwsClientBuilder;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.services.s3.AmazonS3;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.services.s3.AmazonS3ClientBuilder;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.services.s3.model.GetObjectMetadataRequest;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.services.s3.model.GetObjectRequest;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.services.s3.model.ListObjectsV2Request;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.services.s3.model.ListObjectsV2Result;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.services.s3.model.ObjectMetadata;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.services.s3.model.S3Object;</span><br><span class="line"><span class="keyword">import</span> com.amazonaws.services.s3.model.S3ObjectSummary;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.io.IOUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.exception.ExceptionUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.RandomAccessFile;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">S3Client</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">SEGMENT</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, String&gt; config;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AmazonS3 client;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">S3Client</span><span class="params">(Map&lt;String, String&gt; config)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.config = config;</span><br><span class="line">        <span class="built_in">this</span>.client = client();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AmazonS3 <span class="title function_">client</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">AWSCredentials</span> <span class="variable">credentials</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BasicAWSCredentials</span>(config.get(<span class="string">&quot;access_key&quot;</span>), config.get(<span class="string">&quot;secret_key&quot;</span>));</span><br><span class="line">        <span class="type">ClientConfiguration</span> <span class="variable">clientConfiguration</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClientConfiguration</span>();</span><br><span class="line">        clientConfiguration.setProtocol(<span class="string">&quot;https&quot;</span>.equalsIgnoreCase(config.get(<span class="string">&quot;protocol&quot;</span>))</span><br><span class="line">            ? Protocol.HTTPS : Protocol.HTTP);</span><br><span class="line">        clientConfiguration.setSignerOverride(<span class="string">&quot;S3SignerType&quot;</span>);</span><br><span class="line">        clientConfiguration.setSocketTimeout(<span class="number">180000</span>);</span><br><span class="line">        clientConfiguration.setMaxConnections(<span class="number">50</span>);</span><br><span class="line">        clientConfiguration.setConnectionTimeout(<span class="number">10000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">AmazonS3ClientBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> AmazonS3ClientBuilder.standard()</span><br><span class="line">                .withCredentials(<span class="keyword">new</span> <span class="title class_">AWSStaticCredentialsProvider</span>(credentials))</span><br><span class="line">                .withClientConfiguration(clientConfiguration)</span><br><span class="line">                .withEndpointConfiguration(</span><br><span class="line">                        <span class="keyword">new</span> <span class="title class_">AwsClientBuilder</span>.EndpointConfiguration(config.get(<span class="string">&quot;endpoint&quot;</span>), config.get(<span class="string">&quot;region&quot;</span>)));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;true&quot;</span>.equalsIgnoreCase(config.get(<span class="string">&quot;enablePathStyle&quot;</span>))) &#123;</span><br><span class="line">            builder.enablePathStyleAccess();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> builder.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">upload</span><span class="params">(String key, File file)</span> &#123;</span><br><span class="line">        client.putObject(config.get(<span class="string">&quot;bucket&quot;</span>), key, file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getBucket</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> config.get(<span class="string">&quot;bucket&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ObjectMetadata <span class="title function_">getMetadata</span><span class="params">(String key)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> client.getObjectMetadata(<span class="keyword">new</span> <span class="title class_">GetObjectMetadataRequest</span>(getBucket(), key));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> ObjectMetadata <span class="title function_">downloadFile</span><span class="params">(String key, File file)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> client.getObject(<span class="keyword">new</span> <span class="title class_">GetObjectRequest</span>(getBucket(), key), file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">downloadBySegment</span><span class="params">(String key, File file)</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">service</span> <span class="operator">=</span> Executors.newFixedThreadPool(SEGMENT);</span><br><span class="line">        <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(SEGMENT);</span><br><span class="line">        <span class="type">RandomAccessFile</span>  <span class="variable">raFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RandomAccessFile</span>(file, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">        <span class="type">long</span> <span class="variable">length</span> <span class="operator">=</span> getMetadata(key).getContentLength();</span><br><span class="line">        log.info(<span class="string">&quot;download by segment file [&#123;&#125;], size [&#123;&#125;]&quot;</span>, file.getPath(), length);</span><br><span class="line">        <span class="comment">// length of each segment</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">segLength</span> <span class="operator">=</span> length / SEGMENT;</span><br><span class="line">        <span class="comment">// remaining length</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">remainLength</span> <span class="operator">=</span> length % <span class="number">10</span>;</span><br><span class="line">        <span class="type">long</span> <span class="variable">posStart</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">long</span> <span class="variable">posEnd</span> <span class="operator">=</span> segLength;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; SEGMENT; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (remainLength &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                segLength++;</span><br><span class="line">                remainLength--;</span><br><span class="line">            &#125;</span><br><span class="line">            log.info(<span class="string">&quot;download by segment pos [&#123;&#125;] endpos [&#123;&#125;]&quot;</span>, posStart, segLength);</span><br><span class="line">            <span class="type">long</span> <span class="variable">finalPackageLength</span> <span class="operator">=</span> segLength;</span><br><span class="line">            <span class="type">long</span> <span class="variable">finalPos</span> <span class="operator">=</span> posStart;</span><br><span class="line">            service.execute(()-&gt; download(key, finalPos, finalPackageLength, raFile, latch));</span><br><span class="line">            posStart = segLength;</span><br><span class="line">            segLength += posEnd;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            latch.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">            log.error(ExceptionUtils.getStackTrace(ex));</span><br><span class="line">        &#125;</span><br><span class="line">        service.shutdown();</span><br><span class="line">        log.info(<span class="string">&quot;download by segment complete.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">download</span><span class="params">(String key, <span class="type">long</span> from, <span class="type">long</span> end, RandomAccessFile raFile, CountDownLatch latch)</span>&#123;</span><br><span class="line">        <span class="type">S3Object</span> <span class="variable">objPortion</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">input</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">BufferedInputStream</span> <span class="variable">buffer</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span> from;</span><br><span class="line">        <span class="type">long</span> <span class="variable">stop</span> <span class="operator">=</span> end;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//获取对象指定范围的流写入文件</span></span><br><span class="line">            <span class="type">GetObjectRequest</span> <span class="variable">rangeObjectRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GetObjectRequest</span>(getBucket(), key).withRange(from, end);</span><br><span class="line">            objPortion = client.getObject(rangeObjectRequest);</span><br><span class="line">            input = objPortion.getObjectContent();</span><br><span class="line">            buffer = <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(input);</span><br><span class="line">            <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">4096</span>];</span><br><span class="line">            <span class="type">int</span> len;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> ((len = buffer.read(buf)) == -<span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">synchronized</span> (raFile) &#123;</span><br><span class="line">                    raFile.seek(from);</span><br><span class="line">                    raFile.write(buf, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                from += len;</span><br><span class="line">            &#125;</span><br><span class="line">            log.info(<span class="string">&quot;download by segment pos [&#123;&#125;] endpos [&#123;&#125;] complete.&quot;</span>, start, stop);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">            log.error(ExceptionUtils.getStackTrace(ex));</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                latch.countDown();</span><br><span class="line">                IOUtils.close(buffer, input, objPortion);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                log.error(ExceptionUtils.getStackTrace(ex));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;S3ObjectSummary&gt; <span class="title function_">getFileList</span><span class="params">(Integer limit, String prefinx)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (limit == <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="type">ListObjectsV2Result</span> <span class="variable">result</span> <span class="operator">=</span> client.listObjectsV2(getBucket(), prefinx);</span><br><span class="line">            <span class="keyword">return</span> result.getObjectSummaries();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">ListObjectsV2Request</span> <span class="variable">listObjReq</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListObjectsV2Request</span>().withBucketName(getBucket())</span><br><span class="line">            .withMaxKeys(limit).withPrefix(prefinx);</span><br><span class="line">        <span class="type">ListObjectsV2Result</span> <span class="variable">result</span> <span class="operator">=</span> client.listObjectsV2(listObjReq);</span><br><span class="line">        result.setTruncated(<span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">return</span> result.getObjectSummaries();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分段上传<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * multipart upload</span><br><span class="line"> *</span><br><span class="line"> * @param file the file</span><br><span class="line"> * @param key the key</span><br><span class="line"> */</span><br><span class="line">public void uploadSegment(File file, String key) &#123;</span><br><span class="line">    if (file == null)&#123;</span><br><span class="line">        log.warn(&quot;file is null.&quot;);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    String bucketName = getBucket();</span><br><span class="line">    long size = file.length();</span><br><span class="line">    int minPartSize = 5 * 1024 * 1024;</span><br><span class="line">    List&lt;Long&gt; positions = Collections.synchronizedList(new ArrayList&lt;&gt;());</span><br><span class="line">    long filePosition = 0;</span><br><span class="line">    while (filePosition &lt; size) &#123;</span><br><span class="line">        positions.add(filePosition);</span><br><span class="line">        filePosition += Math.min(minPartSize, (size - filePosition));</span><br><span class="line">    &#125;</span><br><span class="line">    log.info(&quot;totalSize：&#123;&#125;，totalSegment: &#123;&#125;&quot;, size, positions.size());</span><br><span class="line">    CountDownLatch latch = new CountDownLatch(positions.size());</span><br><span class="line">    List&lt;PartETag&gt; partETags = Collections.synchronizedList(new ArrayList&lt;&gt;());</span><br><span class="line">    InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(bucketName, key);</span><br><span class="line">    InitiateMultipartUploadResult initResponse = s3Client.initiateMultipartUpload(initRequest);</span><br><span class="line">    try &#123; </span><br><span class="line">        long begin = System.currentTimeMillis();</span><br><span class="line">        for (int i = 0; i &lt; positions.size(); i++) &#123;</span><br><span class="line">            int finalI = i;</span><br><span class="line">            exec.execute(() -&gt; SegmentTask(partETags, latch, bucketName, key, initResponse.getUploadId(), finalI + 1,</span><br><span class="line">                positions.get(finalI), file, Math.min(minPartSize, (size - positions.get(finalI)))));</span><br><span class="line">        &#125;</span><br><span class="line">        latch.await();</span><br><span class="line">        CompleteMultipartUploadRequest compRequest = new CompleteMultipartUploadRequest(bucketName, key,</span><br><span class="line">            initResponse.getUploadId(), partETags);</span><br><span class="line">        s3Client.completeMultipartUpload(compRequest);</span><br><span class="line">        log.info(&quot;uploadSegment spends time：&#123;&#125;&quot;, (System.currentTimeMillis() - begin));</span><br><span class="line">    &#125; catch (Exception ex) &#123;</span><br><span class="line">        s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, key, initResponse.getUploadId()));</span><br><span class="line">        log.error(ExceptionUtils.getStackTrace(ex));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void segmentTask(List&lt;PartETag&gt; partETags, CountDownLatch latch, String bucketName, String key, </span><br><span class="line">    String uploadId, int part, Long positions, File file, long partSize)&#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        long time1 = System.currentTimeMillis();</span><br><span class="line">        UploadPartRequest uploadRequest = new UploadPartRequest().withBucketName(bucketName).withKey(key)</span><br><span class="line">            .withUploadId(uploadId).withPartNumber(part).withFileOffset(positions).withFile(file)</span><br><span class="line">            .withPartSize(partSize);</span><br><span class="line">        partETags.add(s3Client.uploadPart(uploadRequest).getPartETag());</span><br><span class="line">        long time2 = System.currentTimeMillis();</span><br><span class="line">        log.info(&quot;segment [] upload spend time: &#123;&#125;&quot;, part, (time2 - time1));</span><br><span class="line">    &#125;finally &#123;</span><br><span class="line">        latch.countDown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getBucket</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">bucket</span> <span class="operator">=</span> <span class="built_in">this</span>.config.getBucket();</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.isBlank(bucket))&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalBucketNameException</span>(String.format(<span class="string">&quot;bucket name: %s&quot;</span>, bucket));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bucket;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> CopyObjectResult <span class="title function_">copyFile</span><span class="params">(String sourceBucketName, String sourceKey, String destinationBucketName, String destinationKey)</span> &#123;</span><br><span class="line">    <span class="type">CopyObjectRequest</span> <span class="variable">copyObjectRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CopyObjectRequest</span>();</span><br><span class="line">    copyObjectRequest.setSourceBucketName(sourceBucketName);</span><br><span class="line">    copyObjectRequest.setSourceKey(sourceKey);</span><br><span class="line">    copyObjectRequest.setDestinationBucketName(destinationBucketName);</span><br><span class="line">    copyObjectRequest.setDestinationKey(destinationKey);</span><br><span class="line">    <span class="keyword">return</span> s3Client.copyObject(copyObjectRequest);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> ObjectMetadata <span class="title function_">getMetadata</span><span class="params">(String key)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s3Client.getObjectMetadata(<span class="keyword">new</span> <span class="title class_">GetObjectMetadataRequest</span>(getBucket(), key));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> ObjectMetadata <span class="title function_">getFileMetadata</span><span class="params">(String key)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getMetadata(keyHandle(key, <span class="literal">true</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">objExists</span><span class="params">(String key)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s3Client.doesObjectExist(getBucket(), key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">exists</span><span class="params">(String key, <span class="type">boolean</span> file)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> objExists(keyHandle(key, file));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">keyHandle</span><span class="params">(String key, <span class="type">boolean</span> file)</span>&#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">isDirKey</span> <span class="operator">=</span> key.endsWith(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (file)&#123;</span><br><span class="line">        <span class="keyword">return</span> isDirKey ? key.substring(<span class="number">0</span>, key.length() - <span class="number">1</span>) : key;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isDirKey ? key : key + <span class="string">&quot;/&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">objExists</span><span class="params">(String key, <span class="type">boolean</span> dirOrFile)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (objExists(key))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> key.endsWith(<span class="string">&quot;/&quot;</span>) ? objExists(key.substring(<span class="number">0</span>, key.length() - <span class="number">1</span>)) : objExists(key + <span class="string">&quot;/&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> List&lt;S3ObjectSummary&gt; <span class="title function_">getFileList</span><span class="params">(Integer limit, String prefix)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (limit == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="type">ListObjectsV2Result</span> <span class="variable">result</span> <span class="operator">=</span> s3Client.listObjectsV2(getBucket(), prefix);</span><br><span class="line">        <span class="keyword">return</span> result.getObjectSummaries();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">ListObjectsV2Request</span> <span class="variable">listObjReq</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListObjectsV2Request</span>().withBucketName(getBucket())</span><br><span class="line">        .withMaxKeys(limit).withPrefix(prefix);</span><br><span class="line">    <span class="type">ListObjectsV2Result</span> <span class="variable">result</span> <span class="operator">=</span> s3Client.listObjectsV2(listObjReq);</span><br><span class="line">    result.setTruncated(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">return</span> result.getObjectSummaries();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> PutObjectResult <span class="title function_">mkdir</span><span class="params">(String key)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">InputStream</span> <span class="variable">inStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">ObjectMetadata</span> <span class="variable">metadata</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMetadata</span>();</span><br><span class="line">        metadata.setContentLength(<span class="number">0</span>);</span><br><span class="line">        inStream = <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(<span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">0</span>]);</span><br><span class="line">        <span class="type">PutObjectRequest</span> <span class="variable">putObjectRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PutObjectRequest</span>(getBucket(), key, inStream, metadata);</span><br><span class="line">        <span class="keyword">return</span> s3Client.putObject(putObjectRequest);</span><br><span class="line">    &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (inStream != <span class="literal">null</span>)&#123;</span><br><span class="line">            inStream.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">downloadSegment</span><span class="params">(String key, <span class="type">long</span> position, ByteBuffer dest)</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">S3Object</span> <span class="variable">objPortion</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">input</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">BufferedInputStream</span> <span class="variable">buffer</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">positionEnd</span> <span class="operator">=</span> (position + (dest.limit()-<span class="number">1</span>)) - dest.position();</span><br><span class="line">            <span class="type">GetObjectRequest</span> <span class="variable">rangeObjectRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GetObjectRequest</span>(getBucket(), key)</span><br><span class="line">                .withRange(position, positionEnd);</span><br><span class="line">            objPortion = <span class="built_in">this</span>.s3Client.getObject(rangeObjectRequest);</span><br><span class="line">            input = objPortion.getObjectContent();</span><br><span class="line">            buffer = <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(input);</span><br><span class="line">            <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[dest.limit()-dest.position()];</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">read</span> <span class="operator">=</span> buffer.read(buf);</span><br><span class="line">                <span class="keyword">if</span> (read == -<span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                size += read;</span><br><span class="line">                dest.put(buf);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            log.error(ExceptionUtils.getStackTrace(ex));</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                IOUtils.close(buffer, input, objPortion);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                log.error(ExceptionUtils.getStackTrace(ex));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> size;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span> String <span class="title function_">checkPprefinx</span><span class="params">(String prefinx)</span> &#123;</span><br><span class="line">    <span class="type">char</span>[] chars = prefinx.toCharArray();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; chars.length; i++) &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">aChar</span> <span class="operator">=</span> chars[i];</span><br><span class="line">        <span class="keyword">if</span> (aChar != <span class="string">&#x27;/&#x27;</span> &amp;&amp; aChar != <span class="string">&#x27;\\&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> prefinx.substring(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> prefinx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>-分段下载</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">downloadBySegment</span><span class="params">(String key, File file, <span class="type">int</span> segment)</span>&#123;</span><br><span class="line">    <span class="type">long</span> <span class="variable">length</span> <span class="operator">=</span> getMetadata(key).getContentLength();</span><br><span class="line">    <span class="keyword">if</span> (length &lt; SEGMENT_START_SIZE)&#123;</span><br><span class="line">        <span class="type">ObjectMetadata</span> <span class="variable">metadata</span> <span class="operator">=</span> downloadFile(key, file);</span><br><span class="line">        <span class="keyword">return</span> metadata.getContentLength() == length;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;download by segment file [&#123;&#125;], size [&#123;&#125;KB]-[&#123;&#125;MB]&quot;</span>, file.getPath(), length, length/<span class="number">1024</span>/<span class="number">1024</span>);</span><br><span class="line">        <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(segment);</span><br><span class="line">        <span class="type">RandomAccessFile</span> <span class="variable">raFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RandomAccessFile</span>(file, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">        <span class="type">long</span> <span class="variable">segLength</span> <span class="operator">=</span> length / segment;</span><br><span class="line">        <span class="type">long</span> <span class="variable">remainLenth</span> <span class="operator">=</span> length % segment;</span><br><span class="line">        <span class="type">long</span> <span class="variable">posStart</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">long</span> <span class="variable">posEnd</span> <span class="operator">=</span> segLength;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; segment; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (remainLenth &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                segLength++;</span><br><span class="line">                remainLenth--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">long</span> <span class="variable">finalPosStart</span> <span class="operator">=</span> posStart;</span><br><span class="line">            <span class="type">int</span> <span class="variable">finalSegLength</span> <span class="operator">=</span> Integer.parseInt(String.valueOf(segLength - posStart));</span><br><span class="line">            exec.execute(()-&gt; &#123;</span><br><span class="line">                <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[finalSegLength];</span><br><span class="line">                <span class="type">ByteBuffer</span> <span class="variable">byteBuf</span> <span class="operator">=</span> ByteBuffer.wrap(bytes,<span class="number">0</span> , finalSegLength);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (raFile) &#123;</span><br><span class="line">                        raFile.seek(finalPosStart);</span><br><span class="line">                        raFile.write(bytes, <span class="number">0</span>, downloadSegment(key, finalPosStart, byteBuf));</span><br><span class="line">                        log.info(<span class="string">&quot;download by segment pos [&#123;&#125;] endpos [&#123;&#125;] complete.&quot;</span>, finalPosStart,</span><br><span class="line">                            finalPosStart + finalSegLength);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                    log.error(ExceptionUtils.getStackTrace(ex));</span><br><span class="line">                &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                    latch.countDown();</span><br><span class="line">                    <span class="keyword">if</span> (byteBuf != <span class="literal">null</span>)&#123;</span><br><span class="line">                        byteBuf.clear();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            posStart = segLength;</span><br><span class="line">            segLength += posEnd;</span><br><span class="line">        &#125;</span><br><span class="line">        latch.await();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException | FileNotFoundException ex) &#123;</span><br><span class="line">        log.error(ExceptionUtils.getStackTrace(ex));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">long</span> <span class="variable">fileLen</span> <span class="operator">=</span> file.length();</span><br><span class="line">    log.info(<span class="string">&quot;download by segment complete.length=[&#123;&#125;] downloadSize=[&#123;&#125;]&quot;</span>,length, fileLen);</span><br><span class="line">    <span class="keyword">return</span> length == fileLen;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">downloadByPartSize</span><span class="params">(String key, File file, <span class="type">int</span> partSize)</span>&#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">length</span> <span class="operator">=</span> getMetadata(key).getContentLength();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            log.info(<span class="string">&quot;download by segment file [&#123;&#125;], size[&#123;&#125;KB] about[&#123;&#125;MB]&quot;</span>, file.getPath(), length, length/<span class="number">1024</span>/<span class="number">1024</span>);</span><br><span class="line">            <span class="type">int</span> <span class="variable">minPartSize</span> <span class="operator">=</span> SEGMENT_SIZE;</span><br><span class="line">            <span class="keyword">if</span> (partSize &gt; minPartSize) &#123;</span><br><span class="line">                minPartSize = partSize;</span><br><span class="line">            &#125;</span><br><span class="line">            List&lt;Long&gt; positionList = Collections.synchronizedList(<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">            <span class="type">long</span> <span class="variable">filePosition</span> <span class="operator">=</span> <span class="number">0L</span>;</span><br><span class="line">            positionList.add(filePosition);</span><br><span class="line">            <span class="keyword">while</span> (filePosition &lt; length) &#123;</span><br><span class="line">                filePosition += Math.min(minPartSize, (length - filePosition));</span><br><span class="line">                positionList.add(filePosition);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">int</span> <span class="variable">segmentSize</span> <span class="operator">=</span> positionList.size() - <span class="number">1</span>;</span><br><span class="line">            <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(segmentSize);</span><br><span class="line">            <span class="type">RandomAccessFile</span> <span class="variable">raFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RandomAccessFile</span>(file, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; segmentSize; i++) &#123;</span><br><span class="line">                downloadPart(raFile, latch, key, positionList.get(i),</span><br><span class="line">                    Integer.parseInt(String.valueOf(positionList.get(i+<span class="number">1</span>) - positionList.get(i))));</span><br><span class="line">            &#125;</span><br><span class="line">            latch.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException | FileNotFoundException ex) &#123;</span><br><span class="line">            log.error(ExceptionUtils.getStackTrace(ex));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">long</span> <span class="variable">fileLen</span> <span class="operator">=</span> file.length();</span><br><span class="line">        log.info(<span class="string">&quot;download by segment complete.length[&#123;&#125;] downloadSize[&#123;&#125;]&quot;</span>,length, fileLen);</span><br><span class="line">        <span class="keyword">return</span> length == fileLen;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2022/03/21/java2/java%E5%B7%A5%E5%85%B7%E6%96%B9%E6%B3%95%E3%80%81%E7%B1%BB/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2022-03-21 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/java/" title="java">
+                        <b>#</b> java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/s3/" title="s3">
+                        #s3
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/java/" title="java">
+                        #java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2022/03/21/java2/java%E4%B8%80%E7%A7%8D%E7%9B%91%E5%90%AC%E7%B1%BB%E5%86%99%E6%B3%95/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#s3-java%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="toc-text">s3 java工具类</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + java%20s3%E6%93%8D%E4%BD%9C%E5%B7%A5%E5%85%B7%E7%B1%BB + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2022%2F03%2F21%2Fjava2%2Fjavas3%25E6%2593%258D%25E4%25BD%259C%25E5%25B7%25A5%25E5%2585%25B7%25E7%25B1%25BB%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2022/03/21/java2/javas3%E6%93%8D%E4%BD%9C%E5%B7%A5%E5%85%B7%E7%B1%BB/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
