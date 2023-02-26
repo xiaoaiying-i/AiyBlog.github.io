@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      关于s3 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog">
+          <a href="/aiyblog">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">文章</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">关于s3</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-02-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/" title="对象存储">
+                    <b>#</b> 对象存储
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/" title="对象存储">
+                    #对象存储
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h3 id="s3问题"><a href="#s3问题" class="headerlink" title="s3问题"></a>s3问题</h3><ul>
+<li>key斜杠只能用【\】</li>
+<li>key前不要带斜杠</li>
+<li>key最后带斜杠是目录， 不带斜杠是文件</li>
+<li>注意如果key最后是双斜杠,会在目录下创建多一层空白目录，再用单斜杠去获取会获取不到story， 需要用双斜杠才行</li>
+<li>目录也作为一个story，删除目录，目录下有子文件，则查询不到目录的story，但是子文件story还存储，结构上看目录还存在，但目录story已经被删除</li>
+</ul>
+<h3 id="路径风格参数-PathStyleAccess"><a href="#路径风格参数-PathStyleAccess" class="headerlink" title="路径风格参数 PathStyleAccess"></a>路径风格参数 PathStyleAccess</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">AmazonS3ClientBuilder</span> <span class="variable">s3Builder</span> <span class="operator">=</span> AmazonS3ClientBuilder.standard()</span><br><span class="line">            .withCredentials(<span class="keyword">new</span> <span class="title class_">AWSStaticCredentialsProvider</span>(credentials))</span><br><span class="line">            .withClientConfiguration(clientConfiguration)</span><br><span class="line">            .withEndpointConfiguration(<span class="keyword">new</span> <span class="title class_">AwsClientBuilder</span>.EndpointConfiguration(hisS3Config.getEndpoint(), Regions.CN_NORTH_1.getName()));</span><br><span class="line"><span class="keyword">if</span> (pathStyleAcc)&#123;</span><br><span class="line">    s3Builder.enablePathStyleAccess();</span><br><span class="line">&#125;</span><br><span class="line">s3Client = s3Builder.build();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">---- PathStyleAccess = true，  objectKey可以多级目录，   </span></span><br><span class="line"><span class="comment">&quot;endpoint&quot; : &quot;s3-beta-hc-kwe.hics.huawei.com&quot;, </span></span><br><span class="line"><span class="comment">&quot;ak&quot; : &quot;******&quot;,</span></span><br><span class="line"><span class="comment">&quot;sk&quot; : &quot;******&quot;,</span></span><br><span class="line"><span class="comment">&quot;pathStyle&quot;: true,</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&quot;bucket&quot; : &quot;test&quot;,</span></span><br><span class="line"><span class="comment">&quot;objectKey&quot; : &quot;/temp/b2b/testdmz.txt&quot;,  </span></span><br><span class="line"><span class="comment">或者  </span></span><br><span class="line"><span class="comment">&quot;bucket&quot; : &quot;test/temp/b2b&quot;,</span></span><br><span class="line"><span class="comment">&quot;objectKey&quot; : &quot;/testdmz.txt&quot;,</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">---- PathStyleAccess = false， objectKey不支持多级目录， 目录需放到bucket</span></span><br><span class="line"><span class="comment">&quot;endpoint&quot; : &quot;s3-beta-hc-kwe.hics.huawei.com&quot;, </span></span><br><span class="line"><span class="comment">&quot;ak&quot; : &quot;******&quot;,</span></span><br><span class="line"><span class="comment">&quot;sk&quot; : &quot;******&quot;,</span></span><br><span class="line"><span class="comment">&quot;pathStyle&quot;: false,</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">只支持</span></span><br><span class="line"><span class="comment">&quot;bucket&quot; : &quot;test/temp/b2b&quot;,</span></span><br><span class="line"><span class="comment">&quot;objectKey&quot; : &quot;/testdmz.txt&quot;,</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>objectKey 需以 <code>/</code> 开头</p>
+</blockquote>
+<h3 id="marker参数"><a href="#marker参数" class="headerlink" title="marker参数"></a>marker参数</h3><p><a target="_blank" rel="noopener" href="http://docs.amazonwebservices.com/AmazonS3/2006-03-01/">http://docs.amazonwebservices.com/AmazonS3/2006-03-01/</a></p>
+<h3 id="分页搜索参数"><a href="#分页搜索参数" class="headerlink" title="分页搜索参数"></a>分页搜索参数</h3><p>S3提供的4个参数，可以让我们方便快捷的将数据取出来，这4个参数是基于key操作的。key的概念参见文章一。</p>
+<ul>
+<li>1、<code>prefix</code>。比如<a target="_blank" rel="noopener" href="http://bucket.s3.amazonaws.com/?prefix=123%EF%BC%8C%E5%88%99%E5%B0%86key%E4%B8%AD%E4%BB%A5123%E5%BC%80%E5%A4%B4%E7%9A%84%E5%88%97%E5%87%BA%E6%9D%A5%E3%80%82">http://bucket.s3.amazonaws.com/?prefix=123，则将key中以123开头的列出来。</a></li>
+<li>2、<code>delimiter</code>。比如<a target="_blank" rel="noopener" href="http://bucket.s3.amazonaws.com/?delimiter=/%EF%BC%8C%E6%AD%A4%E6%97%B6%EF%BC%8CS3%E5%8F%AF%E8%83%BD%E4%BC%9A%E8%BF%94%E5%9B%9ECommonPrefixes%EF%BC%8C%E5%B0%86key%E4%B8%AD%E9%87%87%E7%94%A8%E2%80%9C/%E2%80%9D%E5%88%86%E9%9A%94%E7%9A%84%E5%88%97%E5%87%BA%E6%9D%A5%E3%80%82">http://bucket.s3.amazonaws.com/?delimiter=/，此时，S3可能会返回CommonPrefixes，将key中采用“/”分隔的列出来。</a></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;Contents&gt;</span><br><span class="line">&lt;Key&gt;123/zzz.txt&lt;/Key&gt;</span><br><span class="line">&lt;LastModified&gt;2007-12-11T07:41:51.000Z&lt;/LastModified&gt;</span><br><span class="line">&lt;ETag&gt;&quot;d725dfc2167445d1db23067de33ebd28&quot;&lt;/ETag&gt;</span><br><span class="line">&lt;Size&gt;203&lt;/Size&gt;</span><br><span class="line">&lt;StorageClass&gt;STANDARD&lt;/StorageClass&gt;</span><br><span class="line">&lt;/Contents&gt;</span><br><span class="line">&lt;Contents&gt;</span><br><span class="line">&lt;Key&gt;abc/ooo/yxx.txt&lt;/Key&gt;</span><br><span class="line">&lt;LastModified&gt;2007-12-12T05:34:35.000Z&lt;/LastModified&gt;</span><br><span class="line">&lt;ETag&gt;&quot;4fdf8a4dd42bd4d24855eebd5c9b9434&quot;&lt;/ETag&gt;</span><br><span class="line">&lt;Size&gt;41&lt;/Size&gt;</span><br><span class="line">&lt;StorageClass&gt;STANDARD&lt;/StorageClass&gt;</span><br><span class="line">&lt;/Contents&gt;</span><br></pre></td></tr></table></figure>
+
+<p>用了“delimiter=/”返回，告诉你 有prefix为123/和abc/可用。<br>这时输入<a target="_blank" rel="noopener" href="http://bucket.s3.amazonaws.com/?delimiter=/&amp;prefix=123/%E5%88%99%E5%B0%86prefix%E4%B8%AD%E6%9C%89123/%E7%9A%84%E5%85%A8%E9%83%A8%E5%88%97%E5%87%BA%E6%9D%A5%E3%80%82">http://bucket.s3.amazonaws.com/?delimiter=/&amp;prefix=123/则将prefix中有123/的全部列出来。</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;CommonPrefixes&gt;</span><br><span class="line">&lt;Prefix&gt;123/&lt;/Prefix&gt;</span><br><span class="line">&lt;/CommonPrefixes&gt;</span><br><span class="line">&lt;CommonPrefixes&gt;</span><br><span class="line">&lt;Prefix&gt;abc/&lt;/Prefix&gt;</span><br><span class="line">&lt;/CommonPrefixes&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>3、<code>MaxKeys</code>。这个告诉S3一次性返回多少数据，默认返回1000个。URL输入<a target="_blank" rel="noopener" href="http://bucket.s3.amazonaws.com/?delimiter=/&amp;prefix=123/&amp;max-keys=10%EF%BC%8C%E5%88%99%E8%BF%94%E5%9B%9E%EF%BC%9A">http://bucket.s3.amazonaws.com/?delimiter=/&amp;prefix=123/&amp;max-keys=10，则返回：</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">如果key有这样的形式：ms_vb_5_src/sss.frm，ms_vb_6_src/ddd.frm，你可以把delimiter设为“_”来取数据。通过不同的delimiter和prefix可以非常灵活的获取数据。</span><br><span class="line">如果数据量很大，则可以用第三个和第四个参数</span><br><span class="line">里面IsTruncated为true，表示按照delimiter和prefix和max-keys取出的数据不止10个；余下的数据怎么取？就用到了NextMarker元素中数据。</span><br><span class="line"></span><br><span class="line">&lt;Name&gt;bucket&lt;/Name&gt;</span><br><span class="line">&lt;Prefix&gt;123/&lt;/Prefix&gt;</span><br><span class="line">&lt;Marker /&gt;</span><br><span class="line">&lt;NextMarker&gt;123/10.txt&lt;/NextMarker&gt;</span><br><span class="line">&lt;MaxKeys&gt;10&lt;/MaxKeys&gt;</span><br><span class="line">&lt;Delimiter&gt;/&lt;/Delimiter&gt;</span><br><span class="line">&lt;IsTruncated&gt;true&lt;/IsTruncated&gt;</span><br><span class="line">&lt;Contents&gt;</span><br><span class="line">&lt;Key&gt;123/1.txt&lt;/Key&gt;</span><br><span class="line">&lt;LastModified&gt;2007-12-12T06:02:33.000Z&lt;/LastModified&gt;</span><br><span class="line">&lt;ETag&gt;&quot;9dd4e461268c8034f5c8564e155c67a6&quot;&lt;/ETag&gt;</span><br><span class="line">&lt;Size&gt;1&lt;/Size&gt;</span><br><span class="line">&lt;StorageClass&gt;STANDARD&lt;/StorageClass&gt;</span><br><span class="line">&lt;/Contents&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>4、<code>Marker</code>。 URL输入<a target="_blank" rel="noopener" href="http://bucket.s3.amazonaws.com/?delimiter=/&amp;prefix=123/&amp;max">http://bucket.s3.amazonaws.com/?delimiter=/&amp;prefix=123/&amp;max</a> -keys=10&amp;marker=123/10.txt，marker的值就是NextMarker元素中数据。这样S3就返回了下10条数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">如果IsTruncated仍为true，则表示还有数据，我们把marker改为marker=123/19.txt便可以继续取下10条数据；如果IsTruncated为false，则表示按照条件已经将数据全部取出来了。</span><br><span class="line"></span><br><span class="line">&lt;Name&gt;bucket&lt;/Name&gt;</span><br><span class="line">&lt;Prefix&gt;123/&lt;/Prefix&gt;</span><br><span class="line">&lt;Marker&gt;123/10.txt&lt;/Marker&gt;</span><br><span class="line">&lt;NextMarker&gt;123/19.txt&lt;/NextMarker&gt;</span><br><span class="line">&lt;MaxKeys&gt;10&lt;/MaxKeys&gt;</span><br><span class="line">&lt;Delimiter&gt;/&lt;/Delimiter&gt;</span><br><span class="line">&lt;IsTruncated&gt;true&lt;/IsTruncated&gt;</span><br><span class="line">&lt;Contents&gt;</span><br><span class="line">&lt;Key&gt;123/1.txt&lt;/Key&gt;</span><br><span class="line">&lt;LastModified&gt;2007-12-12T06:02:33.000Z&lt;/LastModified&gt;</span><br><span class="line">&lt;ETag&gt;&quot;9dd4e461268c8034f5c8564e155c67a6&quot;&lt;/ETag&gt;</span><br><span class="line">&lt;Size&gt;1&lt;/Size&gt;</span><br><span class="line">&lt;StorageClass&gt;STANDARD&lt;/StorageClass&gt;</span><br><span class="line">&lt;/Contents&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>参数名称</strong></th>
+<th align="left"><strong>描述</strong></th>
+<th align="left">是否必选</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">prefix</td>
+<td align="left">列举以指定的字符串prefix开头的对象。类型：String</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">marker</td>
+<td align="left">列举桶内对象列表时，指定一个标识符，从该标识符以后按字典顺序返回对象列表。该字段仅用于非多版本列举。类型：String</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">max-keys</td>
+<td align="left">指定返回的最大对象数，返回的对象列表将是按照字典顺序的最多前max-keys个对象，范围是[1，1000]，超出范围时，按照默认的1000进行处理。类型：Integer</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">delimiter</td>
+<td align="left">将对象名进行分组的分隔符。如果指定了prefix，从prefix到第一次出现delimiter间具有相同字符串的对象名会被分成一组，形成一条CommonPrefixes；如果没有指定prefix，从对象名的首字符到第一次出现delimiter间具有相同字符串的对象名会被分成一组，形成一条CommonPrefixes。例如，桶中有3个对象，分别为abcd、abcde、bbcde。如果指定delimiter为d，prefix为a，abcd、abcde会被分成一组，形成一条前缀为abcd的CommonPrefixes；如果只指定delimiter为d，abcd、abcde会被分成一组，形成一条前缀为abcd的CommonPrefixes，而bbcde会被单独分成一组，形成一条前缀为bbcd的CommonPrefixes。类型：String</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">key-marker</td>
+<td align="left">列举对象时的起始位置。该字段仅用于多版本列举。类型：String有效值：上次请求返回体的NextKeyMarker值</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">version-id-marker</td>
+<td align="left">本参数只适用于多版本列举场景与请求中的key-marker配合使用，返回的对象列表将是按照字典顺序排序后在该标识符以后的对象(单次返回最大为1000个)。如果version-id-marker不是key-marker对应的一个版本号，则该参数无效。类型：String有效值：对象的版本号，即上次请求返回体的NextVersionIdMarker值</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">encoding-type</td>
+<td align="left">对响应中的部分元素进行指定类型的编码。如果Delimiter、Marker（或KeyMarker）、Prefix、NextMarker（或NextKeyMarker）和Key包含xml 1.0标准不支持的控制字符，可通过设置encoding-type对响应中的Delimiter、Marker（或KeyMarker）、Prefix（包括CommonPrefixes中的Prefix）、NextMarker（或NextKeyMarker）和Key进行编码。类型：String可选值：url</td>
+<td align="left">否</td>
+</tr>
+</tbody></table>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2023/02/25/docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-02-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/" title="对象存储">
+                        <b>#</b> 对象存储
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/" title="对象存储">
+                        #对象存储
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2023/02/26/linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%86%B5/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#s3%E9%97%AE%E9%A2%98"><span class="toc-text">s3问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E9%A3%8E%E6%A0%BC%E5%8F%82%E6%95%B0-PathStyleAccess"><span class="toc-text">路径风格参数 PathStyleAccess</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#marker%E5%8F%82%E6%95%B0"><span class="toc-text">marker参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E6%90%9C%E7%B4%A2%E5%8F%82%E6%95%B0"><span class="toc-text">分页搜索参数</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+  
+    <link rel="stylesheet" href="/aiyblog/plugins/gitalk.css">
+    <script type="text/javascript" src="/aiyblog/plugins/gitalk.min.js" onload="loadGitalkSuc(this)"></script>
+  
+
+  <div id="gitalk-container"></div>
+
+  <script>
+    function loadGitalkSuc() {
+      const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: location.pathname,
+        distractionFreeMode: false
+      })
+
+      gitalk.render('gitalk-container')
+    }
+  </script>
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%85%B3%E4%BA%8Es3 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2023%2F02%2F26%2F%25E5%2585%25B3%25E4%25BA%258Es3%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2023/02/26/%E5%85%B3%E4%BA%8Es3/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

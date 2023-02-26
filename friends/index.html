@@ -11,6 +11,11 @@
   
   <title>
     
+      Tag 
+      
+      
+      |
+    
      Ai-blogs
   </title>
 
@@ -105,56 +110,78 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="linux安全随机数">
-        <div class="time-m-d">2023-02-26</div>
-        <div class="title">
-          <a href="/aiyblog/2023/02/26/linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%86%B5/">
-            
-              
-                <span>linux安全随机数</span>
-              
-            
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+  <!-- 朋友页 url形式：https://yoursite/friends/ -->
+  <div class="container friend-index">
+    <div class="friend-list">
+      
+        <div class="friend-list-item">
+          <span class="nickname">@ CSDN</span>
+          <a href="https://blog.csdn.net/qq_41617261" target="_blank">
+            <span class="site-path">https://blog.csdn.net/qq_41617261</span>
           </a>
+          <p class="card-meta">
+            
+          </p>
         </div>
-      </div>
-    
-      <div class="post-item" title="关于s3">
-        <div class="time-m-d">2023-02-26</div>
-        <div class="title">
-          <a href="/aiyblog/2023/02/26/%E5%85%B3%E4%BA%8Es3/">
-            
-              
-                <span>关于s3</span>
-              
-            
+      
+        <div class="friend-list-item">
+          <span class="nickname">@ Gigee</span>
+          <a href="https://gitee.com/little_shadow" target="_blank">
+            <span class="site-path">https://gitee.com/little_shadow</span>
           </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="docker操作">
-        <div class="time-m-d">2023-02-25</div>
-        <div class="title">
-          <a href="/aiyblog/2023/02/25/docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+          <p class="card-meta">
             
-              
-                <span>docker操作</span>
-              
-            
-          </a>
+          </p>
         </div>
-      </div>
-    
+      
+    </div>
+    <div class="markdown-body">
+      
+    </div>
   </div>
-  <nav class="post-navigation">
-    
-    <span class="page-num">1 / 1</span>
-    
-  </nav>
-</div>
+  
+
+  
+
+  
 
         
 <div class="footer">
@@ -409,6 +436,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + tags + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2Ffriends%2Findex.html + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/friends/index.html" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/aiyblog/js/shares.js"></script>

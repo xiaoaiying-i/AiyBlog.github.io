@@ -11,6 +11,11 @@
   
   <title>
     
+      linux安全随机数 
+      
+      
+      |
+    
      Ai-blogs
   </title>
 
@@ -105,56 +110,174 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="linux安全随机数">
-        <div class="time-m-d">2023-02-26</div>
-        <div class="title">
-          <a href="/aiyblog/2023/02/26/linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%86%B5/">
-            
-              
-                <span>linux安全随机数</span>
-              
-            
-          </a>
-        </div>
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">linux安全随机数</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-02-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="服务器">
+                    <b>#</b> 服务器
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/linux/" title="linux">
+                    #linux
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      <div class="post-item" title="关于s3">
-        <div class="time-m-d">2023-02-26</div>
-        <div class="title">
-          <a href="/aiyblog/2023/02/26/%E5%85%B3%E4%BA%8Es3/">
-            
-              
-                <span>关于s3</span>
-              
-            
-          </a>
-        </div>
+      <div class="markdown-body">
+        <ul>
+<li><p>java生成安全随机数导致进程一直阻塞</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">randomSalt</span><span class="params">(<span class="type">int</span> length)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">SecureRandom</span> <span class="variable">random</span> <span class="operator">=</span> SecureRandom.getInstanceStrong();</span><br><span class="line">            <span class="type">StringBuilder</span> <span class="variable">val</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> random.nextInt(<span class="number">2</span>) % <span class="number">2</span> == <span class="number">0</span> ? <span class="string">&quot;num&quot;</span> : <span class="string">&quot;char&quot;</span>;</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">&quot;char&quot;</span>.equalsIgnoreCase(str)) &#123;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">nextInt</span> <span class="operator">=</span> random.nextInt(<span class="number">2</span>) % <span class="number">2</span> == <span class="number">0</span> ? <span class="number">65</span> : <span class="number">97</span>;</span><br><span class="line">                    val.append((<span class="type">char</span>) (nextInt + random.nextInt(<span class="number">26</span>)));</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;num&quot;</span>.equalsIgnoreCase(str)) &#123;</span><br><span class="line">                    val.append(random.nextInt(<span class="number">10</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> val.toString();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchAlgorithmException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>服务器运行</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看熵值</span></span><br><span class="line">cat /proc/sys/kernel/random/entropy_avail</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查询haveged服务</span></span><br><span class="line">service haveged status</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启haveged服务</span></span><br><span class="line">systemctl start haveged.service</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       </div>
-    
-      <div class="post-item" title="docker操作">
-        <div class="time-m-d">2023-02-25</div>
-        <div class="title">
-          <a href="/aiyblog/2023/02/25/docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-              
-                <span>docker操作</span>
-              
+              <a href="/aiyblog/2023/02/26/%E5%85%B3%E4%BA%8Es3/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
             
-          </a>
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-02-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="服务器">
+                        <b>#</b> 服务器
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/linux/" title="linux">
+                        #linux
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
+      
+    </div>
+    
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+  
+    <link rel="stylesheet" href="/aiyblog/plugins/gitalk.css">
+    <script type="text/javascript" src="/aiyblog/plugins/gitalk.min.js" onload="loadGitalkSuc(this)"></script>
+  
+
+  <div id="gitalk-container"></div>
+
+  <script>
+    function loadGitalkSuc() {
+      const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: location.pathname,
+        distractionFreeMode: false
+      })
+
+      gitalk.render('gitalk-container')
+    }
+  </script>
+
+
       </div>
     
   </div>
-  <nav class="post-navigation">
-    
-    <span class="page-num">1 / 1</span>
-    
-  </nav>
-</div>
+
 
         
 <div class="footer">
@@ -409,6 +532,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2023%2F02%2F26%2Flinux%25E5%25AE%2589%25E5%2585%25A8%25E9%259A%258F%25E6%259C%25BA%25E6%2595%25B0%25E7%2586%25B5%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2023/02/26/linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%86%B5/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/aiyblog/js/shares.js"></script>
