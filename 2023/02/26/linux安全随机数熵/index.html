@@ -93,7 +93,7 @@
         </li>
       
         <li class="nav-item" data-path="/aiyblog/friends/">
-          <a href="/aiyblog/friends/">友链</a>
+          <a href="/aiyblog/friends/">外链</a>
         </li>
       
         <li class="nav-item" data-path="/aiyblog/about/">
@@ -166,8 +166,8 @@
                 <i class="iconfont icon-bookmark" title="Categories"></i>
                 
                 <span class="span--category">
-                  <a href="/aiyblog/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="服务器">
-                    <b>#</b> 服务器
+                  <a href="/aiyblog/categories/linux/" title="linux">
+                    <b>#</b> linux
                   </a>
                 </span>
                 
@@ -216,8 +216,8 @@
                     <i class="iconfont icon-bookmark" title="Categories"></i>
                     
                     <span class="span--category">
-                      <a href="/aiyblog/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="服务器">
-                        <b>#</b> 服务器
+                      <a href="/aiyblog/categories/linux/" title="linux">
+                        <b>#</b> linux
                       </a>
                     </span>
                     
@@ -255,30 +255,32 @@
 
 
 
-
-
   
-    <link rel="stylesheet" href="/aiyblog/plugins/gitalk.css">
-    <script type="text/javascript" src="/aiyblog/plugins/gitalk.min.js" onload="loadGitalkSuc(this)"></script>
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
   
 
-  <div id="gitalk-container"></div>
+  <div id="vcomments"></div>
 
   <script>
-    function loadGitalkSuc() {
-      const gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: '',
-        admin: [''],
-        id: location.pathname,
-        distractionFreeMode: false
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
       })
-
-      gitalk.render('gitalk-container')
     }
   </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
 
 
       </div>

@@ -93,7 +93,7 @@
         </li>
       
         <li class="nav-item" data-path="/aiyblog/friends/">
-          <a href="/aiyblog/friends/">友链</a>
+          <a href="/aiyblog/friends/">外链</a>
         </li>
       
         <li class="nav-item" data-path="/aiyblog/about/">
@@ -207,7 +207,7 @@
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/aiyblog/2023/02/25/docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" target="_self">
+              <a href="/aiyblog/2023/02/26/linux%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -268,30 +268,32 @@
 
 
 
-
-
   
-    <link rel="stylesheet" href="/aiyblog/plugins/gitalk.css">
-    <script type="text/javascript" src="/aiyblog/plugins/gitalk.min.js" onload="loadGitalkSuc(this)"></script>
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
   
 
-  <div id="gitalk-container"></div>
+  <div id="vcomments"></div>
 
   <script>
-    function loadGitalkSuc() {
-      const gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: '',
-        admin: [''],
-        id: location.pathname,
-        distractionFreeMode: false
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
       })
-
-      gitalk.render('gitalk-container')
     }
   </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
 
 
       </div>
