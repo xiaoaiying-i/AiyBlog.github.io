@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ai-blogs</title>
+  <icon>https://xiaoaiying-i.github.io/aiyblog/icon.png</icon>
+  
+  <link href="https://xiaoaiying-i.github.io/aiyblog/atom.xml" rel="self"/>
+  
+  <link href="https://xiaoaiying-i.github.io/aiyblog/"/>
+  <updated>2023-02-26T16:01:02.360Z</updated>
+  <id>https://xiaoaiying-i.github.io/aiyblog/</id>
+  
+  <author>
+    <name>John Doe</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo加git搭建个人博客</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/hexo%E5%8A%A0git%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/hexo%E5%8A%A0git%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2023-02-26T15:51:58.000Z</published>
+    <updated>2023-02-26T16:01:02.360Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;hexo-使用&quot;&gt;&lt;a href=&quot;#hexo-使用&quot; class=&quot;headerlink&quot; title=&quot;hexo 使用&quot;&gt;&lt;/a&gt;hexo 使用&lt;/h2&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    
+    <category term="hexo" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于s3</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/%E5%85%B3%E4%BA%8Es3/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/%E5%85%B3%E4%BA%8Es3/</id>
+    <published>2023-02-26T11:19:52.000Z</published>
+    <updated>2023-02-26T12:54:50.654Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;s3问题&quot;&gt;&lt;a href=&quot;#s3问题&quot; class=&quot;headerlink&quot; title=&quot;s3问题&quot;&gt;&lt;/a&gt;s3问题&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;key斜杠只能用【\】&lt;/li&gt;
+&lt;li&gt;key前不要带斜杠&lt;/li&gt;
+&lt;li&gt;key最后带斜杠是目录，</summary>
+        
+      
+    
+    
+    
+    <category term="对象存储" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/"/>
+    
+    
+    <category term="对象存储" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Apache commons】vfs简单使用</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/%E3%80%90Apache%20commons%E3%80%91vfs%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/%E3%80%90Apache%20commons%E3%80%91vfs%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</id>
+    <published>2023-02-26T11:19:52.000Z</published>
+    <updated>2023-02-26T13:14:06.873Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;参考：&lt;a href=&quot;https://www.jianshu.com/p/1f2f851b61c5&quot;&gt;https://www.jianshu.com/p/1f2f851b61c5&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;vfs-虚拟文件系统&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/java/"/>
+    
+    
+    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java-maven打包部署</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/java/java-maven%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/java/java-maven%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2/</id>
+    <published>2023-02-26T11:19:52.000Z</published>
+    <updated>2023-02-26T13:10:47.241Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;打包参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;打zip包包含class：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/java/"/>
+    
+    
+    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java反射、函数式编程、注解</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/java/java%E5%8F%8D%E5%B0%84%E3%80%81%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E3%80%81%E6%B3%A8%E8%A7%A3/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/java/java%E5%8F%8D%E5%B0%84%E3%80%81%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E3%80%81%E6%B3%A8%E8%A7%A3/</id>
+    <published>2023-02-26T11:19:52.000Z</published>
+    <updated>2023-02-26T13:31:44.616Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;反射笔记&quot;&gt;&lt;a href=&quot;#反射笔记&quot; class=&quot;headerlink&quot; title=&quot;反射笔记&quot;&gt;&lt;/a&gt;反射笔记&lt;/h2&gt;&lt;p&gt;java三阶段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1-源码 &lt;/li&gt;
+&lt;li&gt;2-class</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/java/"/>
+    
+    
+    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux安全随机数</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/linux/linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%86%B5/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/linux/linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%86%B5/</id>
+    <published>2023-02-26T11:19:52.000Z</published>
+    <updated>2023-02-26T12:47:01.015Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;java生成安全随机数导致进程一直阻塞&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux命令记录</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/linux/linux%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/linux/linux%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/</id>
+    <published>2023-02-26T11:19:52.000Z</published>
+    <updated>2023-02-26T12:50:59.478Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;日志&quot;&gt;&lt;a href=&quot;#日志&quot; class=&quot;headerlink&quot; title=&quot;日志&quot;&gt;&lt;/a&gt;日志&lt;/h3&gt;&lt;figure class=&quot;highlight text&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux-crotab服务重启</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/linux/linux-crontab/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/linux/linux-crontab/</id>
+    <published>2023-02-26T11:19:52.000Z</published>
+    <updated>2023-02-26T11:34:58.710Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;添加重启脚本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/linux/"/>
+    
+    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/java/"/>
+    
+    
+    <category term="linux" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>windows相关</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/windows%E7%9B%B8%E5%85%B3/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/windows%E7%9B%B8%E5%85%B3/</id>
+    <published>2023-02-26T11:19:52.000Z</published>
+    <updated>2023-02-26T12:54:21.891Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;端口查询&quot;&gt;&lt;a href=&quot;#端口查询&quot; class=&quot;headerlink&quot; title=&quot;端口查询&quot;&gt;&lt;/a&gt;端口查询&lt;/h3&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    
+    <category term="windows" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>javaUML图</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/15/java2/javaUML%E5%9B%BE/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/15/java2/javaUML%E5%9B%BE/</id>
+    <published>2023-02-15T11:19:52.000Z</published>
+    <updated>2023-02-26T18:06:34.393Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;idea：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/java/"/>
+    
+    
+    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go中使用 Protobuf</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/12/26/go/go%E4%B8%AD%E4%BD%BF%E7%94%A8%20Protobuf/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/12/26/go/go%E4%B8%AD%E4%BD%BF%E7%94%A8%20Protobuf/</id>
+    <published>2022-12-26T11:19:52.000Z</published>
+    <updated>2023-02-26T17:32:19.383Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;【go】go中使用 Protobuf&lt;/p&gt;
+&lt;h2 id=&quot;protobuf编译生成go文件&quot;&gt;&lt;a href=&quot;#protobuf编译生成go文件&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/go/"/>
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go-http服务</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-http%E6%9C%8D%E5%8A%A1/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-http%E6%9C%8D%E5%8A%A1/</id>
+    <published>2022-10-21T11:19:52.000Z</published>
+    <updated>2023-02-26T17:38:44.502Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;启动一个http&quot;&gt;&lt;a href=&quot;#启动一个http&quot; class=&quot;headerlink&quot; title=&quot;启动一个http&quot;&gt;&lt;/a&gt;启动一个http&lt;/h2&gt;&lt;figure class=&quot;highlight go&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/go/"/>
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go-grpc服务</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-grpc%E6%9C%8D%E5%8A%A1/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-grpc%E6%9C%8D%E5%8A%A1/</id>
+    <published>2022-10-21T11:19:52.000Z</published>
+    <updated>2023-02-26T17:39:44.270Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一个简单的grpc服务&quot;&gt;&lt;a href=&quot;#一个简单的grpc服务&quot; class=&quot;headerlink&quot; title=&quot;一个简单的grpc服务&quot;&gt;&lt;/a&gt;一个简单的grpc服务&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;mod&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/go/"/>
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go-tcp服务</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-tcp%E6%9C%8D%E5%8A%A1/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-tcp%E6%9C%8D%E5%8A%A1/</id>
+    <published>2022-10-21T11:19:52.000Z</published>
+    <updated>2023-02-26T17:42:02.940Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Go语言实现TCP通信&quot;&gt;&lt;a href=&quot;#Go语言实现TCP通信&quot; class=&quot;headerlink&quot; title=&quot;Go语言实现TCP通信&quot;&gt;&lt;/a&gt;Go语言实现TCP通信&lt;/h3&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/go/"/>
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go-cobra命令开源组件</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-cobra%E5%91%BD%E4%BB%A4%E5%BC%80%E6%BA%90%E7%BB%84%E4%BB%B6/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-cobra%E5%91%BD%E4%BB%A4%E5%BC%80%E6%BA%90%E7%BB%84%E4%BB%B6/</id>
+    <published>2022-10-21T11:19:52.000Z</published>
+    <updated>2023-02-26T17:43:40.507Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;dependency&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/go/"/>
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go-网络测试工具nettest</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-%E7%BD%91%E7%BB%9C%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7nettest/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-%E7%BD%91%E7%BB%9C%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7nettest/</id>
+    <published>2022-10-21T11:19:52.000Z</published>
+    <updated>2023-02-26T17:44:47.452Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;gomod&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/go/"/>
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go-web服务</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-web%E6%9C%8D%E5%8A%A1/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/10/21/go/go-web%E6%9C%8D%E5%8A%A1/</id>
+    <published>2022-10-21T11:19:52.000Z</published>
+    <updated>2023-02-26T17:45:39.061Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;github: &lt;a href=&quot;https://github.com/asim/kv&quot;&gt;https://github.com/asim/kv&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;dependency&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/go/"/>
+    
+    
+    <category term="go" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker-compose</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/06/26/docker/docker-compose/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/06/26/docker/docker-compose/</id>
+    <published>2022-06-26T11:19:52.000Z</published>
+    <updated>2023-02-26T17:03:33.472Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;docker-compose需要另外安装&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="容器" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/%E5%AE%B9%E5%99%A8/"/>
+    
+    
+    <category term="docker" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker-compose实例</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/06/26/docker/docker-compose%E5%AE%9E%E4%BE%8B/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/06/26/docker/docker-compose%E5%AE%9E%E4%BE%8B/</id>
+    <published>2022-06-26T11:19:52.000Z</published>
+    <updated>2023-02-26T17:36:03.462Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;docker官方文档：&lt;a href=&quot;http://docs.docker.com/&quot;&gt;http://docs.docker.com&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;docker-compose&quot;&gt;&lt;a href=&quot;#docker-compose&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="容器" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/%E5%AE%B9%E5%99%A8/"/>
+    
+    
+    <category term="docker" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker操作</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/06/25/docker/docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/06/25/docker/docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</id>
+    <published>2022-06-25T15:52:47.000Z</published>
+    <updated>2023-02-26T17:03:25.986Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;构建镜像推送到仓库&quot;&gt;&lt;a href=&quot;#构建镜像推送到仓库&quot; class=&quot;headerlink&quot; title=&quot;构建镜像推送到仓库&quot;&gt;&lt;/a&gt;构建镜像推送到仓库&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt; docker engine添加仓库地址后重启&lt;/li&gt;
+&lt;li&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="容器" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/%E5%AE%B9%E5%99%A8/"/>
+    
+    
+    <category term="docker" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/docker/"/>
+    
+  </entry>
+  
+</feed>
