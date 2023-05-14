@@ -123,34 +123,6 @@
   </entry>
   
   <entry>
-    <title>java反射、函数式编程、注解</title>
-    <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/java/java%E5%8F%8D%E5%B0%84%E3%80%81%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E3%80%81%E6%B3%A8%E8%A7%A3/"/>
-    <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/java/java%E5%8F%8D%E5%B0%84%E3%80%81%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E3%80%81%E6%B3%A8%E8%A7%A3/</id>
-    <published>2023-02-26T11:19:52.000Z</published>
-    <updated>2023-02-26T13:31:44.616Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;反射笔记&quot;&gt;&lt;a href=&quot;#反射笔记&quot; class=&quot;headerlink&quot; title=&quot;反射笔记&quot;&gt;&lt;/a&gt;反射笔记&lt;/h2&gt;&lt;p&gt;java三阶段：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;1-源码 &lt;/li&gt;
-&lt;li&gt;2-class</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/java/"/>
-    
-    
-    <category term="java" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
     <title>linux安全随机数</title>
     <link href="https://xiaoaiying-i.github.io/aiyblog/2023/02/26/linux/linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%86%B5/"/>
     <id>https://xiaoaiying-i.github.io/aiyblog/2023/02/26/linux/linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%86%B5/</id>
@@ -543,6 +515,32 @@
     
     
     <category term="docker" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【springboot】事件与事件监听器</title>
+    <link href="https://xiaoaiying-i.github.io/aiyblog/2022/05/26/spring/%E3%80%90springboot%E3%80%91%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8/"/>
+    <id>https://xiaoaiying-i.github.io/aiyblog/2022/05/26/spring/%E3%80%90springboot%E3%80%91%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8/</id>
+    <published>2022-05-26T11:19:52.000Z</published>
+    <updated>2023-02-26T16:43:55.978Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;参考：&lt;/p&gt;
+&lt;p&gt;Spring ApplicationListener：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="springboot" scheme="https://xiaoaiying-i.github.io/aiyblog/categories/springboot/"/>
+    
+    
+    <category term="springboot" scheme="https://xiaoaiying-i.github.io/aiyblog/tags/springboot/"/>
     
   </entry>
   
