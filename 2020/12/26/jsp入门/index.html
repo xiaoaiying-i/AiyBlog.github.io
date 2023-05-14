@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      jsp入门 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">jsp入门</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2020-12-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/java/" title="java">
+                    <b>#</b> java
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/java/" title="java">
+                    #java
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="jsp知识点"><a href="#jsp知识点" class="headerlink" title="jsp知识点"></a>jsp知识点</h2><p><strong>指令</strong>：用于配置jsp页面，导入资源文件<br><strong>格式</strong>：&lt;%@  属性名1=属性值1 属性名2=属性值2 属性名n=属性值n …..   %&gt;<br><strong>分类</strong>：</p>
+<ul>
+<li><strong>page</strong>：配置jsp页面的</li>
+</ul>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">&quot;java&quot;</span> contentType=<span class="string">&quot;text/html; charset=UTF-8&quot;</span> pageEncoding=<span class="string">&quot;UTF-8&quot;</span>%&gt;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">contentType</td>
+<td align="left">等同于response.setContentType()<br/>设置响应体的mime类型以及字符集<br/>设置当前jsp页面的编码（只能是高级的ide才能自动生成，使用低级工具，则需要设置pageEncoding属性设置当前页面的字符集）</td>
+</tr>
+<tr>
+<td align="left">language</td>
+<td align="left">脚本语言，目前仅支持java</td>
+</tr>
+<tr>
+<td align="left">import</td>
+<td align="left">导包</td>
+</tr>
+<tr>
+<td align="left">errorPage</td>
+<td align="left">当前页面发生异常后，会自动跳转到指定的错误页面标</td>
+</tr>
+<tr>
+<td align="left">isErrorPage</td>
+<td align="left">标识当前页面是否是错误页面。<br/>true：是。可以使用内置对象exception<br/>false：否。默认值，不可以使用内置对象exception</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>include</strong>：页面包含的。导入页面的资源文件</li>
+</ul>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ include file=<span class="string">&quot;top.jsp&quot;</span> %&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>taglib</strong>：导入资源</li>
+</ul>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ taglib prefix=<span class="string">&quot;c&quot;</span> uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br><span class="line"></span><br><span class="line">属性：</span><br><span class="line">prefix:前缀 自定义        </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>注释</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">注释</th>
+<th align="left">符号</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">html注释</td>
+<td align="left"><!-- --></td>
+<td align="left">只能注释html片段</td>
+</tr>
+<tr>
+<td align="left">jsp注释</td>
+<td align="left">&lt;%–  –%&gt;</td>
+<td align="left">可以注释jsp页面任意内容（推荐使用）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>内置对象</strong></li>
+</ul>
+<p>（一共九个）在jsp页面中不需要创建，直接使用的对象</p>
+<table>
+<thead>
+<tr>
+<th align="left">变量名</th>
+<th align="left">真实类型</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">pageContext：</td>
+<td align="left">PageContext</td>
+<td align="left">当前页面共享数据，还可以获取其他内置的八个对象</td>
+</tr>
+<tr>
+<td align="left">request</td>
+<td align="left">HttpServletRequest</td>
+<td align="left">一次请求访问的多个资源（转发）</td>
+</tr>
+<tr>
+<td align="left">session</td>
+<td align="left">HttpSession</td>
+<td align="left">一次会话的多个请求间</td>
+</tr>
+<tr>
+<td align="left">application</td>
+<td align="left">ServletContext</td>
+<td align="left">所有用户间共享数据</td>
+</tr>
+<tr>
+<td align="left"><strong>前四个为域对象</strong></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">response</td>
+<td align="left">HttpServletResponse</td>
+<td align="left">响应对象</td>
+</tr>
+<tr>
+<td align="left">page:</td>
+<td align="left">Object</td>
+<td align="left">当前页面(Servlet)的对象 相当于this</td>
+</tr>
+<tr>
+<td align="left">out</td>
+<td align="left">JspWriter</td>
+<td align="left">输出对象，数据输出到页面上</td>
+</tr>
+<tr>
+<td align="left">config</td>
+<td align="left">ServletConfig</td>
+<td align="left">servlet的配置对象</td>
+</tr>
+<tr>
+<td align="left">exception</td>
+<td align="left">Throwable</td>
+<td align="left">异常对象<br/>只有声明isErrorPage才有该内置对象</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>EL表达式</strong>    </li>
+</ul>
+<p>Expression Language (表达式语言)    替换和简化jsp页面中java代码的编</p>
+<p>语法：${ 表达式 }</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">注意：jsp默认支持el表达式，如果要忽略el表达式</span><br><span class="line">设置jsp中page指令：isElIgnored=<span class="string">&quot;true&quot;</span> 忽略当前jsp中所有el表达式</span><br><span class="line"></span><br><span class="line">\$&#123;&#125; ：忽略单个表达式</span><br><span class="line">$&#123;empty&#125; 判断字符串，集合，数组对象是否为<span class="literal">null</span>或长度为<span class="number">0</span></span><br><span class="line">$&#123;not empty&#125; 判断字符串，集合，数组对象是否不为<span class="literal">null</span>或不长度为<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>获取值：${域名称.键名}</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">从指定域中获取指定键的值(el表达式只能从域对象中获取值)</span><br><span class="line">举例：在request域中存储了name=张三		获取：$&#123;requstScope.name&#125;	</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">域名称</th>
+<th align="left">对应域</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">pageScope</td>
+<td align="left">pageContext</td>
+</tr>
+<tr>
+<td align="left">requestScope</td>
+<td align="left">request</td>
+</tr>
+<tr>
+<td align="left">sessionScope</td>
+<td align="left">session</td>
+</tr>
+<tr>
+<td align="left">applicationScope</td>
+<td align="left">application(ServletContext)</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>获取值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>键值：</td>
+<td>${键名}</td>
+<td>表示以此从最小的域中查找是否有该键对应的值，直到找完为止</td>
+</tr>
+<tr>
+<td>对象属性：</td>
+<td>${域名称.键名.属性名}</td>
+<td>属性名本质上是对象的getxxx()方法去掉get首字母小写  相当于调用了getxxx方法获取值</td>
+</tr>
+<tr>
+<td>list集合值</td>
+<td>${域名称.键名[索引]}</td>
+<td></td>
+</tr>
+<tr>
+<td>map集合值</td>
+<td>${域名称.键名.key}或${域名称.键名[“key”]}</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>隐式对象：el表达式中不用创建直接就可以<br/>类似jsp内置对象不等价<br/>el表达式中有11个隐式对象<br/>pageContext        可以获取jsp其他八个内置对象<br/>${pageContext.request.contextPath}：jsp页面中动态获取虚拟目录</p>
+<ul>
+<li><strong>JSTL</strong></li>
+</ul>
+<p>JavaServer Pages Tag Library JSP标准标签库，是由Apache组织提供的开源的免费的jsp标签</p>
+<p>作用：用于简化和替换jsp页面上的java代码</p>
+<p>使用步骤：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 导入jstl相关jar包</span><br><span class="line">    javax.servlet.jsp.jstl.jar</span><br><span class="line">	jstl-impl.jar</span><br><span class="line"></span><br><span class="line"># 引入标签库：taglig指令</span><br><span class="line">	&lt;%@ taglib prefix=<span class="string">&quot;c&quot;</span>  uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br><span class="line"></span><br><span class="line"># 使用对应标签</span><br></pre></td></tr></table></figure>
+
+<p>【&lt;c:if&gt;标签】</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--c:if标签：</span><br><span class="line">	test必须属性，接收boolean表达式</span><br><span class="line">	如果表达式为true，则显示if标签体内容，如果为false，则不显示标签体内容</span><br><span class="line">	一般情况下，test属性值会结合el表达式一起使用</span><br><span class="line">	注意：c:if标签没有else标签，如果需要else可以再写一个c:if标签</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>【<choose>标签】</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--choose标签</span><br><span class="line">			案例：完成数字编号对应星期几</span><br><span class="line">				<span class="number">1</span>-域中存储一数字  					</span><br><span class="line">				<span class="number">2</span>-使用choose标签取出数字		相当于<span class="keyword">switch</span>声明</span><br><span class="line">				<span class="number">3</span>-使用when标签做数字判断			相当于<span class="keyword">case</span></span><br><span class="line">				<span class="number">4</span>-otherwise标签做其他情况的声明  相当于<span class="keyword">default</span></span><br><span class="line">--&gt;</span><br><span class="line">&lt;% 　<span class="comment">// 存储数据</span></span><br><span class="line">    <span class="keyword">if</span>(request.getParameter(<span class="string">&quot;choose&quot;</span>)!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> Integer.parseInt(request.getParameter(<span class="string">&quot;choose&quot;</span>));</span><br><span class="line">        request.setAttribute(<span class="string">&quot;choose&quot;</span>, c);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        request.setAttribute(<span class="string">&quot;choose&quot;</span>, <span class="number">7</span>);</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br><span class="line">&lt;c:choose&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;choose==1&#125;&quot;</span>&gt;星期一&lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;choose==2&#125;&quot;</span>&gt;星期二&lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;choose==3&#125;&quot;</span>&gt;星期三&lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;choose==4&#125;&quot;</span>&gt;星期四&lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;choose==5&#125;&quot;</span>&gt;星期五&lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;choose==6&#125;&quot;</span>&gt;星期六&lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;choose==7&#125;&quot;</span>&gt;星期日&lt;/c:when&gt;</span><br><span class="line">    &lt;c:otherwise&gt;输入数字有误&lt;/c:otherwise&gt;</span><br><span class="line">&lt;/c:choose&gt;</span><br></pre></td></tr></table></figure>
+
+<p>【<foreach>标签】</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;h4&gt;<span class="keyword">for</span>:&lt;/h4&gt;</span><br><span class="line">&lt;c:forEach begin=<span class="string">&quot;1&quot;</span> end=<span class="string">&quot;10&quot;</span> <span class="keyword">var</span>=<span class="string">&quot;i&quot;</span> step=<span class="string">&quot;2&quot;</span> varStatus=<span class="string">&quot;s&quot;</span>&gt;</span><br><span class="line">    循环次数：$&#123;s.count&#125;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    容器索引：$&#123;s.index&#125;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    值：$&#123;i&#125; &lt;br/&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br><span class="line"># 遍历：</span><br><span class="line">	java中：<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">19</span>;i++)&#123;&#125;</span><br><span class="line">	属性：</span><br><span class="line">        begin：开始值</span><br><span class="line">        end：结束值</span><br><span class="line">        <span class="keyword">var</span>：临时变量</span><br><span class="line">        step：步长</span><br><span class="line">        varStatus：循环状态对象</span><br><span class="line"></span><br><span class="line">&lt;h4&gt;foreach:&lt;/h4&gt;</span><br><span class="line">&lt;c:forEach items=<span class="string">&quot;$&#123;list&#125;&quot;</span> <span class="keyword">var</span>=<span class="string">&quot;str&quot;</span> varStatus=<span class="string">&quot;s&quot;</span>&gt;</span><br><span class="line">    循环次数：$&#123;s.count&#125;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    容器索引：$&#123;s.index&#125;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    值：$&#123;str&#125; &lt;br/&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br><span class="line"># 遍历容器：</span><br><span class="line">	java中：List&lt;User&gt; list;  <span class="keyword">for</span>(User user:list)&#123;&#125;</span><br><span class="line">    属性：</span><br><span class="line">        items：容器对象    如：list</span><br><span class="line">        <span class="keyword">var</span>：容器中元素的临时变量	如：user</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">index:容器中元素的索引，默认从<span class="number">0</span>开始</span><br><span class="line">count:循环次数</span><br></pre></td></tr></table></figure>
+
+
+
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2020/12/26/go/docker%E9%83%A8%E7%BD%B2go%E9%A1%B9%E7%9B%AE/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2020-12-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/java/" title="java">
+                        <b>#</b> java
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/java/" title="java">
+                        #java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2020/12/26/ECMAScript-%E5%9F%BA%E6%9C%AC/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text">jsp知识点</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + jsp%E5%85%A5%E9%97%A8 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2020%2F12%2F26%2Fjsp%25E5%2585%25A5%25E9%2597%25A8%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2020/12/26/jsp%E5%85%A5%E9%97%A8/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

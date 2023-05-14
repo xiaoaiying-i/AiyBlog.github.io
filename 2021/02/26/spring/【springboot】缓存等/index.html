@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      【springboot】缓存等 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【springboot】缓存等</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-02-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/springboot/" title="springboot">
+                    <b>#</b> springboot
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/springboot/" title="springboot">
+                    #springboot
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="自动注入"><a href="#自动注入" class="headerlink" title="自动注入"></a>自动注入</h2><blockquote>
+<p>@SpringBootApplication 带有 @EnableAutoConfiguration  带有 @Import  导入相关配置类</p>
+</blockquote>
+<p>默认导入：【AutoConfigurationImportSelector】选择导入一些自动配置的bean 类是位于org.springframework.boot.autoconfigure包下。</p>
+<p><strong>spring-boot-autoconfigure-版本号.jar</strong></p>
+<p> 该jar里就有一个spring.factories文件<br>【spring.factories文件】：springboot启动后扫描该文件获取需要自动注入的类</p>
+<h3 id="类自动注入"><a href="#类自动注入" class="headerlink" title="类自动注入"></a>类自动注入</h3><p>(参考自定义启动器)</p>
+<p><strong>@Configuration</strong>用于定义配置类，可替换xml配置文件，被注解的类内部包含有一个或多个被@Bean注解的方法，这些方法将会被AnnotationConfigApplicationContext或AnnotationConfigWebApplicationContext类进行扫描，并用于构建bean定义，初始化Spring容器。</p>
+<p><strong>自动注入步骤：</strong></p>
+<ul>
+<li>1-创建xxxProperties配置类，并通过【@ConfigurationProperties(prefix=”配置前缀”)】扫描配置文件配置注入到配置类中</li>
+<li>2-创建xxxConfig类，通过【@Configuration】来声明了是一个配置类 可用@Conditionalxxx来进行条件判断是否注入到容器</li>
+<li>3-配置类中可【@Bean】修饰方法，在方法中配置bean的相关属性并返回某个bean，<ul>
+<li>4-其他bean中可通过【@Autowired】注解引入配置类使用配置类</li>
+</ul>
+</li>
+</ul>
+<h2 id="缓存cache"><a href="#缓存cache" class="headerlink" title="缓存cache"></a>缓存cache</h2><p>可在service层方法上添加注解，实现缓存。</p>
+<ul>
+<li>【**@Cacheable()**】添加缓存<br>先执行注解后执行方法<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//属性：</span><br><span class="line"></span><br><span class="line">cacheNames/value：指定缓存组件的名字;将方法的返回结果放在哪个缓存中，是数组的方式，可以指定多个缓存；</span><br><span class="line">key：缓存数据使用的key；可以用它来指定。默认是使用方法参数的值  1-方法的返回值</span><br><span class="line">    编写SpEL，如：</span><br><span class="line">          #id;参数id的值   </span><br><span class="line">          #a0  #p0  #root.args[0]参数第n位   </span><br><span class="line">          自定义：这里方法名+参数(如：getEmp[2])</span><br><span class="line">keyGenerator：key的生成器；可以自己指定key的生成器的组件id  key/keyGenerator：二选一使用;</span><br><span class="line">cacheManager：指定缓存管理器；或者cacheResolver指定获取解析器</span><br><span class="line">condition：指定符合条件的情况下才缓存；</span><br><span class="line">    condition = &quot;#id&gt;0&quot;</span><br><span class="line">    condition = &quot;#a0&gt;1&quot;：第一个参数的值&gt;1的时候才进行缓存</span><br><span class="line">unless:否定缓存；当unless指定的条件为true，方法的返回值就不会被缓存；可以获取到结果进行判断</span><br><span class="line">    unless = &quot;#result == null&quot;</span><br><span class="line">    unless = &quot;#a0==2&quot;:如果第一个参数的值是2，结果不缓存；</span><br><span class="line">sync：是否使用异步模式</span><br></pre></td></tr></table></figure></li>
+<li>【**@CachePut()**】添加/更新缓存<br>先执行方法后执行注解<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修改了数据库的某个数据，同时更新缓存；</span><br><span class="line">运行时机：</span><br><span class="line">    1、先调用目标方法</span><br><span class="line">    2、通过key将方法的结果缓存起来  如果缓存已有数据，则更新缓存数据</span><br></pre></td></tr></table></figure></li>
+<li>【**@CacheEvict()**】清除缓存<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//属性：</span><br><span class="line"></span><br><span class="line">key：指定要清除的数据</span><br><span class="line">allEntries = true：指定清除这个缓存中所有的数据</span><br><span class="line">beforeInvocation =   缓存的清除是否在方法之前执行  默认false</span><br><span class="line">    false：清除缓存操作是在方法执行之后执行，如果出现异常缓存就不会清除</span><br><span class="line">    true：清除缓存操作是在方法运行之前执行，无论方法是否出现异常，缓存都清除</span><br></pre></td></tr></table></figure></li>
+<li>【**@Caching**】定义复杂的缓存规则<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">如：把数据通过不同的key添加到缓存中</span><br><span class="line">@Caching(</span><br><span class="line">     cacheable = &#123;</span><br><span class="line">         @Cacheable(/*value=&quot;emp&quot;,*/key = &quot;#lastName&quot;)</span><br><span class="line">     &#125;,</span><br><span class="line">     put = &#123;</span><br><span class="line">         @CachePut(/*value=&quot;emp&quot;,*/key = &quot;#result.id&quot;),</span><br><span class="line">         @CachePut(/*value=&quot;emp&quot;,*/key = &quot;#result.email&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>【**@CacheConfig()**】抽取缓存的公共配置<br>该注解可在类上面使用，<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@CacheConfig(cacheNames=&quot;缓存名称&quot;/*,cacheManager = &quot;缓存管理器&quot;*/) </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="缓存中间件"><a href="#缓存中间件" class="headerlink" title="缓存中间件"></a>缓存中间件</h3><h4 id="整合redis"><a href="#整合redis" class="headerlink" title="整合redis"></a>整合<strong>redis</strong></h4><p>……</p>
+<h2 id="消息"><a href="#消息" class="headerlink" title="消息"></a>消息</h2><p><strong>队列（queue）：</strong>点对点消息通信（point-to-point） </p>
+<p><strong>主题（topic）：</strong>发布（publish）/订阅（subscribe）消息通信</p>
+<p>点对点式： </p>
+<ul>
+<li>消息发送者发送消息，消息代理将其放入一个队列中，消息接收者从队列中获取消息内容， 消息读取后被移出队列</li>
+<li>消息只有唯一的发送者和接受者，但并不是说只能有一个接收者</li>
+</ul>
+<p>发布订阅式：</p>
+<ul>
+<li>发送者（发布者）发送消息到主题，多个接收者（订阅者）监听（订阅）这个主题，那么 就会在消息到达时同时收到消息</li>
+</ul>
+<p>JMS（Java Message Service）JAVA消息服务： 基于JVM消息代理的规范。ActiveMQ、HornetMQ是JMS实现<br>AMQP（Advanced Message Queuing Protocol） 高级消息队列协议，也是一个消息代理的规范，兼容JMS RabbitMQ是AMQP的实现</p>
+<h3 id="消息中间件-【rabbitMQ】"><a href="#消息中间件-【rabbitMQ】" class="headerlink" title="消息中间件 【rabbitMQ】"></a>消息中间件 【rabbitMQ】</h3><p>消息队列中间件是分布式系统中重要的组件，主要解决应用解耦，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构</p>
+<ul>
+<li>核心概念<br>【Message】消息。由消息头和消息体组成。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">消息头则由一系列的可选属性组成，这些属性包括:</span><br><span class="line"></span><br><span class="line">routing-key（路由键）</span><br><span class="line">priority（相对于其他消息的优先权）</span><br><span class="line">delivery-mode（指出该消息可能需要持久性存储）等</span><br></pre></td></tr></table></figure>
+【Publisher】消息生产者。一个向交换器发布消息的客户端应用程序<br>【Exchange】交换器。接收生产者发送的消息并将消息路由个服务器中的队列。可理解成一个由绑定构成的路由表<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">交换器类型：</span><br><span class="line">1-direct(默认)：单播。将消息发给路由键对应队列</span><br><span class="line">2-fanout：多播。将消息发给所有队列</span><br><span class="line">3-topic： 将消息安装匹配符发给对应的队列 通配符：*=单个单词  #=0个或多个单词</span><br><span class="line">4-headers：</span><br></pre></td></tr></table></figure>
+【Queue】消息队列。消息的容器，也是消息的终点。一个消息可投入一个或多个队列。 消息一直在队列里，等待消费者连接该队列将其取走。<br>【Bingding】绑定。消息队列和交换器之间的关联。一个绑定就是基于路由键将交换器和消息队列连接起来的路由规则。 Exchange和Queue的绑定可以是多对多的关系。<br>【Connection】 网络连接，比如一个TCP连接。<br>【Channel 】信道，多路复用连接中的一条独立的双向数据流通道。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">信道是建立在真实的TCP连接内的虚拟连接，</span><br><span class="line">AMQP 命令都是通过信道发出去的，不管是发布消息、订阅队列还是接收消息，这些动作都是通过信道完成。</span><br><span class="line">因为对于操作系统来说建立和销毁 TCP 都是非常昂贵的开销，所以引入了信道的概念，以复用一条 TCP 连接。</span><br></pre></td></tr></table></figure>
+<p>【Consumer】 消息的消费者，表示一个从消息队列中取得消息的客户端应用程序。<br>【Virtual Host】 虚拟主机，表示一批交换器、消息队列和相关对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">每个vhost本质上就是一个mini版的 RabbitMQ 服务器，拥有自己的队列、交换器、绑定和权限机制。</span><br><span class="line">vhost是 AMQP 概念的基础，必须在连接时指定</span><br><span class="line">RabbitMQ默认的vhost 是/ 。 </span><br><span class="line">Broker 表示消息队列服务器实体</span><br></pre></td></tr></table></figure>
+
+<p><strong>springboot中关于rabbitMQ需要关注</strong></p>
+<ul>
+<li>RabbitTemplate类 消息发送与接收</li>
+<li>@RabbitListener注解  消息的监听</li>
+<li>AmqpAdmin类  关于消息组件的管理，如交换器创建、队列等</li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%AF%E5%8A%A8%E5%99%A8/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-02-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/springboot/" title="springboot">
+                        <b>#</b> springboot
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/springboot/" title="springboot">
+                        #springboot
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91%E6%80%BB%E7%BB%93/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E6%B3%A8%E5%85%A5"><span class="toc-text">自动注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E8%87%AA%E5%8A%A8%E6%B3%A8%E5%85%A5"><span class="toc-text">类自动注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98cache"><span class="toc-text">缓存cache</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-text">缓存中间件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E5%90%88redis"><span class="toc-text">整合redis</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF"><span class="toc-text">消息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-%E3%80%90rabbitMQ%E3%80%91"><span class="toc-text">消息中间件 【rabbitMQ】</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90springboot%E3%80%91%E7%BC%93%E5%AD%98%E7%AD%89 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F02%2F26%2Fspring%2F%25E3%2580%2590springboot%25E3%2580%2591%25E7%25BC%2593%25E5%25AD%2598%25E7%25AD%2589%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91%E7%BC%93%E5%AD%98%E7%AD%89/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

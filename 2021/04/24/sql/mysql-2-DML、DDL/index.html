@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      mysql-2-DML、DDL 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">mysql-2-DML、DDL</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-04-24 14:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/sql/" title="sql">
+                    <b>#</b> sql
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/sql/" title="sql">
+                    #sql
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="DML语法"><a href="#DML语法" class="headerlink" title="DML语法"></a>DML语法</h2><h3 id="插入："><a href="#插入：" class="headerlink" title="插入："></a>插入：</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">方式<span class="number">1</span>：</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名(列名<span class="number">1</span>,......) </span><br><span class="line"><span class="keyword">values</span>(值<span class="number">1</span>,......)</span><br><span class="line"></span><br><span class="line">方式<span class="number">2</span>：</span><br><span class="line"><span class="keyword">insert</span>  <span class="keyword">into</span> 表名(列名<span class="number">1</span>,......) </span><br><span class="line"><span class="keyword">values</span>(值<span class="number">1</span>,......),</span><br><span class="line"><span class="keyword">values</span>(值<span class="number">1</span>,......),</span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">方式<span class="number">3</span>：</span><br><span class="line"><span class="keyword">insert</span>  <span class="keyword">into</span> 表名()(</span><br><span class="line">	<span class="keyword">select</span> ....;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">方式<span class="number">4</span>：</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名 </span><br><span class="line"><span class="keyword">set</span> 列名<span class="operator">=</span>值,</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="更新："><a href="#更新：" class="headerlink" title="更新："></a>更新：</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> 表名</span><br><span class="line"><span class="keyword">set</span> 列名<span class="operator">=</span>值,......</span><br><span class="line">[<span class="keyword">where</span> 筛选条件] </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改多表的记录语法:</li>
+</ul>
+<p>sql92语法:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> 表<span class="number">1</span> 别名,表<span class="number">2</span> 别名</span><br><span class="line"><span class="keyword">set</span> 列<span class="operator">=</span>值,..: ..</span><br><span class="line"><span class="keyword">where</span> 连接条件 <span class="keyword">and</span> 筛选条件;</span><br></pre></td></tr></table></figure>
+
+<p>sql99语法:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> 表<span class="number">1</span> 别名</span><br><span class="line">[<span class="keyword">inner</span><span class="operator">/</span><span class="keyword">left</span><span class="operator">/</span><span class="keyword">right</span>] <span class="keyword">join</span> 表<span class="number">2</span> 别名 <span class="keyword">on</span> 连接条件</span><br><span class="line"><span class="keyword">set</span> 列<span class="operator">=</span>值,......</span><br><span class="line"><span class="keyword">where</span> 筛选条件;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> 表名</span><br><span class="line">[<span class="keyword">where</span> 筛选条件]</span><br><span class="line"></span><br><span class="line">不加筛选条件即删除整表</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">多表删除 和更新类似</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">删除全表：<span class="keyword">truncate</span> <span class="keyword">table</span> 表名</span><br></pre></td></tr></table></figure>
+
+<p><strong>truncate和delete对比：</strong></p>
+<ul>
+<li>假如表有自增长列，删除数据后，自增序号从删除点后一个序号开始</li>
+<li>truncate无返回值，delete有返回值</li>
+<li>truncate无法回滚，delete可回滚</li>
+</ul>
+<h2 id="DDL语法"><a href="#DDL语法" class="headerlink" title="DDL语法"></a>DDL语法</h2><table>
+<thead>
+<tr>
+<th align="left">关键字</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">create</td>
+<td>创建</td>
+</tr>
+<tr>
+<td align="left">rename</td>
+<td>重命名</td>
+</tr>
+<tr>
+<td align="left">alter</td>
+<td>修改</td>
+</tr>
+<tr>
+<td align="left">drop</td>
+<td>删除</td>
+</tr>
+<tr>
+<td align="left">if/if not exists</td>
+<td>判断存在</td>
+</tr>
+</tbody></table>
+<h3 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">选择数据库：</span><br><span class="line">use 数据库名;</span><br><span class="line"></span><br><span class="line">创建数据库：</span><br><span class="line"><span class="keyword">create</span> datebase 库名</span><br><span class="line"><span class="keyword">create</span> datebase if <span class="keyword">not</span> <span class="keyword">exists</span> 库名   先判断数据库是否存在</span><br><span class="line"></span><br><span class="line">修改库：</span><br><span class="line">rename database 旧库名 <span class="keyword">to</span> 新库名      <span class="number">5.1</span><span class="number">.7</span>存在，已废弃</span><br><span class="line"></span><br><span class="line">更改库字符集：</span><br><span class="line"><span class="keyword">alter</span> database 库名  <span class="type">character</span> <span class="keyword">set</span> 字符集</span><br><span class="line"></span><br><span class="line">删除库：</span><br><span class="line"><span class="keyword">drop</span> database if <span class="keyword">exists</span> 库名</span><br></pre></td></tr></table></figure>
+
+<h3 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h3><ul>
+<li>表操作</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">创建表:</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名(</span><br><span class="line">	列名 类型 [约束] [约束] ...,</span><br><span class="line">	....,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">修改表名:</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 旧表名 rename <span class="keyword">to</span> 新表名</span><br><span class="line"></span><br><span class="line">删除表：</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 表名</span><br><span class="line"></span><br><span class="line">表复制：</span><br><span class="line"># 仅仅复制表结构</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名 <span class="keyword">like</span> 被复制的表名; </span><br><span class="line"># 复制表结构和数据，加<span class="keyword">where</span>可限定复制部分数据</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名 <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 被复制的表名;   </span><br><span class="line"># 复制表的某些字段</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名 <span class="keyword">select</span> 字段<span class="number">1</span>,... <span class="keyword">from</span> 被复制的表名 <span class="keyword">where</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>列操作</li>
+</ul>
+<p>格式：alter table 表名 add|drop|modify|change column 列名 【列类型 约束】;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">修改列名：</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 change <span class="keyword">column</span> 旧列名 新列名 [类型]</span><br><span class="line"></span><br><span class="line">修改列的类型或约束：</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 modify <span class="keyword">column</span> 列名 新类型</span><br><span class="line"></span><br><span class="line">添加新列：</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> <span class="keyword">column</span> 列名 类型</span><br><span class="line"></span><br><span class="line">删除列：</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">drop</span> <span class="keyword">column</span> 列名	</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="常见数据类型"><a href="#常见数据类型" class="headerlink" title="常见数据类型"></a>常见数据类型</h2><h3 id="数值型："><a href="#数值型：" class="headerlink" title="数值型："></a>数值型：</h3><p>创建表时定义字段类型说明：</p>
+<p><strong>整型</strong>：Tinyint、Smallint、Meditmint、Int/Integer、Bigint</p>
+<ul>
+<li>不设置符号，默认有符号，想设置无符号在创建表时添加unsigned关键字</li>
+<li>插入数值超出整型范围，报【out for range异常】，并插入临界值</li>
+<li>不设置长度，有默认长度值 </li>
+</ul>
+<p><strong>小数：</strong></p>
+<p>浮点数： Float(M,D)、Double(M,D)   </p>
+<p>定点数： DEC(M,D)/DECIMAL(M,D)</p>
+<ul>
+<li>M=整数和小数共几位数，D=精度几位数  超出范围插入临界值</li>
+<li>M和D都可以省略</li>
+<li>如果是float和double，会根据插入数据进度来决定精度</li>
+</ul>
+<blockquote>
+<p>选择类型原则：所选择的类型越简单越好，能保存数值类型越小越好</p>
+</blockquote>
+<h3 id="字符型："><a href="#字符型：" class="headerlink" title="字符型："></a>字符型：</h3><p><strong>短文本：</strong>Char(M)、Varchar(M)</p>
+<ul>
+<li>char表固定长度，varchar即可变长度(根据插入数据角色长度)</li>
+<li>char费空间、效率高，varchar省空间、效率低。</li>
+<li>char省略M默认1，varchar不可省</li>
+</ul>
+<p><strong>长文本：</strong>Text(文本)、Blob(较大的二进制)</p>
+<p><strong>其他：</strong>Binary、Varbinary、Enum、Set</p>
+<ul>
+<li><p>Binary、Varbinary用于保存较短的二进制</p>
+</li>
+<li><p>Enum即枚举，Set即集合，在创建表格时指定只能插入的数据</p>
+</li>
+</ul>
+<h3 id="日期型："><a href="#日期型：" class="headerlink" title="日期型："></a>日期型：</h3><p><strong>日期：</strong>Date、Datetime、Timestamp(时间戳)、Time、Year</p>
+<ul>
+<li><p>Datetime范围1000-9999，Timestamp范围1970-2038</p>
+</li>
+<li><p>Datetime不受时区影响，Timestamp受时区影响，</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">更换时区：</span><br><span class="line"><span class="keyword">set</span> time_zone <span class="operator">=</span> 时区</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="常见约束"><a href="#常见约束" class="headerlink" title="常见约束"></a>常见约束</h2><table>
+<thead>
+<tr>
+<th align="left">关键字</th>
+<th align="left">约束名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">NOT NULL</td>
+<td align="left">非空</td>
+<td>保证该字段不能为null。如：姓名、学号</td>
+</tr>
+<tr>
+<td align="left">DEFAULT</td>
+<td align="left">默认值</td>
+<td>如果插入没规定其他值,会添默认值。如：性别</td>
+</tr>
+<tr>
+<td align="left">UNIQUE</td>
+<td align="left">唯一</td>
+<td>保证值唯一性，可为空。如：座位号</td>
+</tr>
+<tr>
+<td align="left">PRIMARY KEY</td>
+<td align="left">主键</td>
+<td>本表主要的列可做主键</td>
+</tr>
+<tr>
+<td align="left">FOREIGN KEY</td>
+<td align="left">外键</td>
+<td>关联其他表格，限制两表关系，本表字段值必须是其他表字段值(一般是其他表的主键列)</td>
+</tr>
+<tr>
+<td align="left">CHECK</td>
+<td align="left">检查</td>
+<td>自定义检查约束限制条件(mysql不支持)。</td>
+</tr>
+</tbody></table>
+<p><strong>添加约束时机：</strong></p>
+<ul>
+<li>创建表时</li>
+<li>修改表时</li>
+</ul>
+<p><strong>列级约束：</strong></p>
+<ul>
+<li>六大约束语法上都支持，但外键没效果，</li>
+</ul>
+<p><strong>表级约束：</strong></p>
+<ul>
+<li>默认、非空约束不支持</li>
+</ul>
+<p>例如：创建表添加约束</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 添加列级约束</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> stuinfo (</span><br><span class="line">    id <span class="type">INT</span> PRIMARYKEY, # 主键 主键默认必须非空，唯一</span><br><span class="line">    stuName <span class="type">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NoT</span> NULI, # 非空</span><br><span class="line">    gender <span class="type">CHAR</span>(<span class="number">1</span>)  <span class="keyword">CHECK</span>(gender<span class="operator">=</span><span class="string">&#x27;男&#x27;</span> <span class="keyword">OR</span> gender <span class="operator">=</span><span class="string">&#x27;女&#x27;</span>),# 检查</span><br><span class="line">    seat <span class="type">INT</span> <span class="keyword">UNIQUE</span>, # 唯一</span><br><span class="line">    age <span class="type">INT</span> <span class="keyword">DEFAULT</span> <span class="number">18</span>, # 默认约束</span><br><span class="line">    majorid <span class="type">INT</span> <span class="keyword">FOREIGN</span> KEY <span class="keyword">REFERENCEs</span> major(id) # 外键 引入major表的id字段</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># 添加表级约束   格式：字段下面添加  [<span class="keyword">constraint</span>约束名] 约束类型(字段名)</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> stuinfo (</span><br><span class="line">    id <span class="type">INT</span>,</span><br><span class="line">    stuname <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">    gender <span class="type">CHAR</span>(<span class="number">1</span>),</span><br><span class="line">    seat <span class="type">INT</span>,</span><br><span class="line">    age <span class="type">INT</span>,</span><br><span class="line">    majorid <span class="type">INT</span>,</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">CONSTRAINT</span> pk <span class="keyword">PRIMARY</span> KEY(id),# 主键</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> uq <span class="keyword">UNIQUE</span>(seat), # 唯一键</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> ck <span class="keyword">CHECK</span>(gender<span class="operator">=</span><span class="string">&#x27;男&#x27;</span><span class="keyword">OR</span> gender<span class="operator">=</span><span class="string">&#x27;女&#x27;</span>)，# 检查</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> fk_stuinfo_major <span class="keyword">FOREIGN</span> KEY(majorid) <span class="keyword">REFERENCES</span>  major(id) # 外键</span><br><span class="line">);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>列级约束和表级约束有什么区别？</strong></p>
+<ul>
+<li><p>约束范围不一样</p>
+</li>
+<li><p>列级约束是定义在列属性中的，而表级约束是定义在列之后的，两者本质上没什么区别</p>
+</li>
+<li><p>如果约束需要同时对多列进行约束那么就只能采用表级约束，因为表级约束面向的是表（当然就包括所有列）</p>
+</li>
+<li><p>列级约束只能针对该列进行约束。如：gender字段中check约束</p>
+</li>
+</ul>
+<p><strong>什么时候用列级，什么时候用表级？通用写法：</strong></p>
+<ul>
+<li>外键定义表级约束</li>
+</ul>
+<h3 id="外键"><a href="#外键" class="headerlink" title="外键:"></a>外键:</h3><ul>
+<li>要求在从表设置外键关系</li>
+<li>从表的外键列的类型和主表的关联列的类型要求一致或兼容，名称无要求</li>
+<li>主表的关联列必须是一个key(一般是主键或唯—)</li>
+<li>插入数据时:先插入主表，再插入从表。删除数据时，先删除从表，再删除主表。</li>
+</ul>
+<p><strong>修改表时删除约束</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">1</span>．期制除非空约束</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> stuinfo MODIFY <span class="keyword">COLUMN</span> stuname <span class="type">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NULL</span>;</span><br><span class="line"># <span class="number">2</span>．删除默认约束</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> stuinfo MODIFY <span class="keyword">COLUMN</span> age <span class="type">INT</span> ;</span><br><span class="line"># <span class="number">3.</span>册除主键</span><br><span class="line">AITER <span class="keyword">TABLE</span> stuinfo <span class="keyword">DROP</span> <span class="keyword">PRIMARY</span> KEY;</span><br><span class="line"># <span class="number">4</span>．册除唯一</span><br><span class="line">AITERT ABLE stuinfo <span class="keyword">DROP</span> INDEX seat;</span><br><span class="line"># <span class="number">5.</span>删除外键</span><br><span class="line">AITER <span class="keyword">TABLE</span> stuinfo <span class="keyword">DROP</span> <span class="keyword">FOREIGN</span> KEY 外键名</span><br></pre></td></tr></table></figure>
+
+<h3 id="标识列"><a href="#标识列" class="headerlink" title="标识列"></a>标识列</h3><p>标识列又称自增长列。</p>
+<p>可以不用手动插入值，系统提供默认的序列值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 建表时设置标识列</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tab_identity(</span><br><span class="line">	id <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT, # AUTO_INCREMENT标识自增长</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 查看系统自增量，每次增加步长的值</span><br><span class="line"><span class="keyword">SHOW</span> VARIABLES <span class="keyword">LIKE</span> <span class="string">&#x27;%auto_inerement%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>标识列必须和主键搭配吗？</strong></p>
+<ul>
+<li>不一定，但要求是一个key</li>
+<li>标识列至多只有一个</li>
+<li>标识列类型只能是数值型</li>
+<li>可设置每次增量的步长值，</li>
+<li>可修改标识列初始值，即第一次插入数据时指定标识列的值</li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/04/24/sql/redis%E5%9F%BA%E7%A1%80/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-04-24 14:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/sql/" title="sql">
+                        <b>#</b> sql
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/sql/" title="sql">
+                        #sql
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/04/24/sql/mysql-1-DQL%E6%9F%A5%E8%AF%A2/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DML%E8%AF%AD%E6%B3%95"><span class="toc-text">DML语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%EF%BC%9A"><span class="toc-text">插入：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%EF%BC%9A"><span class="toc-text">更新：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-text">删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDL%E8%AF%AD%E6%B3%95"><span class="toc-text">DDL语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C"><span class="toc-text">数据库操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="toc-text">表操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">常见数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E5%9E%8B%EF%BC%9A"><span class="toc-text">数值型：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B%EF%BC%9A"><span class="toc-text">字符型：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E5%9E%8B%EF%BC%9A"><span class="toc-text">日期型：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%BA%A6%E6%9D%9F"><span class="toc-text">常见约束</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%94%AE"><span class="toc-text">外键:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E5%88%97"><span class="toc-text">标识列</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + mysql-2-DML%E3%80%81DDL + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F04%2F24%2Fsql%2Fmysql-2-DML%25E3%2580%2581DDL%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/04/24/sql/mysql-2-DML%E3%80%81DDL/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

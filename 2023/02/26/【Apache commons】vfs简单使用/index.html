@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      【Apache commons】vfs简单使用 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【Apache commons】vfs简单使用</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2023-02-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/java/" title="java">
+                    <b>#</b> java
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/java/" title="java">
+                    #java
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <ul>
+<li>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1f2f851b61c5">https://www.jianshu.com/p/1f2f851b61c5</a></li>
+</ul>
+<h2 id="vfs-虚拟文件系统"><a href="#vfs-虚拟文件系统" class="headerlink" title="vfs 虚拟文件系统"></a>vfs 虚拟文件系统</h2><h3 id="Commons-VFS-支持文件系统"><a href="#Commons-VFS-支持文件系统" class="headerlink" title="Commons VFS 支持文件系统"></a>Commons VFS 支持文件系统</h3><p><strong>1.本地文件</strong></p>
+<ul>
+<li>[file://]absolute-path</li>
+</ul>
+<p><strong>2. Zip, Jar and Tar</strong></p>
+<ul>
+<li>[zip://arch-file-uri<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=zip://arch-file-uri%5B!absolute-path%5D">!absolute-path]</a></li>
+<li>[jar://arch-file-uri<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=jar://arch-file-uri%5B!absolute-path%5D">!absolute-path]</a></li>
+<li>[tar://arch-file-uri<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=tar://arch-file-uri%5B!absolute-path%5D">!absolute-path]</a></li>
+<li>[tgz://arch-file-uri<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=tgz://arch-file-uri%5B!absolute-path%5D">!absolute-path]</a></li>
+<li>[tbz2://arch-file-uri<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=tbz2://arch-file-uri%5B!absolute-path%5D">!absolute-path]</a></li>
+</ul>
+<p><strong>3. gzip and bzip2</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=gz://compressed-file-uri">gz://compressed-file-uri</a></li>
+<li><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=bz2://compressed-file-uri">bz2://compressed-file-uri</a></li>
+</ul>
+<p><strong>4. HDFS</strong></p>
+<ul>
+<li>[hdfs://hostname<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=hdfs://hostname%5B:port%5D%5Babsolute-path%5D">:port][absolute-path]</a></li>
+</ul>
+<p><strong>5. HTTP and HTTPS</strong></p>
+<ul>
+<li>http://[username[:password]@]hostname[:port][absolute-path]</li>
+<li>https://[username[:password]@]hostname[:port][absolute-path]</li>
+</ul>
+<p><strong>6. WebDAV</strong></p>
+<ul>
+<li>webdav://[username[:password]@]hostname[:port][absolute-path]</li>
+</ul>
+<p>通过 commons-vfs2-jackrabbit1 和 commons-vfs2-jackrabbit2 模块提供对 WebDAV 服务器上文件的访问。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-vfs2-jackrabbit1<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>7. FTP and FTPS</strong></p>
+<ul>
+<li>ftp://[user[:pass]@]host[:port][relative-path]</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认情况下，路径相对于用户的主目录。可通过以下方式进行更改：</span></span><br><span class="line">FtpFileSystemConfigBuilder.getInstance().setUserDirIsRoot(options, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>8. SFTP</strong></p>
+<ul>
+<li>sftp://[user[:pass]@]hostname[:port][relative-path]</li>
+</ul>
+<p>提供对 SFTP 服务器（即 SSH 或 SCP 服务器）上的文件的访问。需要添加如下依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jcraft<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsch<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1.55<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>9. Temporary Files</strong>：提供对临时文件系统的访问，该文件系统在 Commons VFS 关闭时被删除。临时文件系统由本地文件系统支持</p>
+<ul>
+<li>tmp://[absolute-path]    示例：<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=tmp://dir/somefile.txt">tmp://dir/somefile.txt</a></li>
+</ul>
+<p><strong>10. RAM</strong>：在内存中存储所有数据的文件系统（每个文件内容一个字节数组）</p>
+<ul>
+<li>ram://[path]    示例：ram:///any/path/to/file.txt</li>
+</ul>
+<p><strong>11. Resource</strong> ：实际上不是一个文件系统，它使用 ClassLoader.getResource() 查找资源，并创建一个 VFS url 以供进一步处理</p>
+<ul>
+<li>res://[path]</li>
+</ul>
+<p><strong>12. CIFS</strong></p>
+<ul>
+<li>smb://[username[:password]@]hostname[:port][absolute-path]</li>
+</ul>
+<p><strong>13. MIME</strong>：可以读取邮件及其附件，比如归档文件。如果已解析邮件中的某个部分没有名称，则将生成一个伪名称。虚拟名称是：_body_part_X，其中X将被零件号替换。</p>
+<ul>
+<li>[mime://mime-file-uri<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=mime://mime-file-uri%5B!absolute-path%5D">!absolute-path]</a></li>
+</ul>
+<p><strong>14. 自定义扩展</strong></p>
+<h3 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h3><h4 id="FileSystemManager"><a href="#FileSystemManager" class="headerlink" title="FileSystemManager"></a><strong>FileSystemManager</strong></h4><p>管理一组文件系统。此接口用于按名称从这些文件系统之一中定位获取 org.apache.commons.vfs2.FileObject 。</p>
+<h4 id="FileProvider"><a href="#FileProvider" class="headerlink" title="FileProvider"></a><strong>FileProvider</strong></h4><p>文件提供者。每个文件提供者负责处理特定 URI 的文件。</p>
+<h4 id="FileNameParser"><a href="#FileNameParser" class="headerlink" title="FileNameParser"></a><strong>FileNameParser</strong></h4><p>提供将文件名解析为 org.apache.commons.vfs2.FileName 的方法。</p>
+<h4 id="FileSystem"><a href="#FileSystem" class="headerlink" title="FileSystem"></a><strong>FileSystem</strong></h4><p>一个文件系统，由文件的层次结构组成。</p>
+<h4 id="FileObject"><a href="#FileObject" class="headerlink" title="FileObject"></a><strong>FileObject</strong></h4><p>代表一个文件，用于访问文件的内容和结构。有两种类型的文件：文件夹，包含其他文件；普通文件，包含数据或内容。一个文件夹可能没有任何内容，普通文件不能包含其他文件。</p>
+<h4 id="FilesCache"><a href="#FilesCache" class="headerlink" title="FilesCache"></a><strong>FilesCache</strong></h4><p>文件缓存接口。VFS 内置一下几种实现，SoftRefFilesCache（软引用，默认值），WeakRefFilesCache（弱引用），DefaultFilesCache（没有过期和限制），LRUFilesCache（LRU实现，默认容量100个），NullFilesCache（空实现，不做任何缓存）。</p>
+<h4 id="FileSelector"><a href="#FileSelector" class="headerlink" title="FileSelector"></a><strong>FileSelector</strong></h4><p>该接口用于查找子文件时定义选择规则，使用方式 FileObject.findFiles(FileSelector) 。VFS 内置了 7 种选择器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">FileSelector</span> <span class="variable">SELECT_SELF</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileDepthSelector</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">FileSelector</span> <span class="variable">SELECT_SELF_AND_CHILDREN</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileDepthSelector</span>(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">FileSelector</span> <span class="variable">SELECT_CHILDREN</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileDepthSelector</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">FileSelector</span> <span class="variable">EXCLUDE_SELF</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileDepthSelector</span>(<span class="number">1</span>, <span class="number">2147483647</span>);</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> FileSelector SELECT_FILES;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> FileSelector SELECT_FOLDERS;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> FileSelector SELECT_ALL;</span><br></pre></td></tr></table></figure>
+
+<p>Apache VFS 提供四个FileSelector实现类：</p>
+<ul>
+<li><code>AllFileSelector</code> 顾名思义，将选择所有文件</li>
+<li><code>FileDepthSelector (int minDepth, int maxDepth)</code> 选择特定深度的所有文件,以最小深度，最大深度为参数</li>
+<li><code>FileFilterSelector</code> 选择所有给定文件对象的子文件。和FileFilter非常象。（那还要这个干什么？？），可以接受一个FileFilter作为参数</li>
+<li><code>FileTypeSelector (FileType type)</code> 选择特定类型的文件。 Apache VFS的文件类型FileType对象只有四种类型：<ul>
+<li>FILE  文件</li>
+<li>FILE_OR_FOLDER  文件或目录</li>
+<li>FOLDER  目录</li>
+<li>FILE_IMAGINARY  尚不存在的文件</li>
+</ul>
+</li>
+</ul>
+<p><strong>加载流程</strong></p>
+<blockquote>
+<p>VFS 加载文件流程大致如下：FileSystemManager 解析文件名，通过文件名中的协议（如ftp://中的ftp）获取对应 FileProvider 对象，FileProvider 通过 FileNameParser 对象解析文件名获取对应的 FileSystem 对象，通过 FileSystem 对象的 resolveFile 方法获取文件（默认先从缓存中查找，不存在再调用 createFile 方法创建 FileObject 对象，FileObject 就是实体文件的抽象，提供读取和修改等相关能力）</p>
+</blockquote>
+<h3 id="使用apache-commons-vfs"><a href="#使用apache-commons-vfs" class="headerlink" title="使用apache-commons-vfs"></a>使用apache-commons-vfs</h3><ul>
+<li>引入依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- other --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.31<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- vfs --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-net<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-net<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-vfs2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-lang3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.12.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--访问Sftp服务器文件时需要引入--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jcraft<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsch<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1.55<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--访问Http服务器文件时需要引入--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-httpclient<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-httpclient<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xiaoai.apache_vfs;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.io.IOUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.vfs2.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.vfs2.provider.ftp.FtpFileSystemConfigBuilder;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.vfs2.provider.sftp.SftpFileSystemConfigBuilder;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021-10-24 14:33</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyVfsTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(MyVfsTest.class);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">FileSystemManager</span> <span class="variable">fsMng</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化vfs</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> FileSystemException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> FileSystemManager <span class="title function_">vfsInit</span><span class="params">()</span> <span class="keyword">throws</span> FileSystemException &#123;</span><br><span class="line">        logger.debug(<span class="string">&quot;vfs使用,初始化信息...&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (fsMng == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                FTPSetting();</span><br><span class="line">                SFTPSetting();</span><br><span class="line">                fsMng = VFS.getManager();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (FileSystemException ex) &#123;</span><br><span class="line">                logger.debug(<span class="string">&quot;vfs使用,初始化信息...失败&quot;</span>,ex);</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">FileSystemException</span>(ex);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> fsMng;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> FileSystemOptions <span class="title function_">FTPSetting</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">FtpFileSystemConfigBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> FtpFileSystemConfigBuilder.getInstance();</span><br><span class="line">        <span class="type">FileSystemOptions</span> <span class="variable">options</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemOptions</span>();</span><br><span class="line">        <span class="comment">//解决中文乱码</span></span><br><span class="line">        builder.setControlEncoding(options, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        builder.setServerLanguageCode(options, <span class="string">&quot;zh&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> options;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> FileSystemOptions <span class="title function_">SFTPSetting</span><span class="params">()</span> <span class="keyword">throws</span> FileSystemException &#123;</span><br><span class="line">        <span class="type">FileSystemOptions</span> <span class="variable">options</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemOptions</span>();</span><br><span class="line">        <span class="type">SftpFileSystemConfigBuilder</span> <span class="variable">sftpBuilder</span> <span class="operator">=</span> SftpFileSystemConfigBuilder.getInstance();</span><br><span class="line">        <span class="comment">// 设false时，URI要传绝对路径,设true时，URI传相对于远程用户根目录的相对路径</span></span><br><span class="line">        sftpBuilder.setUserDirIsRoot(options, <span class="literal">true</span>);</span><br><span class="line">        sftpBuilder.setStrictHostKeyChecking(options, <span class="string">&quot;no&quot;</span>);</span><br><span class="line"><span class="comment">//        sftpBuilder.setTimeout(options, 10000);</span></span><br><span class="line">        <span class="keyword">return</span> options;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">delete</span><span class="params">(String path)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">FileObject</span> <span class="variable">fo</span> <span class="operator">=</span> fsMng.resolveFile(path);</span><br><span class="line">            fo.delete();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileSystemException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isDirectory</span><span class="params">(String path)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">FileObject</span> <span class="variable">fo</span> <span class="operator">=</span> fsMng.resolveFile(path);</span><br><span class="line">            <span class="keyword">return</span> fo.getType().equals(FileType.FOLDER);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileSystemException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取输入流</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 文件输入流</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> InputStream <span class="title function_">getFileToInputStream</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">FileObject</span> <span class="variable">fo</span> <span class="operator">=</span> fsMng.resolveFile(url);</span><br><span class="line">            <span class="keyword">return</span> fo.getContent().getInputStream();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileSystemException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> OutputStream <span class="title function_">getOutputStream</span><span class="params">(String path)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">FileObject</span> <span class="variable">fo</span> <span class="operator">=</span> fsMng.resolveFile(path);</span><br><span class="line">            <span class="keyword">return</span> fo.getContent().getOutputStream();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileSystemException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取字节数组</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 文件字节数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] getFileToByte(String url) <span class="keyword">throws</span> IOException&#123;</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> getFileToInputStream(url);</span><br><span class="line">        <span class="keyword">return</span> IOUtils.toByteArray(inputStream);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 文件上传</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> uploadURL</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> bytes</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">uploadFileToByte</span><span class="params">(String uploadURL,<span class="type">byte</span>[] bytes)</span>&#123;</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">output</span>  <span class="operator">=</span>  <span class="literal">null</span>;</span><br><span class="line">        <span class="type">FileObject</span> <span class="variable">ftpFile</span>  <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">byteLength</span> <span class="operator">=</span> bytes.length;</span><br><span class="line">            ftpFile = fsMng.resolveFile(uploadURL);</span><br><span class="line">            <span class="keyword">if</span>(ftpFile != <span class="literal">null</span> &amp;&amp; ftpFile.exists() == <span class="literal">false</span>)&#123;</span><br><span class="line">                ftpFile.createFile();</span><br><span class="line">            &#125;</span><br><span class="line">            output = ftpFile.getContent().getOutputStream();</span><br><span class="line">            IOUtils.write(bytes,output);</span><br><span class="line">            <span class="keyword">if</span>(ftpFile.isFile())&#123;</span><br><span class="line">                <span class="type">long</span> <span class="variable">size</span> <span class="operator">=</span> ftpFile.getContent().getSize();</span><br><span class="line">                <span class="keyword">if</span>(byteLength == size)&#123;</span><br><span class="line">                    logger.debug(<span class="string">&quot;文件上传成功size:&#123;&#125;&quot;</span>,size);</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                logger.debug(<span class="string">&quot;创建文件夹成功getURL：&#123;&#125;&quot;</span>,ftpFile.getURL());</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(output != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    output.close();</span><br><span class="line">                    output.flush();</span><br><span class="line">                    ftpFile.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception var2) &#123;</span><br><span class="line">                   var2.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isFile</span><span class="params">(String path)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">FileObject</span> <span class="variable">fo</span> <span class="operator">=</span> fsMng.resolveFile(path);</span><br><span class="line">            <span class="keyword">return</span> fo.getType().equals(FileType.FILE);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileSystemException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 函数描述：根据传入的文件路径创建文件夹(包括各级父文件夹)。如果路径中有文件，会自动去掉文件名。 （文件的判断是</span></span><br><span class="line"><span class="comment">     * 以最后一个&quot;/&quot;之后是否有&quot;.&quot;为标识的，）</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> path</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 如果创建成功，返回true；否则，返回false;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">mkdirs</span><span class="params">(String path)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">realPath</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        path = path.replaceAll(<span class="string">&quot;\\\\&quot;</span>, <span class="string">&quot;/&quot;</span>);</span><br><span class="line">        <span class="comment">// 如果该路径已&quot;/&quot;结尾，则整个字符串都是路径</span></span><br><span class="line">        <span class="keyword">if</span> (path.endsWith(<span class="string">&quot;/&quot;</span>)) &#123;</span><br><span class="line">            realPath = path;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">fileNamePoint</span> <span class="operator">=</span> path.lastIndexOf(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">            <span class="comment">// 获取真正的路径</span></span><br><span class="line">            <span class="keyword">if</span> (fileNamePoint &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                realPath = path.substring(<span class="number">0</span>, fileNamePoint);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 读取文件名</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> path.substring(fileNamePoint + <span class="number">1</span>);</span><br><span class="line">            <span class="comment">// 如果读取的文件名中没有&quot;.&quot;，说明整个字符串都是路径</span></span><br><span class="line">            <span class="keyword">if</span> (fileName.indexOf(<span class="string">&quot;.&quot;</span>) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                realPath = path;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">FileObject</span> <span class="variable">fo</span> <span class="operator">=</span> fsMng.resolveFile(realPath);</span><br><span class="line">            fo.createFolder();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 函数描述：对文件进行copy</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sourceFilePath 源文件的全部路径+文件名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> targetFilePath 目标文件的全部路径+文件名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> overWrite      如果目标文件存在，是否覆盖。true:覆盖；false:不覆盖(当源文件和目标文件都存在并且不覆盖时,返回true)。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> true:成功；false:失败; (当源文件和目标文件都存在并且不覆盖时,返回true)。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">copyFile</span><span class="params">(String sourceFilePath, String targetFilePath, <span class="type">boolean</span> overWrite)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(sourceFilePath) || StringUtils.isBlank(targetFilePath)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IOException</span>(<span class="string">&quot;源文件或者目标文件为空&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">FileObject</span> <span class="variable">from</span> <span class="operator">=</span> fsMng.resolveFile(sourceFilePath);</span><br><span class="line">        <span class="type">FileObject</span> <span class="variable">to</span> <span class="operator">=</span> fsMng.resolveFile(targetFilePath);</span><br><span class="line">        <span class="keyword">if</span> (to.exists()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (to.getType() == FileType.FILE) &#123;</span><br><span class="line">                <span class="keyword">if</span> (overWrite &amp;&amp; !to.delete()) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IOException</span>(<span class="string">&quot;目标文件[&quot;</span> + targetFilePath + <span class="string">&quot;]被保护，不能被覆盖！&quot;</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!overWrite) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IOException</span>(<span class="string">&quot;目标文件[&quot;</span> + targetFilePath + <span class="string">&quot;]已经存在！&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        to.copyFrom(from, Selectors.SELECT_ALL);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Moving a File to Another File ,没有进行磁盘空间大小的判断</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> srcFile    源文件 eg: c:\windows\abc.txt</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> targetFile 目标文件 eg: c:\temp\abc.txt</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> overWrite  如果目标文件存在，是否覆盖</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> success</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">moveFile</span><span class="params">(String srcFile, String targetFile, <span class="type">boolean</span> overWrite)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">if</span> (srcFile.equals(targetFile)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">FileObject</span> <span class="variable">src</span> <span class="operator">=</span> fsMng.resolveFile(srcFile);</span><br><span class="line">        <span class="comment">// File (or directory) to be moved</span></span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isNotBlank(srcFile) &amp;&amp; !src.exists()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IOException</span>(<span class="string">&quot;源文件[&quot;</span> + srcFile + <span class="string">&quot;]不存在&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Destination directory</span></span><br><span class="line">        <span class="type">FileObject</span> <span class="variable">to</span> <span class="operator">=</span> fsMng.resolveFile(targetFile);</span><br><span class="line">        <span class="keyword">if</span> (to.exists()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (to.getType() == FileType.FILE) &#123;</span><br><span class="line">                <span class="keyword">if</span> (overWrite &amp;&amp; !to.delete()) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IOException</span>(<span class="string">&quot;目标文件[&quot;</span> + targetFile + <span class="string">&quot;]被保护，不能被覆盖！&quot;</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!overWrite) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IOException</span>(<span class="string">&quot;目标文件[&quot;</span> + targetFile + <span class="string">&quot;]已经存在！&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        src.moveTo(to);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">(String path)</span> &#123;</span><br><span class="line">        print(path,<span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">(String path,  String printPath)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">FileSystemManager</span> <span class="variable">fsManager</span> <span class="operator">=</span> VFS.getManager();</span><br><span class="line">            <span class="type">FileSystemOptions</span> <span class="variable">opts</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemOptions</span>();</span><br><span class="line">            <span class="keyword">if</span> (path.startsWith(<span class="string">&quot;sftp:&quot;</span>)) &#123;</span><br><span class="line">                FTPSetting();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">FileObject</span> <span class="variable">fileObject</span> <span class="operator">=</span> fsManager.resolveFile(path, opts);</span><br><span class="line">            <span class="keyword">if</span> (fileObject.isFolder()) &#123;</span><br><span class="line">                FileObject[] childs = fileObject.getChildren();</span><br><span class="line">                <span class="keyword">for</span> (FileObject child : childs) &#123;</span><br><span class="line">                    print(child,printPath);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                print(fileObject,printPath);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">(FileObject fileObject, String printPath)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">if</span> (printPath != <span class="literal">null</span>)&#123;</span><br><span class="line">            System.setOut(<span class="keyword">new</span> <span class="title class_">PrintStream</span>(printPath));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;\n----------&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;url：&quot;</span> + fileObject.getPublicURIString());</span><br><span class="line">        System.out.println(<span class="string">&quot;ModifiedTime：&quot;</span> + <span class="keyword">new</span> <span class="title class_">Date</span>(fileObject.getContent().getLastModifiedTime()));</span><br><span class="line">        System.out.println(<span class="string">&quot;---------- content ----------&quot;</span>);</span><br><span class="line">        System.out.println(IOUtils.toString(fileObject.getContent().getInputStream(), <span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> FileSystemException &#123;</span><br><span class="line">        vfsInit();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">after</span><span class="params">()</span>&#123;</span><br><span class="line">        fsMng.close();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testResolve</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">FileObject</span> <span class="variable">fo</span> <span class="operator">=</span> fsMng.resolveFile(<span class="string">&quot;D:\\tem2\\test\\temp2.txt&quot;</span>);</span><br><span class="line">        <span class="type">FileObject</span> <span class="variable">foFolder</span> <span class="operator">=</span> fsMng.resolveFile(<span class="string">&quot;D:\\tem2\\test&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 获取属性</span></span><br><span class="line"><span class="comment">         * 结果：</span></span><br><span class="line"><span class="comment">         * org.apache.commons.vfs2.provider.local.LocalFileSystem@4f970963</span></span><br><span class="line"><span class="comment">         * parent：file:///D:/tem2/test</span></span><br><span class="line"><span class="comment">         * name：file:///D:/tem2/test/temp2.txt</span></span><br><span class="line"><span class="comment">         * path：D:\tem2\test\temp2.txt</span></span><br><span class="line"><span class="comment">         * pubURI：file:///D:/tem2/test/temp2.txt</span></span><br><span class="line"><span class="comment">         * URI：file:///D:/tem2/test/temp2.txt</span></span><br><span class="line"><span class="comment">         * URL：file:///D:/tem2/test/temp2.txt</span></span><br><span class="line"><span class="comment">         * 是否文件：true</span></span><br><span class="line"><span class="comment">         * 是否文件夹：false</span></span><br><span class="line"><span class="comment">         * 是否符号链接：false</span></span><br><span class="line"><span class="comment">         * 是否可执行：true</span></span><br><span class="line"><span class="comment">         * 是否隐藏：false</span></span><br><span class="line"><span class="comment">         * type：file</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;/n----------&quot;);</span></span><br><span class="line"><span class="comment">//        System.out.println(fo.getFileSystem()); // LocalFileSystem</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;parent：&quot;+fo.getParent().toString());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;name：&quot;+fo.getName());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;path：&quot;+fo.getPath());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;pubURI：&quot;+fo.getPublicURIString());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;URI：&quot;+fo.getURI().toString());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;URL：&quot;+fo.getURL());</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;是否文件：&quot; + fo.isFile());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;是否文件夹：&quot; + fo.isFolder());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;是否符号链接：&quot; + fo.isSymbolicLink());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;是否可执行：&quot; + fo.isExecutable());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;是否隐藏：&quot; + fo.isHidden());</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;type：&quot;+fo.getType());</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 读取内容</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">if</span> (fo.isFile()) &#123;</span><br><span class="line">            <span class="type">FileContent</span> <span class="variable">fc</span> <span class="operator">=</span> fo.getContent();</span><br><span class="line">            <span class="comment">// fc.getInputStream();</span></span><br><span class="line">            <span class="comment">// fc.getByteArray();</span></span><br><span class="line">            <span class="comment">// 获取内容 - 字符串形式</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> fc.getString(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">            System.out.println(content);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 查找文件  获取子文件</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * 结果：</span></span><br><span class="line"><span class="comment">         * --file:///D:/tem2/test/temp2.txt</span></span><br><span class="line"><span class="comment">         * --file:///D:/tem2/test/test1</span></span><br><span class="line"><span class="comment">         * --file:///D:/tem2/test</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;/n----------&quot;);</span></span><br><span class="line"><span class="comment">//        if (foFolder.isFolder()) &#123;</span></span><br><span class="line"><span class="comment">//            FileObject[] files = foFolder.findFiles(Selectors.SELECT_ALL);</span></span><br><span class="line"><span class="comment">//            for (int i = 0; i &lt; files.length; i++) &#123;</span></span><br><span class="line"><span class="comment">//                System.out.println(&quot;--&quot; + files[i].getName());</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//            // 获取所有子文件</span></span><br><span class="line"><span class="comment">//            FileObject[] foArr = fo.getChildren();</span></span><br><span class="line"><span class="comment">//            // 获取子文件（名称为test）</span></span><br><span class="line"><span class="comment">//            FileObject test = fo.getChild(&quot;a.txt&quot;);</span></span><br><span class="line"><span class="comment">//            // 从所有后代中获取类型是文件的文件</span></span><br><span class="line"><span class="comment">//            FileObject[] files = fo.findFiles(Selectors.SELECT_FILES);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 删除文件</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">if</span> (fo.isFolder()) &#123;</span><br><span class="line">            <span class="comment">// 删除此文件和所有子文件, 返回删除的数量</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">delCount</span> <span class="operator">=</span> fo.deleteAll();<span class="comment">// 同fo.delete(Selectors.SELECT_ALL);</span></span><br><span class="line">			<span class="comment">// 只删除所有子文件</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">del2</span> <span class="operator">=</span> fo.delete(Selectors.EXCLUDE_SELF);</span><br><span class="line">            <span class="comment">// 只删除直接子文件和空目录</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">del3</span> <span class="operator">=</span> fo.delete(Selectors.SELECT_CHILDREN);</span><br><span class="line">            <span class="comment">// 只删除文件</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">del4</span> <span class="operator">=</span> fo.delete(Selectors.SELECT_FILES);</span><br><span class="line">            <span class="comment">// 只删除空的子目录</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">del5</span> <span class="operator">=</span> fo.delete(Selectors.SELECT_FOLDERS);</span><br><span class="line">            <span class="comment">// 删除目录本身（如果包含子文件则删除失败返回0）</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">del6</span> <span class="operator">=</span> fo.delete(Selectors.SELECT_SELF);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 目录不为空则删除失败返回false</span></span><br><span class="line">            <span class="type">boolean</span> <span class="variable">suc</span> <span class="operator">=</span> fo.delete();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (fo.isFile()) &#123;</span><br><span class="line">            <span class="comment">// 删除文件本身</span></span><br><span class="line">            <span class="type">boolean</span> <span class="variable">suc</span> <span class="operator">=</span> fo.delete();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭</span></span><br><span class="line">        fo.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testListener</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 监听文件创建，修改或删除</span></span><br><span class="line">        <span class="type">FileSystemManager</span> <span class="variable">fsMgr</span> <span class="operator">=</span> VFS.getManager();</span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> <span class="string">&quot;D:\\tem2\\test\\a.txt&quot;</span>;</span><br><span class="line">        <span class="type">FileObject</span> <span class="variable">fo</span> <span class="operator">=</span> fsMgr.toFileObject(<span class="keyword">new</span> <span class="title class_">File</span>(path));</span><br><span class="line">        <span class="comment">// 添加监听器</span></span><br><span class="line">        fo.getFileSystem().addListener(fo, <span class="keyword">new</span> <span class="title class_">MyListener</span>());</span><br><span class="line">        <span class="keyword">if</span> (!fo.exists()) &#123;</span><br><span class="line">            fo.createFile();</span><br><span class="line">        &#125;</span><br><span class="line">        fo.setWritable(<span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"><span class="comment">//        fo.delete();</span></span><br><span class="line">        fo.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">MyListener</span> <span class="keyword">implements</span> <span class="title class_">FileListener</span> &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">fileCreated</span><span class="params">(FileChangeEvent event)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;fileCreated：&quot;</span>+event.getFileObject().getName());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">fileDeleted</span><span class="params">(FileChangeEvent event)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;fileDeleted：&quot;</span>+event.getFileObject().getName());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">fileChanged</span><span class="params">(FileChangeEvent event)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;fileChanged：&quot;</span>+event.getFileObject().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDownForByte</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 读取</span></span><br><span class="line">            System.out.println(<span class="string">&quot;----------&quot;</span>);</span><br><span class="line"><span class="comment">//            String url = &quot;file:///D:/tem2/temp.txt&quot;;</span></span><br><span class="line"><span class="comment">//			  String url = &quot;zip://file:///D:/tem2/晚安玫瑰.rar!/原始风景.txt&quot;;</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;sftp://root:root@192.168.43.128:22/temp/temp.txt&quot;</span>;</span><br><span class="line">            <span class="type">byte</span>[] bytes = getFileToByte(url);</span><br><span class="line">            System.out.println(<span class="string">&quot;读取：&quot;</span> + url);</span><br><span class="line">            System.out.println(<span class="string">&quot;读取到长度：&quot;</span> + bytes.length);</span><br><span class="line">            System.out.println(<span class="string">&quot;读取到内容：&quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(bytes));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 写入</span></span><br><span class="line">            System.out.println(<span class="string">&quot;----------&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">pathUrl</span> <span class="operator">=</span> <span class="string">&quot;sftp://root:root@192.168.43.128/temp/temp2.txt&quot;</span>;</span><br><span class="line">            System.out.println(<span class="string">&quot;写入：&quot;</span> + pathUrl);</span><br><span class="line">            <span class="type">boolean</span> <span class="variable">result</span> <span class="operator">=</span> uploadFileToByte(pathUrl, <span class="string">&quot;hello temp2 &gt; java:xiaoai&quot;</span>.getBytes());</span><br><span class="line">            System.out.println(<span class="string">&quot;result:&quot;</span> + (result ? <span class="string">&quot;writer success!&quot;</span> : <span class="string">&quot;writer failed!&quot;</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testMethod</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"><span class="comment">//		  copyFile(&quot;D:/tem2/java.jpeg&quot;,&quot;D:/tem2/javaCope.jpeg&quot;,true);</span></span><br><span class="line"><span class="comment">//        moveFile(&quot;D:/tem2/javaCope.jpeg&quot;,&quot;D:/tem2/javaCopeMove.jpeg&quot;,true);</span></span><br><span class="line"><span class="comment">//        print(&quot;D:\\tem2\\test&quot;);</span></span><br><span class="line"><span class="comment">//        print(&quot;https://www.baidu.com/index.html&quot;);</span></span><br><span class="line">        print(<span class="string">&quot;https://www.baidu.com/index.html&quot;</span>,<span class="string">&quot;D:\\tem2\\test\\temp2.txt&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2023/02/26/java/java-maven%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2023-02-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/java/" title="java">
+                        <b>#</b> java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/java/" title="java">
+                        #java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2023/02/26/%E5%85%B3%E4%BA%8Es3/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vfs-%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">vfs 虚拟文件系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Commons-VFS-%E6%94%AF%E6%8C%81%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">Commons VFS 支持文件系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="toc-text">整体结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FileSystemManager"><span class="toc-text">FileSystemManager</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FileProvider"><span class="toc-text">FileProvider</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FileNameParser"><span class="toc-text">FileNameParser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FileSystem"><span class="toc-text">FileSystem</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FileObject"><span class="toc-text">FileObject</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FilesCache"><span class="toc-text">FilesCache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FileSelector"><span class="toc-text">FileSelector</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8apache-commons-vfs"><span class="toc-text">使用apache-commons-vfs</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90Apache%20commons%E3%80%91vfs%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2023%2F02%2F26%2F%25E3%2580%2590Apache%2520commons%25E3%2580%2591vfs%25E7%25AE%2580%25E5%258D%2595%25E4%25BD%25BF%25E7%2594%25A8%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2023/02/26/%E3%80%90Apache%20commons%E3%80%91vfs%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

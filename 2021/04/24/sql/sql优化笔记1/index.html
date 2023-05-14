@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      sql优化笔记1 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">sql优化笔记1</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-04-24 14:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/sql/" title="sql">
+                    <b>#</b> sql
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/sql/" title="sql">
+                    #sql
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>[TOC]</p>
+<h2 id="sql"><a href="#sql" class="headerlink" title="sql"></a>sql</h2><ul>
+<li>连接层：提供与客户端连接</li>
+<li>服务层：提供用户使用接口、提供sql优化器</li>
+<li>引擎层：提供各种存储方式<ul>
+<li>InnoDB：事务有限-适合高并发-行锁</li>
+<li>MyISAM：性能优先-表锁</li>
+</ul>
+</li>
+<li>存储层：存储数据</li>
+</ul>
+<p><strong>命令</strong></p>
+<p>查询数据库引擎：show engines；</p>
+<p>查看当前使用引擎：show variables like ‘%storage_engine%’;</p>
+<h2 id="sql优化"><a href="#sql优化" class="headerlink" title="sql优化"></a>sql优化</h2><p>原因：性能低、执行时间太长、等待时间太长、SQL语句欠佳(连接查询)、索引失效、服务器参数设置不合理（缓冲、线程数）</p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>主要优化索引（index） <strong>索引</strong>：帮助mysql高效获取数据的数据结构（树：B树【默认】、hash树）<strong>B树</strong>：二叉树，小的放左、大的放右</p>
+<p>索引=相当书的目录  创建索引相当于创建了一个数据结构。</p>
+<p><strong>弊端</strong>：</p>
+<ul>
+<li>索引本身很大，可存放内存、硬盘</li>
+<li>索引不是所有情况均适用：<ul>
+<li>1-少量数据 </li>
+<li>2-频繁更新字段 </li>
+<li>3-很少使用字段</li>
+</ul>
+</li>
+<li>提高查，降低增删改效率</li>
+</ul>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>提高查询效率（降低io使用率）</li>
+<li>降低cpu使用率（因为B树索引本身已经排好序）</li>
+</ul>
+<p>3层Btree可存放上百万条数据</p>
+<p><strong>Btree</strong>：一般都指B+树，数据全部放在叶节点数</p>
+<ul>
+<li>查询任意数据次数：n次</li>
+<li>n=B+树高度</li>
+</ul>
+<h4 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h4><p><strong>单值索引</strong>：单列，一个表可以多个单值索引</p>
+<p><strong>唯一索引</strong>：不能重复。如：id字段</p>
+<p><strong>复合索引</strong>：多个列构成的索引。相当于二级目录，需要按索引字段顺序使用。 如：（name,age）查询name叫张三的，查到2个，然后再查age。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-- 创建索引</span><br><span class="line">语法：create 索引类型 索引名 on 表(字段...)</span><br><span class="line">方法1：</span><br><span class="line">create indexdept_index on tb(dept) ; -- 单值</span><br><span class="line">create unique index name_index on tb(name);  -- 唯一:</span><br><span class="line">create index dept_name_index on tb(dept,name); -- 复合索引</span><br><span class="line">方法2：</span><br><span class="line">alter table tb add index indexdept_index(dept) ; -- 单值</span><br><span class="line">alter table tb add unique index name_index(name); -- 唯一:</span><br><span class="line">alter table tb add index dept_name_index(dept,name); -- 复合索引</span><br><span class="line"></span><br><span class="line">-- 删除索引</span><br><span class="line">语法：drop index 索引名 on 表名;</span><br><span class="line"></span><br><span class="line">-- 查询索引</span><br><span class="line">语法：show index form 表名;</span><br><span class="line">语法：show index form 表名 \G;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：一个字段如果是primary key ，则该字段默认就是 主键索引=和唯一索引相似。</p>
+<p>主键与唯一区别：主键不能为null，唯一索引可以为null。</p>
+</blockquote>
+<h3 id="sql性能问题"><a href="#sql性能问题" class="headerlink" title="sql性能问题"></a>sql性能问题</h3><ul>
+<li>myslq查询优化器会干扰优化</li>
+<li>分析sql执行计划  关键字<strong>explain</strong>=可以模拟sql优化器执行sql语句，让开发人员知道编写的sql的状况。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra</span><br><span class="line"></span><br><span class="line">id：编号</span><br><span class="line">select_type：查询类型</span><br><span class="line">table：查询表</span><br><span class="line">partitions：</span><br><span class="line">type：类型</span><br><span class="line">possible_keys：预测用到索引</span><br><span class="line">key：实际使用索引 </span><br><span class="line">key_len：实际使用索引的长度</span><br><span class="line">ref：表之间的引用</span><br><span class="line">rows：通过索引查询到的数据量</span><br><span class="line">filtered：</span><br><span class="line">Extra：额外的信息  </span><br></pre></td></tr></table></figure>
+
+<h4 id="执行计划字段说明"><a href="#执行计划字段说明" class="headerlink" title="执行计划字段说明"></a><strong>执行计划字段说明</strong></h4><ul>
+<li>创建表</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">-- 准备数据</span><br><span class="line">-- 课程表</span><br><span class="line">create table course(</span><br><span class="line">	cid int(3), </span><br><span class="line">	cname varchar(20), </span><br><span class="line">	tid int(3)</span><br><span class="line">);</span><br><span class="line">-- 教师</span><br><span class="line">create table teacher(</span><br><span class="line">	tid int(3),</span><br><span class="line">	tname varchar(20),</span><br><span class="line">    tcid int(3)</span><br><span class="line">);</span><br><span class="line">-- 教师描述</span><br><span class="line">create tableteacherCard(</span><br><span class="line">	tcid int(3),</span><br><span class="line">    tcdesc varchar(200)</span><br><span class="line">);</span><br><span class="line">insert into course values(1,&#x27;java&#x27;,1);</span><br><span class="line">insert into course values(2,&#x27;html&#x27;,1);</span><br><span class="line">insert into course values(3,&#x27;sql&#x27;,2);</span><br><span class="line">insert into course values(4,&#x27;web&#x27;,3);</span><br><span class="line">insert into teacher values(1,&#x27;tz&#x27;,1);</span><br><span class="line">insert into teacher values(3,&#x27;tw&#x27;,2);</span><br><span class="line">insert into teacher values(4,&#x27;tl&#x27;,3);</span><br><span class="line">insert into teacherCard values(1,&#x27;tzdesc&#x27;);</span><br><span class="line">insert into teacherCard values(3,&#x27;twdesc&#x27;);</span><br><span class="line">insert into teacherCard values(4,&#x27;tldesc&#x27;);</span><br><span class="line"></span><br><span class="line">-- 查询课程编号为2或教师证编号为3的老师信息</span><br><span class="line">select t.*</span><br><span class="line">from teacher t,course c, teacherCard tc</span><br><span class="line">where t.tid = c.tid and t.tcid = tc.tcid and (c.cid=2 or tc.tcid=3);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行计划：<strong>explain + sql</strong>；</li>
+</ul>
+<p><strong>id</strong>：编号</p>
+<blockquote>
+<p>id值相等，则为从上往下顺序执行。</p>
+<p>id值不同，id值越大的优先查询（本质：嵌套子查询时，先查内层，再查外层）。</p>
+</blockquote>
+<p>表的执行顺序 因数量的个数改变而改变的原因：笛卡尔积   <strong>数据量小的表优先查询</strong></p>
+<p><strong>select_type</strong>：查询类型</p>
+<ul>
+<li> PRIMARY：包含子查询sql的 主查询（最外层）</li>
+<li>SUBQUERY：包含子查询sql的 子查询（非最外层）</li>
+<li>simple：简单查询（不包含子查询、union）</li>
+<li>derived：衍生查询（使用到了临时表）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 衍生查询</span><br><span class="line">explain select cr.cname from (select * from course where tid in (1,2)) cr;</span><br></pre></td></tr></table></figure>
+
+<p><strong>type</strong>：索引类型   以下常用</p>
+<p>system &gt; const  &gt; eq_ref &gt; ref &gt; range &gt; index &gt; all</p>
+<blockquote>
+<p>system，const只是理想情况，实际能达到 ref &gt; range</p>
+<p><strong>system</strong>（忽略）：只有一条数据的系统表 或 衍生表只有一条数据的主查询。</p>
+<p><strong>const</strong>：仅仅能查到一条数据的sql，用于Primary key 或 unique索引 </p>
+<p><strong>eq_ref</strong>：唯一性索引，对于每个索引键的查询，返回匹配唯一行数据（有且仅有1个，不能多，不能0）就能达到eq_ref。</p>
+<p><strong>ref</strong>：非唯一性索引，对于每个索引键的查询，返回匹配的所有行（0或多个）</p>
+<p><strong>range</strong>：检索指定范围的行，weher后是一个范围查询（between 、&gt; &lt; &gt;=、特殊：in有时会失效，从而转为all）</p>
+<p><strong>index</strong>：查询全部索引中的数据  如：explain select tid from teacher ; – tid是索引，只需扫描索引表，不需全表扫描。</p>
+<p><strong>all</strong>：查询全部表中数据   如：explain select cid from course ;  – cid不是索引，需要全表扫描。</p>
+</blockquote>
+<p><strong>possible_keys</strong>：可能用到的索引</p>
+<p><strong>key</strong>：实际用到的索引</p>
+<blockquote>
+<p>possible_keys/key为Null 则说明没有用到索引。</p>
+</blockquote>
+<p><strong>key_len</strong>：索引长度 </p>
+<p>作用：用于判断复合索引是否被完全使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- 增加一个复合索引</span><br><span class="line">alter table test_kl add index name_namel_index(name, name1) ;</span><br><span class="line"></span><br><span class="line">-- name 和 name1数据类型都为 char(20)，name不能为null，name1可以;</span><br><span class="line">-- key_len = 60  等于60是因为一个字符占3字节。char(20)所以 20*3=60</span><br><span class="line">explain select * from test_kl where name = &#x27;&#x27;;</span><br><span class="line">-- key_len = 121  key_len根据字段类型长度计算，多1表示字段可为null。</span><br><span class="line">explain select * from test_kl where name1 =&#x27;&#x27;;</span><br><span class="line"></span><br><span class="line">-- mysql用两个字节表示可变长度</span><br><span class="line">alter table test_kl add column name2 varchar(20); -- 字段name2可以为Null</span><br><span class="line">alter table test_kl add index name2_index (name2);</span><br><span class="line">explain select * from test_kl where name2=&#x27;&#x27;; -- key_len = 63  不为null+1  可变长度+2  所以20*3+1+2=63</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>utf8:1个字符3个字节</p>
+<p>gbk: 1个字符2个字节</p>
+<p>latin: 1个字符1个字节</p>
+</blockquote>
+<p><strong>ref</strong>：与type中的ref不同，作用：指明当前表查询时所参照的字段。</p>
+<ul>
+<li>如：const = 常量</li>
+</ul>
+<p><strong>rows</strong>：被索引优化后查询的数据个数 （实际通过索引而查询到的数据个数）</p>
+<p><strong>Extra</strong>：额外说明。</p>
+<ul>
+<li>using filesort：性能消耗大，需要”额外“的一次排序/查询。常见于order by 语句中。</li>
+</ul>
+<p>排序前需先查询。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- 对于单索引，如果排序和查找是同一个字段，则不会出现using filesort。如果是不同字段，则会出现。</span><br><span class="line">explain select * from test02 where a1 =&#x27;&#x27; order by a1; -- a1:姓名a2:年龄</span><br><span class="line">explain select * from test02 where al =&#x27;&#x27; order by a2; -- 出现using filesort</span><br><span class="line"></span><br><span class="line">-- 复合索引，对于索引包括的列不能跨列排序（需要满足最佳左前缀），否则出现using filesort。</span><br><span class="line">alter table test02 add index idx_al_a2_a3 (al,a2, a3);</span><br><span class="line">explain select * from test02 where al=&#x27;&#x27; order by a2 ; -- 没有跨列，</span><br><span class="line">explain select * from test02 where a2=&#x27;&#x27; order by a3; -- 跨了a1，出现using filesort</span><br><span class="line">explain select * from test02 where al=&#x27;&#x27; order by a3; -- 跨了a2，出现using filesort</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>using temporary：性能损耗大，用到了临时表。 一般出现在group by 语句中。</li>
+</ul>
+<p>原因：已经有表了，但不使用，必须再来一张表。即额外再多使用一张表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">explain select * from test03 where a2=2 and a4=4 group by a2,a4; --没有using temporary</span><br><span class="line">explain select * from test03 where a2=2 and a4=4 group by a3; --有using temporary</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>using index：性能提升，索引覆盖。不需回表查询</li>
+</ul>
+<p>原因：不读取原文件，只从索引文件获取数据。</p>
+<p>使用到的列全部都在索引中，就是索引覆盖。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">alter table test02 add inx_a1_a2(a1,a2);</span><br><span class="line"></span><br><span class="line">explain select a1,a3 from test02 where a1=&#x27;&#x27; or a3=&#x27;&#x27;;  -- a3不是索引，无法覆盖，不会出现using index</span><br><span class="line">explain select a1,a2 from test02 where a1=&#x27;&#x27; or a2=&#x27;&#x27;;  -- 出现using index</span><br><span class="line">explain select a1,a2 from test02; --  </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>用到索引覆盖（using index）时：对key和possible_key有影响。</p>
+<p>没where：索引只出现在执行计划字段key中</p>
+<p>没where：索引出现在key和possible_key中。</p>
+</blockquote>
+<ul>
+<li>using where：需要回表查询</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- age是索引列,name不是索引，所以需要回表查询，出现using where</span><br><span class="line">explain select name,age from test02 where age=18;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>impossible where： where子句永远为false。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- impossible where如:</span><br><span class="line">explain select a1 from test02 where a1=&#x27;x&#x27; and a1=&#x27;y&#x27;;  -- 精确查询，a1不可能即为x也为y。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>using join buffer：内部对sql进行了优化。</li>
+</ul>
+<p><strong>sql执行</strong></p>
+<ul>
+<li>编写过程：select distinct  .. from .. join .. on .. where .. group by .. having .. order by ..</li>
+<li>解析过程：from .. on .. join .. where .. group by .. having .. select distinct .. order by .. </li>
+</ul>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-- 创建复合索引</span><br><span class="line">alter table test03 add index idx_a1_a2_a3_4(a1,a2,a3,a4) ;</span><br><span class="line"></span><br><span class="line">-- 推荐写法，顺序使用索引</span><br><span class="line">explain select al,a2,a3,a4 from test03 where a1=1 and a2=2 and a3=3 and a4 =4; </span><br><span class="line">-- 使用索引顺序和索引顺序不同，但真正执行前，经过sql优化器调整，结果和上条sql一致。</span><br><span class="line">explain select a1,a2,a3,a4 from test03 where a4=1 and a3=2 and a2=3 and a1 =4; =</span><br><span class="line">-- 以下两个sql使用了全部索引字段。</span><br><span class="line"></span><br><span class="line">-- 以上SQL用到了al a2两个索引，该两个字段不需要回表查询using index，可通过key_len验证。</span><br><span class="line">-- a1,a2数据类型=int(4)  所以key_len=8</span><br><span class="line">explain select al,a2,a3,a4 from test03 where al=1 and a2=2 and a4=4 order by a3;  </span><br></pre></td></tr></table></figure>
+
+<p><strong>小结</strong></p>
+<ul>
+<li>如果复合索引是使用索引顺序全部一致（且不跨列使用）则复合索引全部使用。部分一致则部分索引使用。</li>
+</ul>
+<h4 id="单表优化"><a href="#单表优化" class="headerlink" title="单表优化"></a>单表优化</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">-- 创建表添加数据</span><br><span class="line">create table book (</span><br><span class="line">	bid int(4) primary key,</span><br><span class="line">	name varchar(20) not null,</span><br><span class="line">	authorid int(4) not null,</span><br><span class="line">	publicid int(4) not null, </span><br><span class="line">	typeid int(4) not null</span><br><span class="line">);</span><br><span class="line">insert into book values(1,&#x27;tjava&#x27;,1,1,2);</span><br><span class="line">insert into book values(2,&#x27;tc&#x27;,2,1,2);</span><br><span class="line">insert into book values(3,&#x27;wx&#x27;,3,2,1);</span><br><span class="line">insert into book values(4,&#x27;math&#x27;,4,2,3);</span><br><span class="line"></span><br><span class="line">-- 查询authorid=1且typeid为2或3的bid</span><br><span class="line">explain select bid from book where typeid in(2,3) and authorid=1 order by typeid desc ;</span><br><span class="line"></span><br><span class="line">-- 优化：加索引</span><br><span class="line">alter table book add index idx_bta (bid,typeid,authorid) ; </span><br><span class="line">-- 根据SQL实际解析的顺序，调整索引的顺序:  一旦进行升级优化，需要将之前废弃索引删除，防止干扰。</span><br><span class="line">alter table book add index idx_bta (typeid,authorid,bid);</span><br><span class="line"></span><br><span class="line">-- 再次优化：（之前是index级别):思路。因为范围查询in有时会实现，因此交换索引的顺序，把可能失效的索引放后</span><br><span class="line">alter table book add index idx_atb(authorid,typeid, bid);</span><br><span class="line">explain select bid from book where authorid=1 and typeid in(2,3) order by typeid desc</span><br></pre></td></tr></table></figure>
+
+<p><strong>小结</strong></p>
+<ul>
+<li>索引不能跨列使用(最佳左前缀)，保持索引定义和使用顺序一致，</li>
+<li>索引需要逐步优化，</li>
+<li>将含in 的范围查询放where 最后，防止索引失效。索引失效后会回原表查询。</li>
+</ul>
+<blockquote>
+<p>Extra中同时出现using where(需回原表查)，using index(不需回原表查) </p>
+<p>原因：查询时，使用的某一索引正常则不需要回原表查，而某一索引列失效则造成需要回原表查。</p>
+</blockquote>
+<h4 id="多表优化"><a href="#多表优化" class="headerlink" title="多表优化"></a>多表优化</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-- 创建表和数据</span><br><span class="line">create table teacher2(</span><br><span class="line">	tid int(4) primary key,</span><br><span class="line">	cid int(4) not null</span><br><span class="line">);</span><br><span class="line">insert into teacher2 values(1,2);</span><br><span class="line">insert into teacher2 values(2,1);</span><br><span class="line">insert into teacher2 values(3,3);</span><br><span class="line"></span><br><span class="line">create table course2(</span><br><span class="line">	cid int(4),</span><br><span class="line">	cname varchar(20)</span><br><span class="line">);</span><br><span class="line">insert into course2 values(1,&#x27;java&#x27;);</span><br><span class="line">insert into course2 values(1,&#x27;python&#x27;);</span><br><span class="line">insert into course2 values(1,&#x27;kotlin&#x27;);</span><br><span class="line"></span><br><span class="line">explain select * from teacher2 t left outer join course2 c on t.cid=c.cid where c.cname=&#x27;java&#x27;;</span><br><span class="line">-- 加索引，往哪加？ 原则：1-小表驱动大表 where 小表.x=大表.y  2-索引建立在经常使用的字段上（左外连接左表加，右外连接右表加）。</span><br><span class="line">-- 对于双层循环：一般建议数据小的循环放外层，大的循环放内层。 小表在左可造成外层循环小。</span><br><span class="line">alter table teacher2 add index index_ teacher2_cid(cid);</span><br><span class="line">alter table course2 add index index_ course2_cname(cname);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>小结</strong></p>
+<ul>
+<li>小表驱动大表。</li>
+<li>索引建立在经常查询字段上。</li>
+</ul>
+<h3 id="避免索引失效原则"><a href="#避免索引失效原则" class="headerlink" title="避免索引失效原则"></a>避免索引失效原则</h3><p>sql优化是一个概率层面的优化。至于是否实际使用了个人优化的sql，需通过explain进行推测。</p>
+<ul>
+<li>复合索引，不要跨列或无序使用（最佳左前缀）尽量使用全索引匹配。</li>
+<li>不要在索引上进行任何操作（如计算、函数、类型转换等），否则索引失效。</li>
+<li>复合索引中，如果左则索引失效，右则索引全部失效（最佳左前缀）。单独索引则不会如此。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 复合索引</span><br><span class="line">alter table book add index index_authorid_typeid(authorid,typeid)</span><br><span class="line">explain select * from book where authorid=1 and typeid=2; -- 用到了at2个索引</span><br><span class="line">explain select * from book where authorid=1 and typeid*2=2; -- 用到了al个索引</span><br><span class="line">explain select * from book where authorid*2=l and typeid*2=2; -- 用到了0个索</span><br><span class="line">explain select * from book where authorid*2=l and typeid=2; -- 用到了0个索引</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>复合索引，不能使用不等于（!= 、&lt;&gt;）或 is null 否则自身及右侧索引全部失效。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">alter table book add index idx_book_at(authorid,typeid) ;</span><br><span class="line">explain select * from book where authorid = 1 and typeid = 2; -- 复合索引idx_book_at全部使用</span><br><span class="line">explain select * from book where authprid &gt; 1 and typeid = 2; -- 复合索引中如果有&gt;，则自身和右侧索引全部失效。</span><br><span class="line">explain select * from book where authprid = 1 and typeid &gt; 2; -- 复合索引idx_book_at全部使用</span><br><span class="line">-- 明显的概率问题。</span><br><span class="line">explain select * from book where authprid &lt; 1 and typeid = 2; -- 复合索引idx_book_at中typeid使用了</span><br><span class="line">explain select * from book where authprid &lt; 4 and typeid = 2; -- 复合索引idx_book_at全部失效。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>索引优化，是一个大部分情况使用的结论，由于sql优化器等原因，结论不是100%正确。</p>
+</blockquote>
+<ul>
+<li><p>一般而言，范围查询（&gt;、&lt; 、in等）之后的索引失效。</p>
+</li>
+<li><p><strong>补救</strong>：尽量使用索引覆盖（using index） 如：复合索引(a,b,c)，查询select a,b,c from xx.. where a=.. and b=.. ..;</p>
+</li>
+<li><p>like尽量以“常量开头”，不要以“%”开头，否则失效。使用索引覆盖一定程度上可以解决该问题。</p>
+</li>
+<li><p>尽量不要使用类型转换（显式、隐式转换），否则索引失效。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">explain select * from teacher where tname=&#x27;abc&#x27;;</span><br><span class="line">explain select * from teacher where tname=123; -- 隐式转换，因此索引失效。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>尽量不要使用or，否则索引失效。甚至可以把左侧的索引失效。</li>
+</ul>
+<h3 id="常见优化方法"><a href="#常见优化方法" class="headerlink" title="常见优化方法"></a>常见优化方法</h3><h4 id="exists和in："><a href="#exists和in：" class="headerlink" title="exists和in："></a><strong>exists和in</strong>：</h4><p>主查询数据集大，用in。子查询数据集大，用exists</p>
+<p><strong>exists语法</strong>：将主查询的结果，放到子查询中进行条件校验（如果有数据，则校验成功），如果符合校验，则保留数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select .. from table where exists/in (子查询);</span><br><span class="line"></span><br><span class="line">-- exists </span><br><span class="line">select tname from teacher where exists (select * from teacher where tid =9999);</span><br><span class="line"></span><br><span class="line">-- in</span><br><span class="line">select * from table where tid in (1,3,5);</span><br><span class="line">select * from A where id in (select id from B);</span><br></pre></td></tr></table></figure>
+
+<h4 id="order-by"><a href="#order-by" class="headerlink" title="order by"></a><strong>order by</strong></h4><p>using filesort有两种算法（根据IO的次数）：双路排序（io较耗性能）、单路排序</p>
+<p>MySQL4.1之前默认使用<strong>双路排序</strong>（扫描2次磁盘：1-从磁盘读排序字段后进行排序【在buffer中进行】 2-扫描其他字段）</p>
+<p>MySQL4.1之后默认使用<strong>单路排序</strong>（只读取一次【全部字段】，在buffer中进行排序。但单路排序有一定隐患【不一定真的1次io，可能多次】）</p>
+<blockquote>
+<p>原因：如果数据量特别大，无法一次性读取完，会进行“分片读取，多次读取”</p>
+<p>注意：使用时，单路比多路占更多buffer。</p>
+<p>如果数据量大，可以考虑调大buffer的容量大小：set max_length_for_sort_data = 1024(单位=字节)</p>
+</blockquote>
+<p>max_length_for_sort_data值太低，mysql自动从单路切换到双路。</p>
+<ul>
+<li>选择使用单路、双路，调整buffer容量大小。</li>
+<li>避免select * …  。并且*很多实现索引覆盖。</li>
+<li>复合索引不要跨列使用，避免using filesort</li>
+<li>保证全部排序字段 排序一致性（都是升序或降序）</li>
+</ul>
+<h3 id="慢查询sql优化"><a href="#慢查询sql优化" class="headerlink" title="慢查询sql优化"></a>慢查询sql优化</h3><p><strong>慢查询日志</strong>：mysql提供的一种日志记录，用于记录mysql中响应时间超过阈值的sql语句（<strong>long_query_time</strong>，默认10秒）。</p>
+<ul>
+<li>慢查询日志默认关闭的，建议开发调优打开，最终部署是关闭。</li>
+<li>检查是否开启慢查询日志：<strong>show variables like ‘%slow_query_log%;’</strong><ul>
+<li>临时开启：<strong>set global slow_query_log = 1;</strong> – 内存中开启</li>
+<li>永久开启：/etc/my.cnf 中[mysqld]后追加配置。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">slow_query_log=1</span><br><span class="line">s1ow_query_1og_file=/var/lib/mysq1/localhost-slow.log </span><br><span class="line">-- 保存后重启mysql</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看慢查询阈值：<strong>show variables like ‘%long_query_time%’*;</strong><ul>
+<li>临时设置：<strong>set global long_query_time = 5;</strong>  修改后重新登录后生效。</li>
+<li>永久设置：/etc/my.cnf 中[mysqld]后追加配置</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">long_query_time = 5</span><br><span class="line">-- 保存后重启mysql</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>查询超过阀值的sql数量: <strong>show global status like ‘%slow_queries%’;</strong></p>
+</li>
+<li><p>通过mysqldumpslow工具查看慢sql</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-- 工具命令</span><br><span class="line">mysqldumpslow --help</span><br><span class="line">s：排序方式</span><br><span class="line">r：逆序</span><br><span class="line">l：锁定时间</span><br><span class="line">g：正则匹配模式 </span><br><span class="line"></span><br><span class="line">--使用举例：语法：mysqldumpslow 参数 慢查询日志文件路径</span><br><span class="line">--获取返回记录最多的3个SQL</span><br><span class="line">mysqldumpslow -s r -t 3 /var/lib/mysql/1ocalhost-slow.log</span><br><span class="line">--获取访问次数最多的3个SQL</span><br><span class="line">mysqldumpslow -s c -t 3 /var/lib/mysql/localhost-slow.log</span><br><span class="line">--按照时间排序，前10条包含left join查询语句的SQL</span><br><span class="line">mysqldumpslow -s t -t 10 -g &quot;left join&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析海量数据"><a href="#分析海量数据" class="headerlink" title="分析海量数据"></a>分析海量数据</h3><p>分析海量数据：<strong>profiles</strong></p>
+<ul>
+<li>show profiles; – 默认关闭，<ul>
+<li>作用：会记录所有profiling打开之后全部sql查询语句所花费的时间。</li>
+<li>缺点：不够精确，只能看到总共消费时间，不能看到各硬件(cpu、io等)消费时间</li>
+<li>精确分析：show profile all for query  之前查询sql的id（编号） 如：show profile all for query  2  = 查询第二次查询sql花费时间。</li>
+<li>精确分析：show profile  cpu,block io for query  之前查询sql的id（编号）</li>
+</ul>
+</li>
+<li>查看：show variables like ‘%profiling%’;</li>
+<li>打开：set profiling = on;</li>
+</ul>
+<p><strong>全局查询日志</strong>：记录开启之后的全部sql语句。（全局记录操作，仅在调优、开发过程中打开即可，最终部署实施时一定关闭）</p>
+<ul>
+<li>查看：show variables like ‘%general_log%’;</li>
+<li>打开命令：开启后，所有sql会被记录到系统自带表【mysql.general_log】中或文件中。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">set global general_log = 1; </span><br><span class="line">-- 设置将全部sql记录到表中</span><br><span class="line">set global log_ouput=&#x27;table&#x27;; </span><br><span class="line">-- 设置将全部sql记录到文件中</span><br><span class="line">set global log_ouput=&#x27;file&#x27;; </span><br><span class="line">set global general_log_file=&#x27;/tmp/general.log&#x27;; </span><br></pre></td></tr></table></figure>
+
+<h3 id="锁机制"><a href="#锁机制" class="headerlink" title="锁机制"></a>锁机制</h3><p>解决因资源共享而造成的并发问题。</p>
+<h4 id="操作类型"><a href="#操作类型" class="headerlink" title="操作类型"></a><strong>操作类型</strong></h4><ul>
+<li><strong>读锁</strong>（共享锁）：对同一个数据，多个读操作可同时进行，互不干扰。</li>
+<li><strong>写锁</strong>（互斥锁）：如果当前操作没完，则无法进行其他读操作、写操作</li>
+</ul>
+<h4 id="操作范围"><a href="#操作范围" class="headerlink" title="操作范围"></a><strong>操作范围</strong></h4><ul>
+<li><strong>表锁</strong>：一次性对一张表整体加锁。如：MyISAM使用表锁。开销小、加锁快、无死锁。但锁范围大，容易发生冲突，并发度低。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">-- 创建表和数据</span><br><span class="line">create table tablelock(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">	name varchar(20)</span><br><span class="line">)engine myisam;</span><br><span class="line">-- oracl默认不支持自增，需借助序列来实现。</span><br><span class="line">insert into tablelock(name) values(&#x27;a1&#x27;);</span><br><span class="line">insert into tablelock(name) values(&#x27;a2&#x27;);</span><br><span class="line">insert into tablelock(name) values(&#x27;a3&#x27;);</span><br><span class="line">insert into tablelock(name) values(&#x27;a4&#x27;);</span><br><span class="line">insert into tablelock(name) values(&#x27;a5&#x27;);</span><br><span class="line"></span><br><span class="line">-- 增加锁   </span><br><span class="line">-- 语法：lock table 表1 read/write, 表2 read/write, ...</span><br><span class="line">-- 查看加锁的表：show open tables;   -- Name_locked=1说明表加锁了</span><br><span class="line">-- 表锁定严重程度：show status like &#x27;table%&#x27;;    </span><br><span class="line">	-- Table_locks_immediate字段：可能获取到的锁</span><br><span class="line">	-- Table_locks_waited字段：需要等待的表锁数（值越大说明存在越大的锁竞争）</span><br><span class="line">	-- 建议：Table_locks_immediate/Table_locks_waited &gt; 5000 建议采用InnoDb引擎，否则采用MyISAM引擎。</span><br><span class="line">-- 加锁：lock table x表 read/write;</span><br><span class="line">-- 释放锁：unlock tables</span><br></pre></td></tr></table></figure>
+
+<p>加读锁</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-- 加读锁</span><br><span class="line">lock table tablelock read;</span><br><span class="line"></span><br><span class="line">-- 会话：session=每个访问数据的dos命令行=数据库客户端工具</span><br><span class="line">-- 会话0（当前会话）</span><br><span class="line">lock table tablelock read ;</span><br><span class="line">select * from tablelock ;-- 读，可以</span><br><span class="line">delete from table1ock where id = 1; -- 写（增删改），不可以</span><br><span class="line">select * from emp ; -- 其他表读不可以</span><br><span class="line">delete from emp where eno = 1; -- 其他表写不可以</span><br><span class="line">-- 小结：会话给a表加了读锁，当前会话对a表读可以，写不可以，对其他表读写都不可以。</span><br><span class="line"></span><br><span class="line">-- 会话1（其他会话）</span><br><span class="line">select * from tablelock ;-- 读(查)，可以</span><br><span class="line">delete from tablelock where id =i ; -- 写，会“等待”会话0将锁释放</span><br><span class="line">select * from emp ; -- 其他表读可以</span><br><span class="line">delete from emp where eno = 1; -- 其他表写可以</span><br><span class="line">-- 小结：会话0对a表加了read锁，其他会话对a表读可以，写等待锁释放，对其他表读写都可以。</span><br></pre></td></tr></table></figure>
+
+<p>加写锁</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- 加写锁</span><br><span class="line">lock table tablelock writer;</span><br><span class="line"></span><br><span class="line">-- 会话0（当前会话）：会话给a表加了writer锁，当前会话对a表读写可以，对其他表读写不可以。</span><br><span class="line">-- 会话1（其他会话）：会话0对a表加writer锁，其他会话对读写操作需等待锁释放，对其他表读写都可以。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>MySQL表级锁的锁模式：MyISAM在执行查询语句(SELECT)前，会自动给涉及的所有表加读锁，在执行更新操作（DML）前，会自动给涉及的表加写锁。</p>
+<p>所以对MyISAM表进行操作，会有以下情况:<br>a、对MyISAM表的读操作（加读锁），不会阻塞其他进程（会话）对同一表的读请求，但会阻塞对同一表的写请求。只有当读锁释放后，才会执行其它进程的写操作。<br>b、对MyISAM表的写操作（加写锁)，会阻塞其他进程（会话）对同一表的读和写操作，只有当写锁释放后，才会执行其它进程的读写操作。</p>
+</blockquote>
+<ul>
+<li><strong>行锁</strong>：一次性对一条数据加锁。如：InnoDB使用行锁。开销大、加锁慢；容易死锁，缩范围小，不易冲突，并发度高（小概率并发问题：脏读、幻读、不可重复读、丢失更新等）。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">-- 创建表和数据  mysql自动commit，oracle不会自动commit</span><br><span class="line">create table linelock(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">	name varchar(20)</span><br><span class="line">)engine innodb;</span><br><span class="line">insert into linelock(name) values(&#x27;a1&#x27;);</span><br><span class="line">insert into linelock(name) values(&#x27;a2&#x27;);</span><br><span class="line">insert into linelock(name) values(&#x27;a3&#x27;);</span><br><span class="line">insert into linelock(name) values(&#x27;a4&#x27;);</span><br><span class="line">insert into linelock(name) values(&#x27;a5&#x27;);</span><br><span class="line"></span><br><span class="line">-- 为了研究行锁，暂时将自动commit关闭（三种方式执行任一即可）： </span><br><span class="line">set autocommit = 0;</span><br><span class="line">start transaction;</span><br><span class="line">begin;</span><br><span class="line"></span><br><span class="line">-- 会话0</span><br><span class="line">insert into linelock(name) values(6,&#x27;a6&#x27;); -- 未提交，数据在缓存</span><br><span class="line">-- 会话1</span><br><span class="line">update linelock set name=&#x27;ax&#x27; where id=6; -- 更新时发现此数据被加锁了，直到其他会话释放锁（即commit/rollback）后才能操作。</span><br><span class="line"></span><br><span class="line">-- 操作不同数据  两者互不干扰</span><br><span class="line">insert into linelock(name) values(8,&#x27;a8&#x27;);</span><br><span class="line">update linelock set name=&#x27;ax&#x27; where id=5;  </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>表锁通过unlock tables或事务解锁，行锁通过事务解锁</p>
+</blockquote>
+<p>行锁注意事项：</p>
+<ul>
+<li>sql没有使用索引，行锁转表锁。</li>
+<li>行锁特殊情况：间隙锁（值在范围内，但不存在该值）。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- linelock表中没有id=7的数据</span><br><span class="line">update linelock set name =&#x27;x&#x27; where id&lt;1 and id&lt;9; -- 此范围中，没有id=7的数据，则id=7成为间隙</span><br><span class="line">-- mysql会自动给间隙加锁 称间隙锁。</span><br><span class="line">-- 其他会话操作间隙时会被锁住。</span><br><span class="line">-- 行锁:如果有where，则实际加锁的范围就是where后面的范围（不是实际的值)</span><br></pre></td></tr></table></figure>
+
+<p>行锁分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 查看</span><br><span class="line">show status like &#x27;%innodb_row_lock%&#x27;;  </span><br><span class="line">-- 参数</span><br><span class="line">-- Innodb_row_lock——current_waits：当前正在等待锁的数量</span><br><span class="line">-- Innodb_row_lock_time：等待总时长。从系统启到现在一共等待的时间</span><br><span class="line">-- Innodb_row_lock_time_avg：平均等待时长。从系统启到现在平均等待的时间</span><br><span class="line">-- Innodb_row_lock_time_max：最大等待时长。从系统启到现在最大一次等待的时间</span><br><span class="line">-- Innodb_row_lock_waits：等待次数。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以通过在sql后加 <strong>for update</strong> 对query语句进行加锁。</p>
+<p>如：select * from linelock where id =2 for update ;</p>
+</blockquote>
+<ul>
+<li><strong>页锁</strong>：</li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/04/24/sql/mysql%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-04-24 14:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/sql/" title="sql">
+                        <b>#</b> sql
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/sql/" title="sql">
+                        #sql
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/04/24/sql/redis%E5%9F%BA%E7%A1%80/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#sql"><span class="toc-text">sql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql%E4%BC%98%E5%8C%96"><span class="toc-text">sql优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%88%86%E7%B1%BB"><span class="toc-text">索引分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="toc-text">sql性能问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%AD%97%E6%AE%B5%E8%AF%B4%E6%98%8E"><span class="toc-text">执行计划字段说明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96"><span class="toc-text">优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%A1%A8%E4%BC%98%E5%8C%96"><span class="toc-text">单表优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%A1%A8%E4%BC%98%E5%8C%96"><span class="toc-text">多表优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%8E%9F%E5%88%99"><span class="toc-text">避免索引失效原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-text">常见优化方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#exists%E5%92%8Cin%EF%BC%9A"><span class="toc-text">exists和in：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#order-by"><span class="toc-text">order by</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2sql%E4%BC%98%E5%8C%96"><span class="toc-text">慢查询sql优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="toc-text">分析海量数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81%E6%9C%BA%E5%88%B6"><span class="toc-text">锁机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B"><span class="toc-text">操作类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E8%8C%83%E5%9B%B4"><span class="toc-text">操作范围</span></a></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + sql%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B01 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F04%2F24%2Fsql%2Fsql%25E4%25BC%2598%25E5%258C%2596%25E7%25AC%2594%25E8%25AE%25B01%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/04/24/sql/sql%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B01/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

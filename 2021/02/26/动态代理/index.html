@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      动态代理 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">动态代理</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-02-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/java/" title="java">
+                    <b>#</b> java
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/java/" title="java">
+                    #java
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><p><strong>特点：</strong>字节码随用随创建，随用随加载<br><strong>作用：</strong>不修改源码的基础上对方法增强<br><strong>分类：</strong></p>
+<ul>
+<li>基于接口的动态代理(缺点：如果被代理的类未实现任何接口则Proxy不能用)</li>
+<li>基于子类的动态代理</li>
+</ul>
+<h3 id="基于接口的动态代理-代理实现接口的类"><a href="#基于接口的动态代理-代理实现接口的类" class="headerlink" title="基于接口的动态代理(代理实现接口的类)"></a>基于接口的动态代理(代理实现接口的类)</h3><p><strong>涉及类</strong>：Proxy<br><strong>提供</strong>：jdk官方<br><strong>如何创建代理对象</strong>：使用Proxy类中的newProxyInstance方法<br><strong>创建代理对象的要求</strong>：被代理类最少实现一个接口</p>
+<ul>
+<li><p>newProxyInstance()参数：</p>
+<ul>
+<li>ClassLoader：类加载器==用于加载代理对象字节码的。使用的是被代理对象的类加载器</li>
+<li>Class[]：它是用于代理对象和被代理对象有相同的方法，即代理类实现的接口</li>
+</ul>
+</li>
+<li><p>InvvocationHandler对象：它是让我们写如何代理。我们一般都是写一个该接口的实现类。通常情况下用匿名内部类，但不是必须的。此接口（InvvocationHandler）的实现类都是谁用谁写。</p>
+</li>
+<li><p>返回：一个被代理类类型的代理对象。</p>
+</li>
+</ul>
+<p><em><strong>使用例子</strong></em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IProduce</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 销售</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> money</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saleProduct</span><span class="params">(<span class="type">float</span> money)</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 售后</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> money</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saleService</span><span class="params">(<span class="type">float</span> money)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实现类(厂家/被代理对象)</span></span><br><span class="line"><span class="comment">// 一个生产者</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Produce</span> <span class="keyword">implements</span> <span class="title class_">IProduce</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saleProduct</span><span class="params">(<span class="type">float</span> money)</span>&#123;</span><br><span class="line">        <span class="comment">//厂家发货，厂家获得销售商品的钱</span></span><br><span class="line">        System.out.println(<span class="string">&quot;销售产品，厂家拿到钱：&quot;</span>+money);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saleService</span><span class="params">(<span class="type">float</span> money)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;提供售后服务，厂家拿到钱：&quot;</span>+money);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//客户类(通过动态代理拿货)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟一个消费者</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xiaoaiying</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//获取厂家</span></span><br><span class="line">        <span class="keyword">final</span>  <span class="type">Produce</span> <span class="variable">produce</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Produce</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//直接联系厂家拿货</span></span><br><span class="line">        <span class="comment">// produce.saleProduct(10000f);//结果：销售产品，厂家拿到钱：10000</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//代理商拿货：获取动态代理(代理商)</span></span><br><span class="line">        <span class="type">IProduce</span> <span class="variable">proxyProducer</span>  <span class="operator">=</span> (IProduce) Proxy.newProxyInstance(</span><br><span class="line">                produce.getClass().getClassLoader(),</span><br><span class="line">                produce.getClass().getInterfaces(),</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">InvocationHandler</span>() &#123;</span><br><span class="line">                    <span class="comment">/**</span></span><br><span class="line"><span class="comment">                     * 作用：执行被代理对象的任何接口方法都会经过该方法,即相当于该方法具有拦截的功能</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@param</span> proxy     代理对象的引用</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@param</span> method    当前执行的方法</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@param</span> args      当前执行方法所需的参数</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@return</span>  和被代理对象执行的方法有相同的返回值</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">                     *</span></span><br><span class="line"><span class="comment">                     * 注：匿名内部类访问外部成员要求成员必须是最终的即final修饰</span></span><br><span class="line"><span class="comment">                     * invoke()方法：执行当前方法</span></span><br><span class="line"><span class="comment">                     */</span></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                        <span class="comment">/**</span></span><br><span class="line"><span class="comment">                         * 可以在此提供增强的代码</span></span><br><span class="line"><span class="comment">                         */</span></span><br><span class="line">                        <span class="comment">//创建返回值</span></span><br><span class="line">                        <span class="type">Object</span> <span class="variable">returnValue</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">                        <span class="comment">//获取参数</span></span><br><span class="line">                        <span class="type">Float</span> <span class="variable">money</span> <span class="operator">=</span> (Float) args[<span class="number">0</span>];</span><br><span class="line">                        <span class="comment">//判断当前方法是不是销售那个方法</span></span><br><span class="line">                        <span class="keyword">if</span> (<span class="string">&quot;saleProduct&quot;</span>.equals(method.getName()))&#123;</span><br><span class="line">                            returnValue = method.invoke(produce,money*<span class="number">0.8f</span>);<span class="comment">//代理商从客户那里拿走了0.2的价钱</span></span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">return</span> returnValue;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//通过代理商拿货</span></span><br><span class="line">        proxyProducer.saleProduct(<span class="number">10000f</span>);<span class="comment">//结果：销售产品，厂家拿到钱：8000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="基于子类的动态代理-代理普通类"><a href="#基于子类的动态代理-代理普通类" class="headerlink" title="基于子类的动态代理(代理普通类)"></a>基于子类的动态代理(代理普通类)</h3><p><strong>涉及类</strong>：Enhancer<br><strong>提供者</strong>：第三方cglib库<br><strong>如何创建代理对象</strong>：使用Ehancer类中的create()方法<br><strong>创建代理对象的要求</strong>：被代理类不能是最终类，即final修饰</p>
+<ul>
+<li><p>create()参数：</p>
+<pre><code>- Class：字节码，用于指定被代理对象的字节码
+</code></pre>
+</li>
+<li><p>Callback：用于提供增强的代码</p>
+</li>
+</ul>
+<p><em><strong>使用例子</strong></em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//具体类，一个生产者</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Produce</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 销售</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> money</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saleProduct</span><span class="params">(<span class="type">float</span> money)</span>&#123;</span><br><span class="line">        <span class="comment">//厂家发货，厂家获得销售商品的钱</span></span><br><span class="line">        System.out.println(<span class="string">&quot;销售产品，厂家拿到钱：&quot;</span>+money);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 售后</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> money</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saleService</span><span class="params">(<span class="type">float</span> money)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;提供售后服务，厂家拿到钱：&quot;</span>+money);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//客户类(通过动态代理拿货)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">Produce</span> <span class="variable">produce</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Produce</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//基于子类动态代理</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//获取动态代理</span></span><br><span class="line">        <span class="type">Produce</span> <span class="variable">cglibProducer</span> <span class="operator">=</span> (Produce) Enhancer.create(</span><br><span class="line">                produce.getClass(),</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">MethodInterceptor</span>() &#123;</span><br><span class="line">                    <span class="comment">/**</span></span><br><span class="line"><span class="comment">                     * 被执行的代理对象的方法都会经过该方法</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@param</span> proxy</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@param</span> method</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment">                     *  以上三个参数与基于接口动态代理中invoke方法参数一样</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@param</span> methodProxy</span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">                     * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">                     */</span></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> Object <span class="title function_">intercept</span><span class="params">(Object proxy, Method method, Object[] args, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                        <span class="comment">/**</span></span><br><span class="line"><span class="comment">                         * 可以在此提供增强的代码</span></span><br><span class="line"><span class="comment">                         */</span></span><br><span class="line">                        <span class="comment">//创建返回值</span></span><br><span class="line">                        <span class="type">Object</span> <span class="variable">returnValue</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">                        <span class="comment">//获取参数</span></span><br><span class="line">                        <span class="type">Float</span> <span class="variable">money</span> <span class="operator">=</span> (Float) args[<span class="number">0</span>];</span><br><span class="line">                        <span class="comment">//判断当前方法是不是销售那个方法</span></span><br><span class="line">                        <span class="keyword">if</span> (<span class="string">&quot;saleProduct&quot;</span>.equals(method.getName()))&#123;</span><br><span class="line">                            returnValue = method.invoke(produce,money*<span class="number">0.8f</span>);<span class="comment">//代理商从客户那里拿走了0.2的价钱</span></span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">return</span> returnValue;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//通过代理拿货</span></span><br><span class="line">        cglibProducer.saleProduct(<span class="number">12000f</span>);<span class="comment">//结果：销售产品，厂家拿到钱：9600</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/02/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%88%99/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-02-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/java/" title="java">
+                        <b>#</b> java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/java/" title="java">
+                        #java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/02/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-text">动态代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86-%E4%BB%A3%E7%90%86%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%B1%BB"><span class="toc-text">基于接口的动态代理(代理实现接口的类)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AD%90%E7%B1%BB%E7%9A%84%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86-%E4%BB%A3%E7%90%86%E6%99%AE%E9%80%9A%E7%B1%BB"><span class="toc-text">基于子类的动态代理(代理普通类)</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F02%2F26%2F%25E5%258A%25A8%25E6%2580%2581%25E4%25BB%25A3%25E7%2590%2586%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/02/26/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

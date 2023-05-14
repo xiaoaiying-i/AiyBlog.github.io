@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      react-三大核心属性 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">react-三大核心属性</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-01-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/react/" title="react">
+                    #react
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h3 id="jsx语法规则"><a href="#jsx语法规则" class="headerlink" title="jsx语法规则:"></a>jsx语法规则:</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1.定义虚拟DOM时，不要写引号。</span><br><span class="line">2.标签中混入JS表达式时要用。</span><br><span class="line">3.样式的类名指定不要用class，要用className。</span><br><span class="line">4.内联样式,要用style=&#123;&#123;key : value&#125;&#125;的形式去写。5.只有一个根标签</span><br><span class="line">6.标签必须闭合</span><br><span class="line">7.标签首字母</span><br><span class="line">    (1).若小写字母开头，则将改标签转为html中同名元素，若html中无该标签对应的同名元素，则报错。</span><br><span class="line">    (2).若大写字母开头，react就去渲染对应的组件，若组件没有定义，则报错。|</span><br></pre></td></tr></table></figure>
+
+<h3 id="模块化和组件化开发"><a href="#模块化和组件化开发" class="headerlink" title="模块化和组件化开发"></a>模块化和组件化开发</h3><p><strong>模块</strong>：提供特定功能的js程序，即js文件   作用：复用js,简化js的编写,提高js运行效率e<br><strong>组件</strong>：用来实现局部功能效果的代码和资源的集合(html/css/js/image)等等  作用：复用编码,简化项目编码,提高运行效率</p>
+<p><strong>模块化</strong>：应用js都以模块来编写。<br><strong>组件化</strong>：应用以多组件的方式实现。</p>
+<h3 id="react-虚拟dom"><a href="#react-虚拟dom" class="headerlink" title="react-虚拟dom"></a>react-虚拟dom</h3><p>js创建虚拟dom</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    // 创建虚拟dom</span><br><span class="line">    const VDOM = ReactDOM.createElement(&#x27;h1&#x27;,&#123;id:&#x27;title&#x27;&#125;,ReactDOM.createElement(&#x27;span&#x27;,&#123;&#125;,&#x27;hello,react&#x27;))</span><br><span class="line">    // 渲染虚拟dom到页面</span><br><span class="line">    ReactDOM.render(VDOM,document.getElementById(&#x27;test&#x27;))</span><br><span class="line">&lt;/script&gt; </span><br></pre></td></tr></table></figure>
+<p>jsx创建虚拟dom</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/babel&quot;&gt;</span><br><span class="line">    //创建虚拟dom</span><br><span class="line">    const VDOM = (  //翻译后： const VDOM = ReactDOM.createElement(&#x27;h1&#x27;,&#123;id:&#x27;title&#x27;&#125;,ReactDOM.createElement(&#x27;span&#x27;,&#123;&#125;,&#x27;hello,react&#x27;))就是原生js</span><br><span class="line">        &lt;h1&gt;</span><br><span class="line">            &lt;span&gt;Hello,react&lt;/span&gt;</span><br><span class="line">        &lt;/h1&gt;</span><br><span class="line">    )</span><br><span class="line">    //渲染到页面</span><br><span class="line">    ReactDOM.render(VDOM,document.getElementById(&#x27;test&#x27;))</span><br><span class="line">&lt;/script&gt; </span><br></pre></td></tr></table></figure>
+<p>关于虚拟DOM:<br>1.本质是0bject类型的对象(一般对象)<br>2.虚拟DOM懂较“轻”，真实DOM比较“重”，因为虚拟DOM是React内部在用，无需真实DOM上那么多的属性。<br>3.虚拟DOM最终会被React转化为真实DOM，呈现在页面上。</p>
+<h3 id="类式组件"><a href="#类式组件" class="headerlink" title="类式组件"></a>类式组件</h3><ul>
+<li><p>{}可写js表达式</p>
+</li>
+<li><p>react如何区分原生标签与react自定义组件标签？ 通过标签首字母区分，原生小写，react标签为大写。</p>
+</li>
+</ul>
+<p>【函数式组件】类名大写，直接返回dom<br>【类式组件】必须继承React.Component，并且定义render(){}方法 在render方法中返回dom</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//1.创建类式组件</span><br><span class="line">class MyComponent extends React.Component&#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">        //render是放在哪里的?—MyComponent的原型对象上，供实例使用。</span><br><span class="line">        return &lt;h2&gt;我是用类定义的组件(适用于【复杂组件】的定义)&lt;/h2&gt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三大核心属性"><a href="#三大核心属性" class="headerlink" title="三大核心属性"></a>三大核心属性</h2><h3 id="类实例对象重要属性：【1、state】"><a href="#类实例对象重要属性：【1、state】" class="headerlink" title="类实例对象重要属性：【1、state】"></a>类实例对象重要属性：<strong>【1、state】</strong></h3><p>可把数据存放到该属性上  其本质：state = {}</p>
+<ul>
+<li><p>原生html的标签属性有所更改，如：class写className、onclick写onClick、onblue写onBlue</p>
+</li>
+<li><p>事件绑定<br>1、无法直接通过方法名引用方法，因为方法需要实例引用。<br>2、组件类外定义的方法无法获取到组件类属性<strong>state</strong><br>3、只有通过组件类实例调用方法时，方法内this才是组件类实例。才能通过this调用state。<br>4、建议组件类内部定义实现某一功能的方法，render(){}标签内属性<strong>通过this</strong>直接引用方法。需要绑定方法的this，通过【this.xxx(实例对象的) = this.xxx(原型链上的).bind(this)】绑定。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">定义方法：function demo()&#123;&#125;</span><br><span class="line">组件类构造方法中绑定this：this.demo = this.demo.bind(this)</span><br><span class="line"></span><br><span class="line">事件错误使用：return &lt;h1 onclick=&#123;demo()&#125;&gt;&lt;/h1&gt;</span><br><span class="line">事件正确使用：return &lt;h1 onclick=&#123;this.demo&#125;&gt;&lt;/h1&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>关于this(个人理解)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">自定义组件没有state state是【React.Component】的原型上的</span><br><span class="line">方法中绑定this：【this.xxx(实例对象的) = this.xxx(原型链上的).bind(this)】 </span><br><span class="line">通过此方法中的this就指向了【React.Component】的this，可以通过this.state调用state了。</span><br><span class="line">前面的xxx是变量名，后面的xxx必须是在原型链上存在的。两者定义的【名称】可以不一样。在render中用的是前面的xxx。</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>状态(state)不可直接更改。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.state.isHot = !isHot //错误的写法 【直接赋值】。</span><br><span class="line">this.setState(&#123;isHot:!isHost&#125;)  //正确写法 【调用内置函数赋值】，该种修改state中的值是合并不是替换，即state中的数据同名覆写，不同名保持</span><br></pre></td></tr></table></figure></li>
+<li><p>自己创建的组件<br>① 构造器：调用一次。<br>② render方法： 调用1+n次 【1=初始化，n=每次更新状态调一次，更新几次调用几次】</p>
+</li>
+<li><p>问题：如果有多个方法this需要绑定，在构造方法需要定义非常多的【this.xxx(实例对象的) = this.xxx(原型链上的).bind(this)】<br>解决：通过箭头函数解决</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">changeweather = ()=&gt;&#123;</span><br><span class="line">      const isHot = this.state.isHot;</span><br><span class="line">      this.setstate(&#123;isHot : !isHot&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>state小结</strong></p>
+<ul>
+<li>类有原型，类创建的对象实例自身和原型不关联。【类对象实例-&gt;类-&gt;类继承的父类】则构成原型链，当调用一个什么的时候，当前找不到就顺着原型链往上找。</li>
+<li>state可以直接在自定义组件类上面赋值，不必在构造器中赋值。</li>
+<li>自定义方法**–**用赋值语句形式+箭头函数。这样方法就不用绑定了。箭头函数没有自己的this，就会往上找，</li>
+<li>state无法直接修改，需通过内置方法修改</li>
+</ul>
+<h3 id="类实例对象重要属性：【2、props】"><a href="#类实例对象重要属性：【2、props】" class="headerlink" title="类实例对象重要属性：【2、props】"></a>类实例对象重要属性：<strong>【2、props】</strong></h3><p>props 组件传递过来的参数，如在使用组件标签时定义的属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ReactDOM.render(&lt;Person name=&quot;jerry&quot; /&gt; ,document.getElementById(&#x27;test&#x27;))  //props中默认搜集标签中的属性如：name props中会包含[name]</span><br><span class="line"></span><br><span class="line">const p = &#123;name:&#x27;老刘&#x27;,age: 18, sex:&#x27;女&#x27;&#125;</span><br><span class="line">ReactDOM.render(&lt;Person &#123;...p&#125;/&gt;,document.getElementById(&#x27;test3&#x27;)) // 通过【...】传递属性  props中会包含[name,age,sex]</span><br></pre></td></tr></table></figure>
+<p>【…】 展开运行符</p>
+<ul>
+<li><p>【props】属性限制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">**代码在组件类外写**</span><br><span class="line"></span><br><span class="line">1、类型限制：</span><br><span class="line">定义规则方式：</span><br><span class="line">组件名称.propTypes = &#123;</span><br><span class="line">    //name:React.PropTypes.string  // PropTypes 15.5版本之前React有该属性 可以这样用【React.PropTypes】，16版本的时候不从这里取了，封装了【prop-types.js】</span><br><span class="line">    //name:PropTypes.string          // 引入【prop-types.js】有了全局对象PropTypes</span><br><span class="line">    //name:PropTypes.string.isRequired  //isRequired 表示 name属性必须传递过来，否则保错。</span><br><span class="line">&#125;</span><br><span class="line">类型：</span><br><span class="line">string 字符串</span><br><span class="line">number 数字</span><br><span class="line">func 函数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2、设置默认值：使用标签时没传递相关属性，在render中也可以读到，读到的是默认设置的</span><br><span class="line">定义规则方式：</span><br><span class="line">组件名称.defaultProps = &#123;</span><br><span class="line">    name:&#x27;xiaoai&#x27;   //name默认值为xiaoai</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>【props】默认是只读的</p>
+</li>
+<li><p>如何把【props】属性限制定义到组件类中<br>只要保证类自身拥有规则属性，就能进行规则限制。所以可以直接在类中定义规则，把<code>组件名称.</code>去掉,如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">**代码在组件类中写**</span><br><span class="line"></span><br><span class="line">static defaultProps = &#123;</span><br><span class="line">    name:&#x27;xiaoai&#x27;   //name默认值为xiaoai</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>构造函数与props</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constructor(props)&#123;</span><br><span class="line">      //构造器是否接受props，是否传递给super，取决于:是否希望在构造器中通过this访问props</span><br><span class="line">      super(props)</span><br><span class="line">      console.log(&#x27;constructor&#x27; ,this.props);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>函数式组件使用props<br>函数式组件只可以使用组件三大核心属性中的props。<br>属性限定只能定义在函数外。</p>
+</li>
+<li><p>为什么可以使用props？因为函数可以接收props</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person (props)&#123;</span><br><span class="line">    const &#123;name,age,sex&#125; = propsreturn(</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">        &lt;li&gt;姓名: &#123;name&#125;&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;性别: &#123; sex&#125;&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;年龄: &#123;age&#125;&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">&#125;</span><br><span class="line">//渲染组件到页面</span><br><span class="line">ReactDOM.render(&lt;Person name=&quot;jerry&quot; sex=&quot;女&quot; age=&#123;18&#125;/&gt;, document.getElemertById(&#x27;test1&#x27;))</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="类实例对象重要属性：【3、refs】"><a href="#类实例对象重要属性：【3、refs】" class="headerlink" title="类实例对象重要属性：【3、refs】"></a>类实例对象重要属性：<strong>【3、refs】</strong></h3><ul>
+<li><p>组件内的标签可以定义【ref属性】来标识自己。 组件类中属性refs会搜集组件类中所有标签ref属性。</p>
+</li>
+<li><p>通过【refs.ref名称】可以拿到ref对应的真实dom节点。</p>
+</li>
+<li><p><strong>1、字符串形式的ref</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">**代码在组件类中**</span><br><span class="line">render()&#123;</span><br><span class="line">    return(</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">              &lt;input ref=&quot;input1&quot; type=&quot;text&quot; placeholder=&quot;点击按钮提示数据&quot;/&gt;  //ref通过回调函数把当前节点放到了实例对象中</span><br><span class="line">              &lt;button onclick=&#123;this.showData&#125;&gt;点我提示左侧的数据&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line">//展示左侧输入框的数据</span><br><span class="line">showData = ()=&gt;&#123;</span><br><span class="line">    const &#123;input1&#125; = this.refs</span><br><span class="line">    alert(input1.value) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>2、回调函数的ref</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">**代码在组件类中**</span><br><span class="line"></span><br><span class="line">render()&#123;</span><br><span class="line">    return(</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">              &lt;input ref=&#123;currentNode =&gt; this.input1 = currentNode&#125; type=&quot;text&quot; placeholder=&quot;点击按钮提示数据&quot;/&gt;  //ref通过回调函数把当前节点放到了实例对象中</span><br><span class="line">              &lt;button onclick=&#123;this.showData&#125;&gt;点我提示左侧的数据&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line">//展示左侧输入框的数据</span><br><span class="line">showData = ()=&gt;&#123;</span><br><span class="line">    const &#123;input1&#125; = this //由于ref已把input1放了进来，所以可以在this中获取</span><br><span class="line">    alert(input1.value) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>回调ref中执行次数：<br>内联方式=render更新过程中会被执行两次，第一次传参null，第二次传参当前dom节点。<br>回调函数通过定义成class绑定函数的方式可避免该问题。<br>两者没啥影响，一般还是直接写内联比较多。</p>
+</li>
+<li><p><strong>3、createRef</strong><br>当前比较推荐的一种形式<br>React.createRef调用后可以返回一个容器，该容器可以存储被ref所标识的节点，该容器是“专人专用”的，只保存一个ref</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">**以下代码都在组件类内**</span><br><span class="line"></span><br><span class="line">//定义一个ref</span><br><span class="line">myRef2 = React.createRef()</span><br><span class="line"></span><br><span class="line">//绑定ref</span><br><span class="line">&lt;input onBlur=&#123;this.showData2] ref=&#123;this.myRef2&#125; type=&quot;text&quot; placeholder=&quot;失去焦点提示数据&quot;/&gt;</span><br><span class="line"></span><br><span class="line">//使用ref</span><br><span class="line">showData2 = ()=&gt;&#123;</span><br><span class="line">    alert(this.myRef2.current.value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><p>如果一个函数符合下面2个规范中的任何一个，那该函数就是高阶函数。</p>
+<ul>
+<li>1.若A函数，接收的参数是一个函数，那么A就可以称之为高阶函数。</li>
+<li>2.若A函数，调用的返回值依然是一个函数，那么A就可以称之为高阶函数。I常见的高阶函数伺</li>
+</ul>
+<p>函数的柯里化:通过函数调用继续返回函数的方式，实现多次接收参数最后统一处理的函数编码形式。</p>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p>**挂载（mount)**：当clock 组件第一次被渲染到DOM中的时候，就为其设置一个计时器。<br>**卸载(unmount)**：当DOM中clock组件被删除的时候，应该清除计时器。</p>
+<ul>
+<li><p>生命周期钩子调用顺序和个人调用顺序没关系，由框架决定。<br>函数名称：<strong>生命周期回调函数、生命周期钩子函数、生命周期函数、生命周期钩子</strong></p>
+</li>
+<li><p>1、构造器函数 【**constructor(){}**】</p>
+</li>
+<li><p>2、挂载前  【**componentWillMount(){}**】</p>
+</li>
+<li><p>3、初始化 【**render(){}**】 // 初始化渲染、状态更新后</p>
+</li>
+<li><p>4、挂载后 【**componentDidMount(){}**】 //组件挂载完毕执行</p>
+</li>
+<li><p>5、卸载组件前 【**componentwillUnmount(){}**】 // 组件将要卸载时执行</p>
+</li>
+</ul>
+<p>卸载组件：【ReactDOM.unmountComponentAtNode(document.getElementById(‘test’)) 】</p>
+<p>其他钩子函数：<br><strong>旧生命周期图</strong><br><img src="https://img2020.cnblogs.com/blog/1594818/202012/1594818-20201226231723267-105757299.png"><br><img src="https://img2020.cnblogs.com/blog/1594818/202012/1594818-20201226233823004-1428492128.png"></p>
+<ul>
+<li>1、setState() 修改状态更新 –&gt; 【**shouldComponentUpdate(){}**】相当于阀门，决定是否更新，返回true往下走，false则终止。默认返回true –&gt; </li>
+<li>2、forceUpdate() 强制更新 –&gt; 【**componentWillUpdate(){}**】更新前执行的函数 –&gt; </li>
+<li>–&gt;【**componentDidUpdate(){}**】更新后执行的函数。</li>
+</ul>
+<p>组件父子关系： 在A组件中引用B组件，A即是B组件的父组件。<br>props的传递： 在引用的B标签中直接定义标签属性传递过去。</p>
+<ul>
+<li>3、【compenentWillReceiveProps(props){}】子组件将要接收传递过来的props前执行，第一次接收props时不会调用。</li>
+</ul>
+<p><strong>新生命周期图</strong><br><img src="https://img2020.cnblogs.com/blog/1594818/202012/1594818-20201226225954304-766410515.png"><br><img src="https://img2020.cnblogs.com/blog/1594818/202012/1594818-20201227003613644-2049527385.png"></p>
+<p>新版生命周期把旧版中带【will】的钩子函数进行了改进。</p>
+<ul>
+<li>【**static getDerivedStateFromProps(props,state){}**】 需返回[从props派生的state]或[null]。若state的值在任何时候都取决于props，那么可以使用getDerivedStateFromProps</li>
+<li>【**static getSnapshotBeforeUpdate(prevProps,prevState){}**】 需返回[快照值]或[null]。返回值作为参数传递给【componentDidUpdate()】。</li>
+</ul>
+<h2 id="虚拟DOM中key作用"><a href="#虚拟DOM中key作用" class="headerlink" title="虚拟DOM中key作用:"></a>虚拟DOM中key作用:</h2><p>状态中的数据发生变化时，react会根据【新数据】生成【新的虚拟DOM】，随后React进行【新虚拟DOM】与【旧虚拟DOM】的diff比较，比较规则如下:</p>
+<ul>
+<li><p>1、旧虚拟DOM中找到与新虚拟DOM相同的key:<br>内容没变，直接使用之前的真实DOM<br>若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM</p>
+</li>
+<li><p>2、旧虚拟DOM中未找到与新虚拟DOM相同的key：<br>根据数据创建新的真实DOM，随后渲染到到页面</p>
+</li>
+<li><p>用index作为key可能会引发的问题:<br>① 若对数据进行逆序添加、逆序删除等破坏顺序操作：会产生没有必要的真实DOM更新–&gt;界面效果没问题，但效率低。<br>② 如果结构中还包含输入类的DOM：会产生错误DOM更新–&gt;界面有问题。</p>
+</li>
+</ul>
+<p><strong>注意!如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用index作为key是没有问题的。开发中最好用唯一标识作为key</strong></p>
+<h2 id="react脚手架"><a href="#react脚手架" class="headerlink" title="react脚手架"></a>react脚手架</h2><p><img src="https://img2020.cnblogs.com/blog/1594818/202012/1594818-20201227132411289-1065057200.png"></p>
+<h3 id="三个比较重要的文件"><a href="#三个比较重要的文件" class="headerlink" title="三个比较重要的文件"></a>三个比较重要的文件</h3><p>【./public/index.html】react应用容器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!-- %PUBLIC_URL%代表public文件夹路径 --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!-- &lt;link rel=&quot;icon&quot; href=&quot;%PUBLIC_URL%/favicon.ico&quot; /&gt; 可以用以下相对路径的写法 --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;./favicon.ico&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!-- 开启理想视口，用于做移动端网页的适配 --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!-- 用于配置浏览器页签+地址栏的颜色(仅支持安卓手机浏览器) --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;theme-color&quot;</span> <span class="attr">content</span>=<span class="string">&quot;#000000&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!-- 描述信息 --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">name</span>=<span class="string">&quot;description&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">content</span>=<span class="string">&quot;Web site created using create-react-app&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!-- 指定网页添加大手机主屏幕后的图标(仅支持苹果) --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;apple-touch-icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;%PUBLIC_URL%/logo192.png&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!-- 应用加壳时的配置文件 --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;manifest&quot;</span> <span class="attr">href</span>=<span class="string">&quot;%PUBLIC_URL%/manifest.json&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>React App<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!-- 浏览器不支持js则展示标签中的内容 --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">noscript</span>&gt;</span>You need to enable JavaScript to run this app.<span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!-- react单页面应用容器 --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>【./src/index.js】应用入口<br>【./src/App.js】 外壳组件App</p>
+<ul>
+<li><p>如何区分应用中组件js文件和普通js文件<br>1、组件js文件：首字母大小，普通js文件首字母小写<br>2、组件js文件后缀=jsx，普通js文件后缀=js</p>
+</li>
+<li><p>组件模块化<br>同一组件资源统一放到【./src/component/xx组件名】目录下，</p>
+</li>
+<li><p>样式模块化<br>如果不做样式模块化，有可能不同css文件中存在同一名称样式，在App.js引用各个组件时产生样式冲突，后引入的就会覆盖前引入的<br>样式冲突解决：<br>① 保证引入组件间css文件没有同名样式，<br>② 在各组件样式文件样式前加统一嵌套前缀，如【.hello{.xx{} .xx{}}】<br>③ 样式模块化：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-<span class="number">1</span>、样式文件加【.<span class="property">module</span>】后缀，如：index.<span class="property">modle</span>.<span class="property">css</span></span><br><span class="line">-<span class="number">2</span>、在组件引入样式时先接受样式再使用：</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>,&#123;component&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> hello <span class="keyword">from</span> <span class="string">&#x27;./index.module.css&#x27;</span> <span class="comment">//接收样式</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Hello</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&#123;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">className</span>=<span class="string">&#123;hello.title&#125;</span>&gt;</span>He1lo,React!<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span> <span class="comment">//hello.title使用样式</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/01/26/nocas%E9%9A%8F%E8%AE%B0/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-01-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/react/" title="react">
+                        #react
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/02/26/spring/%E3%80%90springboot%E3%80%91ssl/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#jsx%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="toc-text">jsx语法规则:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E5%92%8C%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91"><span class="toc-text">模块化和组件化开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#react-%E8%99%9A%E6%8B%9Fdom"><span class="toc-text">react-虚拟dom</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%BC%8F%E7%BB%84%E4%BB%B6"><span class="toc-text">类式组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7"><span class="toc-text">三大核心属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E9%87%8D%E8%A6%81%E5%B1%9E%E6%80%A7%EF%BC%9A%E3%80%901%E3%80%81state%E3%80%91"><span class="toc-text">类实例对象重要属性：【1、state】</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E9%87%8D%E8%A6%81%E5%B1%9E%E6%80%A7%EF%BC%9A%E3%80%902%E3%80%81props%E3%80%91"><span class="toc-text">类实例对象重要属性：【2、props】</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E9%87%8D%E8%A6%81%E5%B1%9E%E6%80%A7%EF%BC%9A%E3%80%903%E3%80%81refs%E3%80%91"><span class="toc-text">类实例对象重要属性：【3、refs】</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="toc-text">高阶函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9FDOM%E4%B8%ADkey%E4%BD%9C%E7%94%A8"><span class="toc-text">虚拟DOM中key作用:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react%E8%84%9A%E6%89%8B%E6%9E%B6"><span class="toc-text">react脚手架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E4%B8%AA%E6%AF%94%E8%BE%83%E9%87%8D%E8%A6%81%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-text">三个比较重要的文件</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + react-%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F01%2F26%2Freact-%25E4%25B8%2589%25E5%25A4%25A7%25E6%25A0%25B8%25E5%25BF%2583%25E5%25B1%259E%25E6%2580%25A7%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/01/26/react-%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

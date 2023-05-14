@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      mysql-1-DQL查询 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">mysql-1-DQL查询</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2021-04-24 14:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/sql/" title="sql">
+                    <b>#</b> sql
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/sql/" title="sql">
+                    #sql
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>as 或 省略as 空格后加别名</td>
+<td>取别名</td>
+</tr>
+<tr>
+<td>distinct</td>
+<td>去重</td>
+</tr>
+<tr>
+<td>+</td>
+<td>只做数值加，有字符先尝试转换成数值再加，加null都等于null</td>
+</tr>
+<tr>
+<td>in</td>
+<td>子查询</td>
+</tr>
+<tr>
+<td>group by 分组字段</td>
+<td>分组</td>
+</tr>
+<tr>
+<td>order by  排序字段 [asc/desc]</td>
+<td>排序  asc=升序(默认) desc=倒序</td>
+</tr>
+<tr>
+<td>having 条件</td>
+<td>查询后的条件筛选，一般和group by 一起使用</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>where 后面要跟的是数据表里的字段，而having只是根据前面查询出来的是什么后面就可以接什么。</p>
+</blockquote>
+<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><p>一般在where后使用：</p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>运算符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>条件运算符</td>
+<td>&lt; 、=、 != 、&lt;&gt;【表示不等于】、&gt;= 、&lt;=</td>
+</tr>
+<tr>
+<td>逻辑运算符</td>
+<td>&amp;&amp; 、|| 、! 、and 、or、not</td>
+</tr>
+<tr>
+<td>模糊查询</td>
+<td>like 、between  and、in 、is null或is not null</td>
+</tr>
+<tr>
+<td>安全等于</td>
+<td>&lt;=&gt;  即可判断null值也可以判断普通数值</td>
+</tr>
+</tbody></table>
+<h2 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h2><p>函数可以嵌套使用，一个函数的结果可以作为另一个函数的参数</p>
+<h3 id="单行函数"><a href="#单行函数" class="headerlink" title="单行函数"></a>单行函数</h3><p>字符函数：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>LENGTH(字段)</strong></td>
+<td>字段值字节长度</td>
+</tr>
+<tr>
+<td><strong>CONCAT(xx,xx,xx)</strong></td>
+<td>拼接，用逗号分隔</td>
+</tr>
+<tr>
+<td><strong>ISNULL(判断字段，空时取值)</strong></td>
+<td>判断是否为空</td>
+</tr>
+<tr>
+<td><strong>UPPER(‘xxx’)</strong></td>
+<td>变大写</td>
+</tr>
+<tr>
+<td><strong>LOWER(‘xxx’)</strong></td>
+<td>变小写</td>
+</tr>
+<tr>
+<td><strong>SUBSTR(‘xxx’,索引)</strong></td>
+<td>截取索引及其后面的字符，myslq索引从1开始</td>
+</tr>
+<tr>
+<td><strong>SUBSTR(‘xxx’,索引,索引2)</strong></td>
+<td>截取索引1到索引2的字符</td>
+</tr>
+<tr>
+<td><strong>INSTR(‘xxx’,’子串’)</strong></td>
+<td>返回子串第一次出现的索引</td>
+</tr>
+<tr>
+<td><strong>TRIM(‘xxx’)</strong></td>
+<td>去前后空格</td>
+</tr>
+<tr>
+<td><strong>TRIM(‘指定字符’,’xxx’)</strong></td>
+<td>去前后指定字符</td>
+</tr>
+<tr>
+<td><strong>LPAD(‘xxx’,number,’指定字符’)</strong></td>
+<td>左填充，用指定字符填充字符串到指定长度</td>
+</tr>
+<tr>
+<td><strong>RPAD(‘xxx’,number,’指定字符’)</strong></td>
+<td>右填充，用指定字符填充字符串到指定长度</td>
+</tr>
+<tr>
+<td><strong>REPLACE(‘字符串’,’被替换值’,’替换值’)</strong></td>
+<td>替换</td>
+</tr>
+</tbody></table>
+<p>数学函数：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ROUDN(number)</strong></td>
+<td>四舍五入</td>
+</tr>
+<tr>
+<td><strong>ROUDN(number,保留精度位数)</strong></td>
+<td>四舍五入</td>
+</tr>
+<tr>
+<td><strong>CEIL(number)</strong></td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td><strong>FLOOR(number)</strong></td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td><strong>TRUNCATE(number,保留位数)</strong></td>
+<td>截断，</td>
+</tr>
+<tr>
+<td><strong>MOD(num1,num2)</strong></td>
+<td>取余</td>
+</tr>
+</tbody></table>
+<p>日期函数：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NOW()</strong></td>
+<td>返回当前日期+时间</td>
+</tr>
+<tr>
+<td><strong>CURADTE()</strong></td>
+<td>返回当前日期</td>
+</tr>
+<tr>
+<td><strong>CURTIME()</strong></td>
+<td>返回当前时间</td>
+</tr>
+<tr>
+<td><strong>YEAR(日期 或 ‘年-月-日’)</strong></td>
+<td>返回日期中的年份</td>
+</tr>
+<tr>
+<td><strong>MONTH(日期 或 ‘年-月-日’)</strong></td>
+<td>返回日期中的月份</td>
+</tr>
+<tr>
+<td><strong>MONTHNAME(日期 或 ‘年-月-日’)</strong></td>
+<td>返回日期中的月份(英文)</td>
+</tr>
+<tr>
+<td><strong>日、时、秒、分……</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>**str_to_date()**：</td>
+<td>将日期格式的字符转换成指定格式的日期   如：STR_TO_DATE(‘9-13-1999’ , %m-%d-%Y’) 1999-09-13</td>
+</tr>
+<tr>
+<td>**date_format()**：</td>
+<td>将日期转换成字符     如：DATE_FORMAT(‘2018/6/6 ,%Y年%m月%d日’) 2018年06月06日</td>
+</tr>
+</tbody></table>
+<p>其他函数：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>VERSION()</strong></td>
+<td>版本</td>
+</tr>
+<tr>
+<td><strong>DATABASE()</strong></td>
+<td>当前数据库</td>
+</tr>
+<tr>
+<td><strong>USER()</strong></td>
+<td>当前用户</td>
+</tr>
+</tbody></table>
+<p>流程控制函数：<br><strong>IF(‘表达式’,成立返回结果,不成立返回结果)</strong>   判断<br><strong>CASE</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">case 要新的字段或表达式</span><br><span class="line">when 常量1 then 要显示的值1或语句1(这里如果是值就不用分号);   </span><br><span class="line">when 常量2 then 要显示的值2或语句2;</span><br><span class="line">...</span><br><span class="line">else 要显示的值n或语句n;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h3 id="分组函数"><a href="#分组函数" class="headerlink" title="分组函数"></a>分组函数</h3><p>统计使用，又称聚合函数或统计函数或组函数</p>
+<p><strong>sum()</strong> 求和<br><strong>avg()</strong> 平均值<br><strong>max()</strong> 最大值<br><strong>min()</strong> 最小值<br><strong>count()</strong> 统计个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sum、avg不支持字符串类型</span><br><span class="line">以上分组函数都忽略null值</span><br><span class="line">可以和distinct搭配  如：SUM(DISTINCT xxx)</span><br><span class="line">和分组函数一同查询的字段要求是group by 后的字段</span><br><span class="line"></span><br><span class="line">效率：</span><br><span class="line">MYISAM存储引擎下，COUNT(*)的效率高</span><br><span class="line">INNODB存储引擎下，COUNT(* )和COUNT(1)的效率差不多，比COUNT(字段)要高一些</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h2><p><strong>完全连接</strong> 如：select * from table1，table2；  笛卡尔积</p>
+<h3 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h3><p>按年代：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sq192标准：仅仅支持内连接</span><br><span class="line">sq199标准(推荐)：支持内、外(左外和右外)、交叉</span><br></pre></td></tr></table></figure>
+
+<p>按功能：</p>
+<ul>
+<li><p><strong>内连接：</strong>inner</p>
+<ul>
+<li>等值连接： 多表查询通过某字段相等作为条件</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 例<span class="number">1</span> </span><br><span class="line">  <span class="keyword">SELECT</span> e.last_name,e.job_id,j.job_title</span><br><span class="line">  <span class="keyword">FROM</span> employees e,jobs j</span><br><span class="line">  <span class="keyword">WHERE</span> e.`job_id` <span class="operator">=</span> j.`job_id`;</span><br><span class="line">  </span><br><span class="line">  # 例<span class="number">2</span></span><br><span class="line">  <span class="keyword">SELECT</span> e.last_name,e.job_id,j.job_title</span><br><span class="line">  <span class="keyword">FROM</span> employees e</span><br><span class="line">  <span class="keyword">INNER</span> <span class="keyword">JOIN</span> jobs j <span class="keyword">ON</span> e.`job_id` <span class="operator">=</span> j.`job_id`;</span><br><span class="line">  </span><br><span class="line">  可接多个<span class="keyword">INNER</span> <span class="keyword">JOIN</span> ... <span class="keyword">ON</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>非等值连接：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 例<span class="number">1</span></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name,e.job_id,j.job_title</span><br><span class="line"><span class="keyword">FROM</span> employees e,jobs j</span><br><span class="line"><span class="keyword">WHERE</span> e.`job_id` 等号外其余条件判断 j.`job_id`;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自连接：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#案例:查询员工名和上级的名称</span><br><span class="line"><span class="keyword">SELECT</span> e.employee_id,e.last_name,m.employee_id,m.last_name</span><br><span class="line"><span class="keyword">FROM</span> employees e, employees m</span><br><span class="line"><span class="keyword">WHERE</span> e.<span class="string">&#x27;manager_id&#x27;</span> <span class="operator">=</span>m.<span class="string">&#x27;employee_id`;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>外连接：</strong>outer</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 语法</span><br><span class="line"><span class="keyword">select</span> 查询列表</span><br><span class="line"><span class="keyword">from</span> 表<span class="number">1</span> 别名 [连接类型] <span class="keyword">join</span> 表<span class="number">2</span> 别名 <span class="keyword">on</span> 连接条件</span><br><span class="line">[<span class="keyword">where</span>筛选条件]</span><br><span class="line"></span><br><span class="line">外连接查询结果<span class="operator">=</span>内连接结果<span class="operator">+</span>主表中有而从表没有的记录 没匹配的显示<span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>左外连接：left [outer]</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">左边是主表 左表全显示</span><br><span class="line"></span><br><span class="line">#　例：</span><br><span class="line"><span class="keyword">SELECT</span> b.name, bo.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> beauty b</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> boys bo</span><br><span class="line"><span class="keyword">ON</span> b.<span class="string">&#x27;boyfriend_id&#x27;</span> <span class="operator">=</span> bo.<span class="string">&#x27;id&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>右外连接：right [outer]</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">右边是主表   右表全显示</span><br><span class="line"></span><br><span class="line">＃　例：和上面左外效果一样</span><br><span class="line"><span class="keyword">SELECT</span> b.name, bo.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> boys bo</span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> beauty b</span><br><span class="line"><span class="keyword">ON</span> b.<span class="string">&#x27;boyfriend_id&#x27;</span> <span class="operator">=</span> bo.<span class="string">&#x27;id&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>全外连接：full [outer]</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">左表全显示 右表全显示  即：左右表字段全显示，两表重合，该null的位置就null</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>交叉连接：</strong>cross join</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">笛卡尔乘积</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>可记：from后为左表，join后为右边</p>
+</blockquote>
+<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IN、NOT IN</td>
+<td>等于列表中的任意一个</td>
+</tr>
+<tr>
+<td>ANY、SOME</td>
+<td>和子查询返回的某一个值比较</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td>和子查询返回的所有值比较</td>
+</tr>
+</tbody></table>
+<ul>
+<li>行子查询</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 例:查询员工编号最小并且工资最高的员工信息</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span>(empioyee_id,salary) <span class="operator">=</span> (</span><br><span class="line">	<span class="keyword">SELECT</span> <span class="built_in">MIN</span>(employee_id), <span class="built_in">MAX</span>(salary)</span><br><span class="line">    <span class="keyword">FROM</span> employees</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>select后子查询</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 例:查询每个都门的员工个数</span><br><span class="line"><span class="keyword">SELECT</span> d.<span class="operator">*</span>,(</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line">    <span class="keyword">FROM</span> employees e</span><br><span class="line">    WHEREe.department_id <span class="operator">=</span> d.<span class="string">&#x27;department_id&#x27;</span></span><br><span class="line">）个数</span><br><span class="line"><span class="keyword">FROM</span> departments d;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">select</span>后面子查询只能返回一行一列</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>from后子查询</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span>(</span><br><span class="line">	<span class="keyword">SELECT</span> <span class="built_in">AVG</span>(salary) avgsalary,dep_id</span><br><span class="line">    <span class="keyword">FROM</span> dep</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> dep_id</span><br><span class="line">) avg</span><br><span class="line"><span class="keyword">WHERE</span> avg.avgsalary <span class="operator">&gt;</span> <span class="number">5000</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>exists后子查询</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> EXTSTS(</span><br><span class="line">    <span class="keyword">SELECT</span> employee_id </span><br><span class="line">    <span class="keyword">FRoM</span> employees </span><br><span class="line">    <span class="keyword">WHERE</span> salary<span class="operator">=</span><span class="number">300000</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LIMIT 开始索引,显示条数</span><br><span class="line"></span><br><span class="line">page：第几页</span><br><span class="line">size：每页显示几条</span><br><span class="line">分页公式：(page<span class="number">-1</span>) <span class="operator">*</span> size</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询关键字及执行先后顺序说明</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">执行顺序 关键字</span><br><span class="line"></span><br><span class="line"><span class="number">7</span><span class="comment">--select 查询列表</span></span><br><span class="line"><span class="number">1</span><span class="comment">--from 表 </span></span><br><span class="line"><span class="number">2</span><span class="comment">--[连接类型] join 表2</span></span><br><span class="line"><span class="number">3</span><span class="comment">--on 连接亲件</span></span><br><span class="line"><span class="number">4</span><span class="comment">--whee 筛选条件</span></span><br><span class="line"><span class="number">5</span><span class="comment">--group by 分组列表</span></span><br><span class="line"><span class="number">6</span><span class="comment">--having 分组的筛选</span></span><br><span class="line"><span class="number">8</span><span class="comment">--order by 排序列表</span></span><br><span class="line"><span class="number">9</span><span class="comment">--1imit 偏移,条自数</span></span><br><span class="line"></span><br><span class="line">每一条字句都会生成一个虚拟表格</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h2><p><strong>union</strong>  联合，合并，将多条查询语句结果合并成一个结果</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 例:查询中国用户中男性的信息以及外国用户中男性的用户信息</span><br><span class="line"><span class="keyword">SELECT</span> id,cnam,csex <span class="keyword">FROM</span> t_ca <span class="keyword">WHERE</span> csex<span class="operator">=</span><span class="string">&#x27;男&#x27;</span>;</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> t_idy tName,tGender <span class="keyword">FROM</span> t_ua <span class="keyword">WHERE</span> tGender<span class="operator">=</span><span class="string">&#x27;male&#x27;</span>;</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line">id cname csex</span><br><span class="line"><span class="number">2</span>  小李   男</span><br><span class="line"><span class="number">1</span>  john  male</span><br><span class="line"><span class="number">3</span>  jack  male</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>联合查询中多条查询列数需要一致</p>
+<p>多条查询语句查询的每列类型和顺序最好一致</p>
+<p>联合查询默认去重，要显示所有用：union all</p>
+</blockquote>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2021/04/24/sql/mysql-2-DML%E3%80%81DDL/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2021-04-24 14:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/sql/" title="sql">
+                        <b>#</b> sql
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/sql/" title="sql">
+                        #sql
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/06/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BD%93%E9%AA%8C/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="toc-text">条件查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0"><span class="toc-text">常见函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-text">单行函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%87%BD%E6%95%B0"><span class="toc-text">分组函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="toc-text">连接查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="toc-text">分类：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">子查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="toc-text">分页查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="toc-text">联合查询</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + mysql-1-DQL%E6%9F%A5%E8%AF%A2 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2021%2F04%2F24%2Fsql%2Fmysql-1-DQL%25E6%259F%25A5%25E8%25AF%25A2%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2021/04/24/sql/mysql-1-DQL%E6%9F%A5%E8%AF%A2/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

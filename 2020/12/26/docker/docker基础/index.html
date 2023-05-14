@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      docker基础 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">docker基础</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2020-12-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/%E5%AE%B9%E5%99%A8/" title="容器">
+                    <b>#</b> 容器
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/docker/" title="docker">
+                    #docker
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="docker概念"><a href="#docker概念" class="headerlink" title="docker概念"></a>docker概念</h2><p>docker主机(Host):安装了Docker程序的机器(Docker直接安装在操作系统之上);<br>docker客户端(Client):连接docker主机进行操作﹔<br>docker仓库(Registry):用来保存各种打包好的软件镜像﹔<br>docker镜像(Images):软件打包好的镜像﹔放在docker仓库中;</p>
+<blockquote>
+<p><strong>镜像就像安装包，容器就是安装的应用程序</strong>   </p>
+<p>可以通过镜像安装多个相同的应用程序，但是端口号不能相同</p>
+</blockquote>
+<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><ul>
+<li>yum包更新 【sudo yum update】</li>
+<li>安装软件包yum-util提供yum-config-manager功能【sudo yum install -y yum-utils device-mapper-persistent-data lvm2】</li>
+<li>设置yum源  【sudo yum-config-manager –add-repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo%E3%80%91">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo】</a></li>
+<li>安装docker 【sudo yum install docker -ce】</li>
+<li>查看版本：【docker -v】</li>
+<li>启动docker  根据linux版本进行相应命令</li>
+</ul>
+<p><strong>操作docker相关命令</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">检查内核版本，必须是3.10及以上【uname ‐r】 </span><br><span class="line">安装docker(输入y确认安装)【yum install docker 】 </span><br><span class="line">查看版本【docker ‐v】</span><br><span class="line">开机启动docker 【systemctl enable docker】</span><br><span class="line"></span><br><span class="line">启动docker 【systemctl start docker 】</span><br><span class="line">停止docker 【systemctl stop docker】</span><br><span class="line">docker概要信息【docker info】</span><br><span class="line">docker帮助文档【docker --help】</span><br></pre></td></tr></table></figure>
+
+<h2 id="镜像仓库"><a href="#镜像仓库" class="headerlink" title="镜像仓库"></a>镜像仓库</h2><p>Docker默认仓库地址是Docker Hub官网地址。</p>
+<p>设置ustc镜像便于docker拉取某些需要的镜像  ustc：老牌linux镜像服务提供者 ustc的docker镜像加速器速度很快</p>
+<ul>
+<li>编辑文件【vi /etc/docker/daemon.json】</li>
+<li>输入内容</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://docker.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="镜像与容器"><a href="#镜像与容器" class="headerlink" title="镜像与容器"></a>镜像与容器</h2><h3 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h3><p>镜像是构建docker的基石，可以将镜像当做容器的源代码 体积小，便携，易分享存储和更新<br>由于镜像可能重名（如版本不同），所有通过tag即标签区分<br>镜像可以从所设置的源中拉取</p>
+<ul>
+<li>【docker images】  查看镜像 </li>
+<li>【docker search 镜像名称】  搜索镜像  如：docker search redis</li>
+<li>【docker pull 镜像名称:tag】  拉取镜像  </li>
+<li>【docker rmi 镜像id】  删除镜像   镜像有运行中的容器时不能删除</li>
+<li>【docker rmi ‘docker images -q’】 删除全部镜像 </li>
+</ul>
+<h3 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h3><p><strong>通过镜像简单启动容器</strong>：【docker run -d 容器名称:标签】 </p>
+<p><strong>通过镜像启动容器（指定参数）</strong>：【docker run –name 自己给容器随便取个名称(–name和这里的名称可省) -p 主机端口:容器端口  -d  容器名称:标签】  </p>
+<ul>
+<li>标签即相当于版本，latest标签即最新的意思</li>
+<li>参数：<ul>
+<li>–name 容器名称   </li>
+<li>[-p]为docker和本机物理端口映射  </li>
+<li>[-d]为后台运行</li>
+</ul>
+</li>
+</ul>
+<p><strong>容器命令：</strong></p>
+<ul>
+<li><p>查看正在运行的容器 :【docker ps】   </p>
+</li>
+<li><p>查看所有容器: 【docker ps -a】 </p>
+</li>
+<li><p>查看最后一次运行的容器:【docker ps -l】 </p>
+</li>
+<li><p>启动容器:【docker start 容器名称或id】</p>
+</li>
+<li><p>停止容器:【docker stop 容器名称或id】</p>
+</li>
+<li><p>文件拷贝:【docker cp 待拷贝文件路径  容器名称:路径】宿主机到容器 容器关闭时也可以正常拷贝文件进去</p>
+</li>
+<li><p>查看容器ip：</p>
+<ul>
+<li>【docker inspect 容器名称】  显示一推信息</li>
+<li>【<code>docker inspect --format=&#39;&#123;&#123;.NetWorkSettings.IPAddress&#125;&#125;</code>‘ 容器名称 】 直接显示ip地址，其他信息也可以这样显示</li>
+</ul>
+</li>
+<li><p>删除容器：【docker rm 容器名称】 需要停止容器后才能进行移除    </p>
+</li>
+<li><p>进入容器:【<code>docker exec -it 容器名称或id  /bin/bash</code>】  进入容器后操作命令和linux一致就行</p>
+</li>
+<li><p>退出到宿主机位置  容器停止:【docker exit】 </p>
+</li>
+<li><p>查看容器运行日志：【docker logs -f  容器tag】</p>
+</li>
+</ul>
+<h4 id="交互式容器"><a href="#交互式容器" class="headerlink" title="交互式容器"></a>交互式容器</h4><p>使用交互式运行容器，容器运行后直接进入到容器内部，退出容器内部后，容器直接关闭</p>
+<p><strong>创建交互式容器：</strong>【docker run -it –name 容器名称 镜像名称:标签 /bin/bash 】</p>
+<ul>
+<li>交互式创建容器后即进入到容器</li>
+<li>参数：<ul>
+<li>-i：表示运行容器</li>
+<li>-t：表示容器启动后会进入其命令行。加入这两个参数后，容器创建就能登录进去。即分配一个伪终端。</li>
+</ul>
+</li>
+<li>每个容器相当于一个小电脑（服务器）</li>
+</ul>
+<blockquote>
+<p>通过镜像启动容器 也可以通过docker exec -it 容器名称或id  /bash  进入容器进行操作</p>
+</blockquote>
+<h4 id="守护式容器"><a href="#守护式容器" class="headerlink" title="守护式容器"></a>守护式容器</h4><p>守护式进程的特点是：</p>
+<ul>
+<li>能够长期运行</li>
+<li>没有交互式会话</li>
+<li>适合运行应用程序和服务</li>
+</ul>
+<p><strong>创建守护式容器：</strong>  【docker run -id –name 容器名称 镜像名称:标签】</p>
+<h4 id="将容器保存为镜像"><a href="#将容器保存为镜像" class="headerlink" title="将容器保存为镜像"></a><strong>将容器保存为镜像</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 基于自己容器创建的镜像创建容器，该新建的容器默认包含自己容器所拥有的资源，因为是基于其创建的</span><br><span class="line">【docker commit 容器名称 镜像名称】</span><br><span class="line">【docker run -di --name=myxxx -p 宿主机端口:容器端口 自己容器所保存的镜像名称】  </span><br><span class="line"></span><br><span class="line"># 镜像导入导出</span><br><span class="line">【docker save -o 文件路径  镜像名称】 镜像导出为镜像文件</span><br><span class="line">【docker load -i 文件路径】 镜像文件恢复为镜像</span><br></pre></td></tr></table></figure>
+
+<h2 id="docker数据卷"><a href="#docker数据卷" class="headerlink" title="docker数据卷"></a>docker数据卷</h2><p><strong>目录挂载</strong>：宿主机目录和容器目录形成映射关系。 目录挂载后，操作宿主机的目录即操作容器的目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">创建容器时加【-v 宿主机目录:容器目录】 如：</span><br><span class="line">【docker run -id --name=mycentos3 centos:7 -v /usr/local/myhtml:/usr/local/myhtml】</span><br><span class="line">【docker run -id -v /usr/local/myhtml:/usr/local/myhtml --name=mycentos3 centos:7】也可以</span><br></pre></td></tr></table></figure>
+
+<p>目录挂载即docker数据卷。需求：为了部署demo工程，需要使用到cp的命令将宿主机内的demo文件复制到容器内部</p>
+<p><strong>数据卷</strong>：将宿主机的一个目录，映射到容器的一个目录中，可以在宿主机中操作目录中的内容，那么容器内部映射的文件，也会跟着一起改变。</p>
+<ul>
+<li>创建数据卷：【docker volume create 数据卷名称】    创建数据卷之后，默认会存放在一个目录下/var/1ib/docker/volumes/数据卷名称/_data</li>
+<li>查看数据卷的详细信息【docker volume inspect 数据卷名称】</li>
+<li>查看全部数据卷：【docker volume  ls】</li>
+<li>删除数据卷 【docker volume rm 数据卷名称】</li>
+<li>应用数据卷 </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1----通过创建好的数据卷进行映射。当映射数据卷时，如果数据卷不存在，Docker会自动创建，会将容器内部自带的文件存储在默认的存放路径中。</span></span><br><span class="line">docker run -v 数据卷名称︰容器内部的路径 镜像id</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2----直接通过路径进行映射。直接指定一个路径作为数据卷的存放位置，这个路径下是空的。</span></span><br><span class="line">docker run -v 路径︰容器内部的路径 镜像id</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>Dockerfile就是一系列命令和参数构成的脚本  这些命令应用于基础镜像并最终创建一个新的镜像。   文件名称：【Dockerfile】</p>
+<p><strong>存在意义</strong>：更方便构建镜像文件</p>
+<ul>
+<li><strong>开发</strong>：提供一个完全一致开发环境</li>
+<li><strong>测试</strong>：直接拿开发时构建的镜像或通过dockerfile文件构建一个镜像开始工作</li>
+<li><strong>运维</strong>：部署时可以实现应用无缝移植</li>
+</ul>
+<p><strong>相关指令：</strong></p>
+<ul>
+<li>【from image_name:tag】定义使用哪个基础镜像启动构建流程</li>
+<li>【maintainer user_name】声明镜像创建者</li>
+<li>【env key value】设置环境变量（可写多条）</li>
+<li>【run command】dockerfile的核心部分（可写多条）</li>
+<li>【add source_dir/file  dest_dir/file】宿主机文件复制到容器内 如果是压缩文件，复制后会自动解压</li>
+<li>【copy source_dir/file dest_div/file】和add类似，但有压缩文件不会被解压</li>
+<li>【workdir path_div】 设置工作目录</li>
+</ul>
+<p><strong>例子：构建jdk1.8镜像 基于centos:7</strong></p>
+<ul>
+<li>创建目录 上传jdk的tar包 进入目录</li>
+<li>构建dokerfile文件 名称必须叫dockerfile  进入文件</li>
+<li>编写文件 保存</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FROM centos:7</span><br><span class="line">MAINTAINER xiaoai</span><br><span class="line">WORKDIR /usr</span><br><span class="line">RUN mkdir /usr/local/java</span><br><span class="line">ADD jdk-8u171-linux-x64.tar.gz /usr/local/java/</span><br><span class="line">ENV JAVA_HOME /usr/local/java/jdk1.8.0_171</span><br><span class="line">ENV JRE_HOME $JAVA_HOME/jre7</span><br><span class="line">ENV CLASSPATH $JAVA_HOME/bin/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib:$CLASSPATH</span><br><span class="line">ENV PATH $JAVA_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+
+<p>【docker build -t=’jdk1.8’ Dockerfile所在目录】 所在当前目录则用 <code>.</code>表示  通过Dockerfile构建镜像</p>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>Docker以从上到下的顺序运行Dockerfile的指令。为了指定基本镜像，第一条指令必须是FROM。一个声明以#字符开头则被视为注释。</p>
+<p>可以在Dpcker文件中使用RUN，CMD，FROM，EXPOSE，ENv等指令。</p>
+<p><strong>构建镜像：</strong>【docker bui1d -t 镜像名称[:tag]】</p>
+<h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><ul>
+<li>基础镜像信息</li>
+<li>维护者信息</li>
+<li>镜像操作指令</li>
+<li>容器启动时执行指令</li>
+</ul>
+<h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3><p><strong>from</strong>：指定基础镜像，必须为第一个命令</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式：</span></span><br><span class="line">    <span class="keyword">FROM</span> &lt;image&gt;</span><br><span class="line">    <span class="keyword">FROM</span> &lt;image&gt; :&lt;tag&gt;</span><br><span class="line">    <span class="keyword">FROM</span> &lt;image&gt;@&lt;digest&gt;</span><br><span class="line"><span class="comment">#示例: </span></span><br><span class="line">    <span class="keyword">FROM</span> mysq1 :<span class="number">5.6</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注: tag或digest是可选的，如果不使用这两个值时，会使用latest版本的基础镜像</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>maintainer</strong>：维护者信息</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">MAINTAINER</span> &lt;name&gt;</span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">MAINTAINER</span> Jasper Xu</span><br><span class="line">    <span class="keyword">MAINTAINER</span> sorex@<span class="number">163</span>.com</span><br><span class="line">    <span class="keyword">MAINTAINER</span> Jasper Xu&lt;sorex@<span class="number">163</span>.com&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>run</strong>：构建镜像时执行的命令</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="language-bash">用于在镜像容器中执行命令，其有以下两种命令执行方式:she11执行</span></span><br><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">RUN</span><span class="language-bash"> &lt;<span class="built_in">command</span>&gt; </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># exec执行格式:</span></span><br><span class="line">    <span class="keyword">RUN</span><span class="language-bash"> [ <span class="string">&quot;executab1e&quot;</span>，<span class="string">&quot;param1&quot;</span>， <span class="string">&quot;param2&quot;</span>]</span></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">RUN</span><span class="language-bash"> [ <span class="string">&quot;&quot;</span>executable<span class="string">&quot;，&quot;</span>param1<span class="string">&quot;，&quot;</span>param2<span class="string">&quot;&quot;</span>]</span></span><br><span class="line">    <span class="keyword">RUN</span><span class="language-bash"> apk update</span></span><br><span class="line">    <span class="keyword">RUN</span><span class="language-bash"> [<span class="string">&quot;/etc/execfi1e&quot;</span>，<span class="string">&quot;arg1&quot;</span>，<span class="string">&quot;arg1&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注:RUN指令创建的中间镜像会被缓存，并会在下次构建中使用。如果不想使用这些缓存镜像，可以在构建时指定--no-cache参数，如: docker build --no-cache</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>add</strong>：将本地文件添加到容器中，tar类型文件会自动解压(网络压缩资源不会被解压)，可以访问网络资源，类似wget</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">ADD</span><span class="language-bash"> &lt;src&gt;. . . &lt;dest&gt;</span></span><br><span class="line">    <span class="keyword">ADD</span><span class="language-bash"> [<span class="string">&quot;&lt;src&gt;&quot;</span> ,... <span class="string">&quot;&lt;dest&gt;&quot;</span>]用于支持包含空格的路径</span></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">ADD</span><span class="language-bash"> hom*/mydir/</span></span><br><span class="line"><span class="comment"># 添加所有以&quot;hom&quot;开头的文件</span></span><br><span class="line">    <span class="keyword">ADD</span><span class="language-bash"> hom?.txt /mydir/</span></span><br><span class="line"><span class="comment"># ?替代一个单字符,例如:&quot;home.txt&quot;</span></span><br><span class="line">    <span class="keyword">ADD</span><span class="language-bash"> <span class="built_in">test</span> relativeDir/<span class="comment">#添加“test”到^wORKDIR `/relativeDir/ADD test /absoluteDir/#添加“test”到/absoluteDir/</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>copy</strong>：功能类似ADD，但是是不会自动解压文件，也不能访问网络资源<br><strong>cmd</strong>：构建容器后调用，也就是在容器启动时才进行调用。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;executable&quot;</span> , <span class="string">&quot;param1&quot;</span> , <span class="string">&quot;param2&quot;</span>](执行可执行文件，优先)</span></span><br><span class="line">    <span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;param1 &quot;</span> , <span class="string">&quot;param2&quot;</span>]（设置了ENTRYPOINT，则直接调用ENTRYPOINT添加参数)</span></span><br><span class="line">    <span class="keyword">CMD</span><span class="language-bash"> <span class="built_in">command</span> param1 param2(执行she11内部命令)</span></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">CMD</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;This is a test.&quot;</span> l <span class="built_in">wc</span> -</span></span><br><span class="line">    <span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;/usr/bin/wc&quot;</span> , <span class="string">&quot;--he1p&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注:CMD不同于RUN，CMD用于指定在容器启动时所要执行的命令，而RUN用于指定镜像构建时所要执行的命令。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>entrypoint</strong> ：配置容器，使其可执行化。配合CMD可省去”application”，只使用参数。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式;</span></span><br><span class="line">    <span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;executable&quot;</span>，<span class="string">&quot;param1&quot;</span>，<span class="string">&quot;param2&quot;</span><span class="string">&quot;](可执行文件，优先)ENTRYPOINT command param1 param2 (she11内部命令)</span></span></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">FROM</span> ubuntu</span><br><span class="line">    <span class="keyword">ENTRYPOINT</span><span class="language-bash"><span class="string"> [&quot;</span>top<span class="string">&quot;，&quot;</span>-b<span class="string">&quot;]CMD [&quot;</span>-c<span class="string">&quot;]</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注: ENTRYPOINT与CMD非常类似，不同的是通过docker run执行的命令不会覆盖ENTRYPOINT，而dockerrun命令中指定的任何参数，都会被当做参数再次传递。</span></span><br><span class="line"><span class="comment"># ENTRYPOINT。Dockerfile中只允许有一个。</span></span><br><span class="line"><span class="comment"># ENTRYPOINT命令，多指定时会覆盖前面的设置，而只执行最后的ENTRYPOINT指令。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>label</strong>：用于为镜像添加元数据</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">LABEL</span><span class="language-bash"> &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...示例:</span></span><br><span class="line">    <span class="keyword">LABEL</span><span class="language-bash"> version=<span class="string">&quot;1.0&quot;</span> description=<span class="string">&quot;这是一个web服务器&quot;</span> by=<span class="string">&quot;ghz&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注:使用LABEL指定元数据时，一条LABEL指定可以指定一或多条元数据，指定多条元数据时不同元数据之间通过空格分隔。推荐将所有的元数据通过一条LABEL指令指定，以免生成过多的中间镜像。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>env</strong>：设置环境变量</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="comment"># &lt;key&gt;之后的所有内容均会被视为其&lt;va1ue&gt;的组成部分，因此，一次只能设置一个变量</span></span><br><span class="line">    <span class="keyword">ENV</span> &lt;key&gt; &lt;value&gt;</span><br><span class="line">    <span class="comment"># 可以设置多个变量，每个变量为一个&quot;&lt;key&gt;=&lt;value&gt;&quot;的键值对，如果&lt;key&gt;中包含空格，可以使用\来进行转义，也可以通过&quot;&quot;来进行标示;另外，反斜线也可以用于续行</span></span><br><span class="line">    <span class="keyword">ENV</span> &lt;key&gt;=&lt;value&gt; ...</span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">ENV</span> myName John DoeENV myDog Rex The Dog</span><br><span class="line">    <span class="keyword">ENV</span> mycat=f1uffy</span><br></pre></td></tr></table></figure>
+
+<p><strong>expose</strong>：指定于外界交互的端口</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">EXPOSE</span> &lt;port&gt; [&lt;port&gt;...]</span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">EXPOSE</span> <span class="number">80</span> <span class="number">443</span></span><br><span class="line">    <span class="keyword">EXPOSE</span> <span class="number">8080</span> <span class="keyword">EXPOSE</span> <span class="number">11211</span>/tcp <span class="number">11211</span>/udp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注:EXPOSE并不会让容器的端口访问到主机。要使其可访问，需要在docker run运行容器时通过p来发布这些端口，或通过-P参数来发布EXPOSE导出的所有端口</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>volume</strong>：用于指定持久化目录</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">VOLUME</span><span class="language-bash"> [<span class="string">&quot;/path/to/dir&quot;</span>]</span></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">VOLUME</span><span class="language-bash"> [<span class="string">&quot;/data&quot;</span>]</span></span><br><span class="line">    <span class="keyword">VOLUME</span><span class="language-bash"> [<span class="string">&quot;/var/www&quot;</span>,<span class="string">&quot;/var/log/apache2&quot;</span>,<span class="string">&quot;/etc/apache2&quot;</span>]</span></span><br><span class="line"><span class="comment"># 注:一个卷可以存在于一个或多个容器的指定目录，该目录可以绕过联合文件系统，并具有以下功能:</span></span><br><span class="line"><span class="comment"># 1卷可以容器间共享和重用</span></span><br><span class="line"><span class="comment"># 2容器并不一定要和其它容器共享卷3修改卷后会立即生效</span></span><br><span class="line"><span class="comment"># 4对卷的修改不会对镜像产生影响</span></span><br><span class="line"><span class="comment"># 5卷会一直存在，直到没有任何容器在使用它</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>workdir</strong>：工作目录，类似于cd命令</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">WORKDIR</span><span class="language-bash"> /path/to/workdir</span></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">WORKDIR</span><span class="language-bash"> /a(这时工作目录为/a)</span></span><br><span class="line">    <span class="keyword">WORKDIR</span><span class="language-bash"> b (这时工作目录为/a/b)</span></span><br><span class="line">    <span class="keyword">WORKDIR</span><span class="language-bash"> c(这时工作目录为/a/b/c)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注:通过WORKDIR设置工作目录后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT、ADD、COPY等命令都会在该目录下执行。在使用docker run运行容器时，可以通过-w 参数覆盖构建时所设置的工作目录。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>user</strong>：指定运行容器时的用户名或UID，后续的 RUN也会使用指定用户。使用USER指定用户时，可以使用用户名、UID或GID，或是两者的组合。当服务不需要管理员权限时，可以通过该命令指定运行用户。并且可以在之前创建所需要的用户</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">USER</span> <span class="keyword">user</span></span><br><span class="line">    <span class="keyword">USER</span> <span class="keyword">user</span>: groupUSER uid</span><br><span class="line">    <span class="keyword">USER</span> uid:gidUSER <span class="keyword">user</span>:gidUSER uid: group</span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">USER</span> www</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注:使用USER指定用户后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT都将使用该用户。镜像构建完成后，通过docker run运行容器时，可以通过-u参数来覆盖所指定的用户。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>age</strong>：用于指定传递给构建运行时的变量</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式:</span></span><br><span class="line">    <span class="keyword">ARG</span> &lt;name&gt;[=&lt;default value&gt;]</span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">ARG</span> site</span><br><span class="line">    <span class="keyword">ARG</span> bui1d_user=www</span><br></pre></td></tr></table></figure>
+
+<p><strong>onbuilde</strong>：用于设置镜像触发器</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式: </span></span><br><span class="line">    <span class="keyword">ONBUILD</span> [INSTRUCTION]</span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line">    <span class="keyword">ONBUILD</span> <span class="keyword">ADD</span><span class="language-bash"> . /app/src</span></span><br><span class="line">    <span class="keyword">ONBUILD</span> <span class="keyword">RUN</span><span class="language-bash"> /usr/loca1/bin/python-bui1d --<span class="built_in">dir</span> /app/src</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注:当所构建的镜像被用做其它镜像的基础镜像，该镜像中的触发器将会被钥触发</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实例1-构建nginx镜像"><a href="#实例1-构建nginx镜像" class="headerlink" title="实例1 构建nginx镜像"></a>实例1 构建nginx镜像</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This my first nginx Dockerfile</span></span><br><span class="line"><span class="comment"># version 1.0</span></span><br><span class="line"><span class="comment"># Base images基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="comment"># MAINTAINER维护者信息</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> ghz</span><br><span class="line"><span class="comment"># ENV设置环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> PATH/usr/loca1/nginx/sbin : $PATH</span><br><span class="line"><span class="comment"># ADD文件放在当前目录下，拷过去会自动解压</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> nginx-1.8.0.tar.gz /usr/loca1/ <span class="comment"># ngix</span></span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> epe1-release-latest-7.noarch.rpm /usr/1oca1/ <span class="comment">#企业linux扩展包</span></span></span><br><span class="line"><span class="comment"># RUN执行以下命令</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> rpm -ivh /usr /loca1/epe1-release-1atest-7.noarch.rpm</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> yum instal1 -y wget lftp gcc gcc-c++ make openss1-deve1 pcre-deve1 pcre &amp;&amp; yum cleana11</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> useradd -s /sbin/no1ogin -M www</span></span><br><span class="line"><span class="comment"># WORKDIR相当于cd</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /usr/loca1/nginx-1.8.0</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> ./configure --prefix=/us r/1oca1/nginx --user=www --group=www --with-http_ss1_module --with-pcre &amp;&amp; make &amp;&amp; make insta11</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;daemon off; &quot;</span> &gt;&gt;/etc/nginx.conf</span></span><br><span class="line"><span class="comment">#EXPOSE映射端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8</span>o</span><br><span class="line"><span class="comment">#CMD运行以下命令</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;nginx&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实例2-tomcat镜像"><a href="#实例2-tomcat镜像" class="headerlink" title="实例2 tomcat镜像"></a>实例2 tomcat镜像</h3><ul>
+<li>打成war包</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">把项目打成war包</span></span><br><span class="line">jar -cvfM0 demo.war demo/*</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过Dockerfile</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> daocloud.io/library/tomcat:<span class="number">8.0</span>.<span class="number">45</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> demo.war /usr/1oca1/tomcat/webapps</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在Dockerfile目录下执行构建镜像命令</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">通过Dockerfile构建镜像</span></span><br><span class="line">docker build -t tomcat_my:1.2 .</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看镜像并通过构建的镜像创建容器</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看镜像</span></span><br><span class="line">docker images</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动镜像</span></span><br><span class="line">docker run -d -p 8080:8080 --name tomcat imageId</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">浏览器访问：http://ip地址:8080/demo/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="docker私有仓库"><a href="#docker私有仓库" class="headerlink" title="docker私有仓库"></a>docker私有仓库</h2><p>私有仓库存放镜像，中央仓库存放通用镜像，私有仓库可以存放自己所构建的镜像，便于同一局域网的使用 </p>
+<ul>
+<li>拉取私有仓库镜像 【docker pull registry】</li>
+<li>创建容器即创建私有仓库 【docker run -di –name=registry -p 5000:5000 registry】</li>
+<li>网页访问仓库【宿主机ip:容器创建时映射的端口/v2/_catalog】 访问到json数据即私有仓库创建成功</li>
+<li>修改配置文件使docker信任私有仓库才能上传镜像到私有仓库【vi /etc/docker/daemon.json】添加配置：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;insecure_registries&quot;:[&quot;私服ip地址:端口&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>重启docker服务</li>
+</ul>
+<h2 id="镜像上传到私有仓库"><a href="#镜像上传到私有仓库" class="headerlink" title="镜像上传到私有仓库"></a>镜像上传到私有仓库</h2><p>【docker tag 镜像名称 私服ip和端口/镜像名称】如【docker tag jdk1.8 192.168.x.x:5000/jdk1.8】打标签 相当于复制一个镜像为上传做准备<br>【docker push 私服ip和端口/镜像名称】 如【docker push 192.168.x.x:5000/jdk1.8】 上传镜像到私服<br>访问私服可以查看到上传的镜像<br>获取镜像 【docker pull 私服ip和端口/镜像名称】</p>
+<h2 id="例：docker搭建应用环境："><a href="#例：docker搭建应用环境：" class="headerlink" title="例：docker搭建应用环境："></a>例：docker搭建应用环境：</h2><h3 id="mysql部署"><a href="#mysql部署" class="headerlink" title="mysql部署"></a>mysql部署</h3><p>拉取镜像：【docker pull centos/mysql-centos7】  后面即mysql路径</p>
+<p>创建容器：【docker run -di –name tensquare_mysql -p 33306:3306 -e MYSQL_ROOT_PASSWORD 密码 镜像名称】</p>
+<p>参数：</p>
+<ul>
+<li><p>-p 端口映射  操作宿主机33306端口即相当于操作容器的3306端口  </p>
+</li>
+<li><p>-e MYSQL_ROOT_PASSWORD =  指定mysql密码</p>
+</li>
+<li><p>–mysql图形化界面软件即可进行mysql连接（通过宿主机来连接容器中的mysql）  需要：宿主机ip 密码 用户名 端口==映射的宿主机的端口如33306</p>
+</li>
+</ul>
+<h3 id="tomcat部署"><a href="#tomcat部署" class="headerlink" title="tomcat部署"></a>tomcat部署</h3><p>拉取镜像 pull </p>
+<p>创建容器 【docker run -di –name mytomcat -p 9000:8080 -v /usr/local/webapps:/usr/local/webapps  tomcat:7-jre7】</p>
+<p>使用目录挂载后由于做了目录映射，直接在网页访问tomcat是无法直接访问的，可以把war包上传到目录下进行访问</p>
+<h3 id="nginx部署"><a href="#nginx部署" class="headerlink" title="nginx部署"></a>nginx部署</h3><p>拉取镜像 pull<br>创建容器 【docker run -di –name mynginx -p 80:80 nginx】</p>
+<h3 id="redis部署"><a href="#redis部署" class="headerlink" title="redis部署"></a>redis部署</h3><p>拉取镜像 pull<br>创建容器 【docker run -di –name myredis -p 6379:6379 redis】<br>测试：客户端进入cmd  -》redis-cli -h 远程ip  -》连接成功，存储查询正常即完成。</p>
+<h2 id="例：docker简单使用例子"><a href="#例：docker简单使用例子" class="headerlink" title="例：docker简单使用例子"></a>例：docker简单使用例子</h2><p>通过docker构建tomcat部署web项目。</p>
+<h3 id="复制项目到容器目录运行"><a href="#复制项目到容器目录运行" class="headerlink" title="复制项目到容器目录运行"></a>复制项目到容器目录运行</h3><p><strong>1- 准备一个简单web项目并上传到linux</strong></p>
+<ul>
+<li>目录结构</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">│  index.html</span><br><span class="line">└─WEB-INF</span><br><span class="line">        web.xml</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>文件内容</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- web.xml --&gt;</span></span><br><span class="line"><span class="meta">&lt;?xm1 version=&quot;&quot;1.0&quot; encoding=&quot;UTF-8&quot;&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xm1ns</span>=<span class="string">&quot;http://xm1ns.jcp.org/xm1/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xm1ns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xm1ns.jcp.org/xm1/ns/javaee</span></span></span><br><span class="line"><span class="string"><span class="tag">                        http://xm1ns.jcp.org/xm1/ns/javaee/web-app_3_1.xsd&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">version</span>=<span class="string">&quot;3.1&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">metadata-complete</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>dockerTest<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello docker!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上传linux  如： 通过FileZilla工具上传</li>
+</ul>
+<p><strong>2-通过Docker安装tomcat</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取Tomcat镜像</span></span><br><span class="line">docker pu17 daocloud.io/library/tomcat:8.0.45</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看Tomcat镜像</span></span><br><span class="line">docker images</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建Tomcat容器</span></span><br><span class="line">docker run -d -p 8080:8080 --name tomcat 镜像tag(获取IMAGE ID， imageId不用输完整也行)</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看tomcat启动 浏览器访问http://ip地址:8080</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>3-把上传的项目复制到tomcat的webapp目录下</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看运行的容器</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入tomcat容器查看目录</span></span><br><span class="line">docker exec -it imageId bash</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入webapps 查看路径  输出路径： /usr/local/tomcat/webapps</span></span><br><span class="line">cd webapps</span><br><span class="line">pwd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可以退出容器 获取重新打开一个终端    进入项目所在目录复制项目到webapp目录</span></span><br><span class="line">exit</span><br><span class="line">docker cp ./demo/ imageId:/usr/local/tomcat/webapps</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可以再次进入tomcat容器查看是否复制成功</span></span><br><span class="line">docker exec -it imageId bash</span><br><span class="line">cd webapps</span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
+
+<p><strong>4- 浏览器访问项目  可通过【docker logs -f tomcat】查看运行日志</strong></p>
+<p><img src="../img/image-20220213215744533.png" alt="image-20220213215744533"></p>
+<h3 id="复制项目到数据卷映射目录操作运行"><a href="#复制项目到数据卷映射目录操作运行" class="headerlink" title="复制项目到数据卷映射目录操作运行"></a>复制项目到数据卷映射目录操作运行</h3><p><strong>1、2、4一致</strong>：如果基于上面直接复制项目到容器目录了可以删除项目后停止容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入到容器内tomcat的webapp目录中</span></span><br><span class="line">rm -r demo/</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">停止容器</span></span><br><span class="line">docker stop [imageId(可通过[docker ps查看])</span><br><span class="line">docker rm 容器名称/imageId</span><br></pre></td></tr></table></figure>
+
+<p><strong>3-创建数据卷映射目录并复制项目到映射的目录下</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1-----创建数据卷</span></span><br><span class="line">docker volume create v01</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动容器时进行数据卷映射</span></span><br><span class="line">docker run -d -p 8080:8080 -v v01:/usr/local/tomcat/webapps/ --name tomcat imageId</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可以通过【docker volume  <span class="built_in">ls</span>】查看数据卷列表。查看数据卷详细信息获取docker自动创建数据卷时映射的路径,即挂载路径：[MountPoint]</span></span><br><span class="line">docker volume inspect v01</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">复制项目到映射的路径中</span></span><br><span class="line">cp demo -r /var/lib/docker/volumes/v01/_data</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2----直接映射目录</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建映射的目录</span></span><br><span class="line">mkdir tomcat_webapps</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">停止tomcat并删除容器</span></span><br><span class="line">docker stop 容器名称/imageId</span><br><span class="line">docker rm 容器名称/imageId</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建容器直接映射目录</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如：docker run -d -p 8080:8080 -v /root/other/dockerTest/tomcat_webapps:/usr/local/tomcat/webapps/ --name tomcat feba</span></span><br><span class="line">docker run -d -p 8080:8080 -v 需要映射的路径:/usr/local/tomcat/webapps/ --name tomcat imageId</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">项目复制到映射的目录中</span></span><br><span class="line">cp demo -r /root/other/dockerTest/tomcat_webapps</span><br></pre></td></tr></table></figure>
+
+<h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2020/12/26/mybatis/mybatis%E5%A4%8D%E4%B9%A0-%E4%B8%80%E4%BA%9B%E7%82%B9/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2020-12-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/%E5%AE%B9%E5%99%A8/" title="容器">
+                        <b>#</b> 容器
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/docker/" title="docker">
+                        #docker
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2021/01/26/java/HttpClient%E4%BD%BF%E7%94%A8/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E6%A6%82%E5%BF%B5"><span class="toc-text">docker概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85docker"><span class="toc-text">安装docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93"><span class="toc-text">镜像仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8"><span class="toc-text">镜像与容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="toc-text">镜像命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">容器命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="toc-text">交互式容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%88%E6%8A%A4%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="toc-text">守护式容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E5%AE%B9%E5%99%A8%E4%BF%9D%E5%AD%98%E4%B8%BA%E9%95%9C%E5%83%8F"><span class="toc-text">将容器保存为镜像</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="toc-text">docker数据卷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dockerfile"><span class="toc-text">Dockerfile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="toc-text">常用指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B1-%E6%9E%84%E5%BB%BAnginx%E9%95%9C%E5%83%8F"><span class="toc-text">实例1 构建nginx镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B2-tomcat%E9%95%9C%E5%83%8F"><span class="toc-text">实例2 tomcat镜像</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93"><span class="toc-text">docker私有仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E4%B8%8A%E4%BC%A0%E5%88%B0%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93"><span class="toc-text">镜像上传到私有仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9Adocker%E6%90%AD%E5%BB%BA%E5%BA%94%E7%94%A8%E7%8E%AF%E5%A2%83%EF%BC%9A"><span class="toc-text">例：docker搭建应用环境：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql%E9%83%A8%E7%BD%B2"><span class="toc-text">mysql部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tomcat%E9%83%A8%E7%BD%B2"><span class="toc-text">tomcat部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx%E9%83%A8%E7%BD%B2"><span class="toc-text">nginx部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis%E9%83%A8%E7%BD%B2"><span class="toc-text">redis部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9Adocker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E4%BE%8B%E5%AD%90"><span class="toc-text">例：docker简单使用例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E9%A1%B9%E7%9B%AE%E5%88%B0%E5%AE%B9%E5%99%A8%E7%9B%AE%E5%BD%95%E8%BF%90%E8%A1%8C"><span class="toc-text">复制项目到容器目录运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E9%A1%B9%E7%9B%AE%E5%88%B0%E6%95%B0%E6%8D%AE%E5%8D%B7%E6%98%A0%E5%B0%84%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C%E8%BF%90%E8%A1%8C"><span class="toc-text">复制项目到数据卷映射目录操作运行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-compose"><span class="toc-text">docker-compose</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + docker%E5%9F%BA%E7%A1%80 + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2020%2F12%2F26%2Fdocker%2Fdocker%25E5%259F%25BA%25E7%25A1%2580%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2020/12/26/docker/docker%E5%9F%BA%E7%A1%80/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      vue-3vuex 
+      
+      
+      |
+    
+     Ai-blogs
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/">
+          <a href="/aiyblog/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/aiyblog/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">vue-3vuex</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2020-11-26 19:19:52
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/aiyblog/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/aiyblog/tags/vue/" title="vue">
+                    #vue
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h2><p>vuex是vue的一个插件。</p>
+<ul>
+<li>github 站点: <a target="_blank" rel="noopener" href="https://github.com/vuejs/vuex">https://github.com/vuejs/vuex</a> </li>
+<li>在线文档: <a target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh-cn/">https://vuex.vuejs.org/zh-cn/</a> </li>
+<li>对 vue 应用中多个组件的共享状态进行集中式的管理(读/写)</li>
+</ul>
+<blockquote>
+<p>安装：npm install vuex –save</p>
+</blockquote>
+<p><strong>状态自管理</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">Actions--&gt;state</span><br><span class="line">state--&gt;View</span><br><span class="line">View--&gt;Actions</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="vuex对象"><a href="#vuex对象" class="headerlink" title="vuex对象"></a>vuex对象</h3><ul>
+<li>state, //状态对象</li>
+<li>getters // 包含多个getter计算属性函数的对象</li>
+<li>actions, // 包含多个对应事件回调函数的对象</li>
+<li>mutations, // 包含多个更新state函数的对象</li>
+</ul>
+<blockquote>
+<p>vuex使用时有时会把每个对象独立成一个模块</p>
+</blockquote>
+<p><strong>vuex结构</strong></p>
+<p><img src="D:\Users\xiaoaiying\Typora\img\image-20210220011352667.png" alt="image-20210220011352667"></p>
+<p><strong>store对象</strong></p>
+<ul>
+<li><p>所有vuex管理的组件都多一个属性：$store, 它是一个store对象</p>
+</li>
+<li><p>属性：</p>
+<ul>
+<li>state 注册的state对象</li>
+<li>getters 注册的getters对象</li>
+</ul>
+</li>
+<li><p>方法：</p>
+<ul>
+<li>dispatch(actionNmae,data)   分发调用action</li>
+</ul>
+</li>
+</ul>
+<p><strong>执行顺序</strong></p>
+<ul>
+<li><p>state 管理属性状态</p>
+</li>
+<li><p>getters 管理计算属性</p>
+</li>
+<li><p>$store.dispatch  调用 action</p>
+</li>
+<li><p>action 调用 murations</p>
+</li>
+</ul>
+<p><strong>使用例子</strong></p>
+<ul>
+<li>定义vuex核心对象模块</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">	vuex 核心管理对象模块 store   文件：store.js</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vuex</span> <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//状态对象</span></span><br><span class="line"><span class="keyword">const</span> state = &#123; <span class="comment">// 初始化状态</span></span><br><span class="line">    <span class="attr">count</span>: <span class="number">0</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 包含多个更新state函数的对象</span></span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">    <span class="comment">// 增加的mutation</span></span><br><span class="line">    <span class="title function_">INCREMENT</span>(<span class="params">state</span>)&#123;</span><br><span class="line">        state.<span class="property">count</span>++;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 减少的mutation</span></span><br><span class="line">    <span class="title function_">DECREMENT</span>(<span class="params">state</span>)&#123;</span><br><span class="line">        state.<span class="property">count</span>--;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 包含多个对应事件回调函数的对象</span></span><br><span class="line"><span class="keyword">const</span> actions = &#123; </span><br><span class="line">    <span class="comment">// 增加的action</span></span><br><span class="line">    <span class="title function_">increment</span>(<span class="params">&#123;commit&#125;</span>)&#123;</span><br><span class="line">        <span class="comment">// 提交mutation</span></span><br><span class="line">        <span class="title function_">commit</span>(<span class="string">&#x27;INCREMENT&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 减少的action</span></span><br><span class="line">    <span class="title function_">decrement</span>(<span class="params">&#123;commit&#125;</span>)&#123;</span><br><span class="line">        <span class="comment">// 提交mutation</span></span><br><span class="line">        <span class="title function_">commit</span>(<span class="string">&#x27;DECREMENT&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 奇数才增加</span></span><br><span class="line">    <span class="title function_">incrementIfOdd</span>(<span class="params">&#123;commit,state&#125;</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(state.<span class="property">count</span> %<span class="number">2</span> === <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="comment">// 提交mutation</span></span><br><span class="line">            <span class="title function_">commit</span>(<span class="string">&#x27;INCREMENT&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 过1s才增加</span></span><br><span class="line">    <span class="title function_">incrementAsync</span>(<span class="params">&#123;commit&#125;</span>)&#123;</span><br><span class="line">        <span class="comment">// 在action中直接就可以执行异步代码</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">commit</span>(<span class="string">&#x27;INCREMENT&#x27;</span>);</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 包含多个getter计算属性函数的对象</span></span><br><span class="line"><span class="keyword">const</span> getters = &#123;</span><br><span class="line">    <span class="title function_">evenOrOdd</span>(<span class="params">state</span>)&#123;  <span class="comment">// .vue组件中不需要调用，只需要读取属性值</span></span><br><span class="line">        <span class="keyword">return</span> state.<span class="property">count</span>%<span class="number">2</span> === <span class="number">0</span> ? <span class="string">&quot;偶数&quot;</span> : <span class="string">&quot;奇数&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">Vuex</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    state, <span class="comment">//状态对象</span></span><br><span class="line">    mutations, <span class="comment">// 包含多个更新state函数的对象</span></span><br><span class="line">    actions, <span class="comment">// 包含多个对应事件回调函数的对象</span></span><br><span class="line">    getters <span class="comment">// 包含多个getter计算属性函数的对象</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>引入vuex核心配置模块</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 入口js 创建vue实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span>  <span class="comment">// 引入</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./store&#x27;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  <span class="attr">components</span>: &#123;</span><br><span class="line">    <span class="title class_">App</span>   <span class="comment">// 映射组件为标签</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">&#x27;&lt;App/&gt;&#x27;</span>,  <span class="comment">// 模板里写的是标签</span></span><br><span class="line">  store   <span class="comment">// 所有的组件对象都多了个属性：$store</span></span><br><span class="line">  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>.vue中使用</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>click &#123;&#123;$store.state.count&#125;&#125; times, count is &#123;&#123;evenOrOdd&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;increment&quot;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;decrement&quot;</span>&gt;</span>-<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;incrementIfOdd&quot;</span>&gt;</span>increment if odd<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;incrementAsync&quot;</span>&gt;</span>increment async<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="title function_">data</span>(<span class="params"></span>)&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="keyword">return</span>&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    &#125; </span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  &#125;,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="attr">name</span>: <span class="string">&#x27;App&#x27;</span>,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="attr">computed</span>: &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//原来</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">// evenOrOdd()&#123;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//   return this.$store.getters.evenOrOdd;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">// &#125;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    </span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">// 简写</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">// mapState()返回值：&#123;count()&#123;return this.$store.state[&#x27;count&#x27;]&#125;&#125;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    ...<span class="title function_">mapState</span>([<span class="string">&#x27;count&#x27;</span>]),</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">// mapGetters()返回值：&#123;evenOrOdd()&#123;return this.$store.getters[&#x27;evenOrOdd&#x27;]&#125;&#125;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">// ...mapGetters([&#x27;evenOrOdd&#x27;])</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">// 可以定义对象指定getters对象中相应的计算属性 参数1=组件中属性  参数2=vuex的xxx对象中的属性</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    ...<span class="title function_">mapGetters</span>(&#123;<span class="attr">evenOrOdd</span>: <span class="string">&#x27;evenOrOdd&#x27;</span>&#125;) </span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  &#125;,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="attr">methods</span>:&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">// 原来</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  increment()&#123;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//     // 通知vuex增加</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//     this.$store.dispatch(&#x27;increment&#x27;) // 触发store中对应的action调用</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  &#125;,</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  decrement()&#123;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//     // 通知vuex增加</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//     this.$store.dispatch(&#x27;decrement&#x27;)</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  &#125;,</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  //奇数才增加</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  incrementIfOdd()&#123;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//     this.$store.dispatch(&#x27;incrementIfOdd&#x27;)</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  &#125;,</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  // 过1秒才增加</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  incrementAsync()&#123;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//     this.$store.dispatch(&#x27;incrementAsync&#x27;)</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">//  &#125;,</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    </span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="comment">// 简写</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    ...<span class="title function_">mapActions</span>([<span class="string">&#x27;increment&#x27;</span>,<span class="string">&#x27;decrement&#x27;</span>,<span class="string">&#x27;incrementIfOdd&#x27;</span>,<span class="string">&#x27;incrementAsync&#x27;</span>])</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/aiyblog/2020/11/26/vue-2%E5%9F%BA%E7%A1%80/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2020-11-26 19:19:52
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/aiyblog/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/aiyblog/tags/vue/" title="vue">
+                        #vue
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/aiyblog/2020/12/26/go/docker%E9%83%A8%E7%BD%B2go%E9%A1%B9%E7%9B%AE/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vuex"><span class="toc-text">vuex</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vuex%E5%AF%B9%E8%B1%A1"><span class="toc-text">vuex对象</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/aiyblog/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/aiyblog/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'ORcoqRY0dO24QWtD0xqwdcTX-gzGzoHsz',
+        appKey: 'CgBvKrMwbKWnawHX1lpJV2R9',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'en'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + vue-3vuex + '&url=' + https%3A%2F%2Fxiaoaiying-i.github.io%2Faiyblog%2F2020%2F11%2F26%2Fvue-3vuex%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://xiaoaiying-i.github.io/aiyblog/2020/11/26/vue-3vuex/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
