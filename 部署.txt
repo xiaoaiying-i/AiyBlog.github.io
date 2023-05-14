@@ -1,0 +1,5 @@
+index.html 修改index-welcome.html(其他名称)
+hexo g 生成新的
+生成的index.html移动到index目录
+index-welcome.html改回index.html
+hexo d 部署
