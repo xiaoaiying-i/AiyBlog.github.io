@@ -1,204 +1,515 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<style>
-	@charset "utf-8";
-	/* CSS Document */
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
 
-	body,ul,h1,h2,h3,h4,h5,h6,p
-	{
-		margin:0;
-		padding:0;
-		border:0;
-		font-family:Arial Helvetica,sans-serif,"宋体";
-	}
-	html,body
-	{
-		height:100%;
-	}
-	a{
-		text-decoration:none;
-	}
-	.all_div{/*总容器div样式*/
-		width:100%; 
-		height:100%; 
-		display:flex; 
-		flex-wrap:wrap;
-		align-items: flex-start;
-		#overflow-y: hidden;
-		scrollbar-track-color:#
-	}
-	
-	body::-webkit-scrollbar {
-		width:0.1px;
-	}
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+     Ai-blogs
+  </title>
 
-	/*欢迎页第一个div样式*/
-	.firstPage{/*主页第一个div*/
-		width:100%;
-		height:100%;/*宽高用百分比让第一页随窗口的改变而自适应*/
-		background-image:url(./wecome1.jpg);
-		background-repeat:no-repeat;
-		background-size:100% 100%;
-		flex:0 0 auto;/*弹性布局*/
-		position:relative;
-		/*border:1px solid blue;*/
-		
-	}
-	.welcome{/*欢迎文字div的样式*/
-		height:60%;
-		text-align:center;
-		font-size:75px;
-		color:#969;
-		/*border:1px solid red;*/
-	}
-	.welcome p{
-		 width:90%; 
-		 margin:5% auto;
-		 color:#969;
-		 opacity:0.8;
-	}
-	.inter{/*主页第一div点击进入的div样式*/
-		margin:100px auto;
-		width:150px;; 
-		height:50px;
-		text-align:center;
-		opacity:0.5;
-		color:#CCC;
-		/*border:1px solid red;*/
-	}
-	.inter:hover{
-		border-bottom:1px solid #FFF;
-		background:#7b7b7b;
-		opacity:1;
-		color:#ff7467;
-	}
+  
+    <link rel="apple-touch-icon" href="/aiyblog/images/favicon.png">
+    <link rel="icon" href="/aiyblog/images/favicon.png">
+  
 
-	/*欢迎页第二个div样式*/
-	#div2{/*主页第二个div*/
-		width: 100%;
-		height: 100%;
-		background-image:url(./wecome2.jpg);
-		background-repeat:no-repeat;
-		background-size:100% 100%;
-		background-attachment: fixed;/*设置背景不随屏幕滚动，显示视觉差效果*/
-		flex:0 0 100%;
-		display:flex;
-	}
-	.content_block{/*主页第二个div内的小框样式*/
-		width:65%;
-		height:60%;
-		box-shadow:0px 0px 25px #639; 
-		border-radius:20px;
-		margin:8% auto;
-		padding-top:7%;
-		box-sizing:border-box;
-		
-	}
-	.content_block p{/*主页第二个div内的小框文字样式*/
-		text-align:center;
-		font-size:60px;
-		line-height:90px;
-		color:#639;
-	}
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
 
-	/*欢迎页第三个div样式*/
-	#div3{/*主页第三个div*/
-		width: 100%;
-		height: 100%;
-		background-image:url(./wecome3.jpg);
-		background-repeat:no-repeat;
-		background-size:100% 100%;
-		flex:0 0 100%;
-		position:relative;
-		text-align:center;
-		display:flex;
-		justify-content: center;
-		/*border:2px solid #F66;*/
-	}
-	.explain{/*主页第三div内容框div样式*/
-		width:80%;
-		height:70%; 
-		/* margin:50px 0px 0px 25%; */
-		text-align:center; 
-		color:#CCC;
-		padding-top:30px;
-		flex:0 0 100%;
-		/*border:2px solid #F66;*/
-	}
-	.explain p{
-		width:80%;
-		margin:0 auto;
-		font-size:20px;
-		line-height:30px;
-		margin-top:10px;
-		text-indent: 2em;/*段落空两格*/
-		text-align: justify;/*文本两端对齐*/
-		text-justify: inter-character;/*文本两端对齐，中文也起作用*/
-		/*border:2px solid #F66;*/
-	}
-	.foot_txt{
-		position:absolute; 
-		bottom:1%; 
-		left:47%; 
-		color:#FFF; 
-		font-size:15px;
-	}
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/aiyblog/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
 
-	@media screen and (max-width:600px){
-		.welcome{/*欢迎文字div的样式*/
-			font-size:35px;/*当屏幕小于600px把字体缩小*/
-		}
-		.content_block p{/*主页第二个div内的小框文字样式*/
-			font-size:30px;
-		}
-		.explain{
-			flex:0 0 50%;
-		}
-		.explain p{
-			font-size:13px;
-		}
-	}
-</style>
-<title>Ai Blog</title>
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/aiyblog/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/aiyblog/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/aiyblog/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/aiyblog/atom.xml" title="Ai-blogs" type="application/atom+xml">
 </head>
 
-<body>
 
-	<div class="all_div">
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/aiyblog">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/aiyblog/images/ailog.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/aiyblog">Ai-Blog</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/aiyblog/index/">
+          <a href="/aiyblog/index/">首页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/archives/">
+          <a href="/aiyblog/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/categories/">
+          <a href="/aiyblog/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/tags/">
+          <a href="/aiyblog/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/friends/">
+          <a href="/aiyblog/friends/">外链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/aiyblog/about/">
+          <a href="/aiyblog/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
 
-        <div class="firstPage" >
-        	<div class="welcome">
-            	<p>The world is beautiful. I hope you and I have a bright future, Welcome to the website of Ai-Blog</p>
-            </div>
- 			<a href="/aiyblog">
-                <div class="inter" >
-                    <span style="font-size:30px;"><strong>点击进入</strong></span>
-                </div>
-            </a>
-        </div>
-        <div id="div2">
-        	<div class="content_block">
-            	<p>天行健，君子以自强不息</p>
-                <p>地势坤，君子以厚德载物</p>
-            </div>
-        
-        </div>
-        <div id="div3">
-        	<div class="explain">
-             	<h3 style="font-size:30px;">简介</h3></br>
-                <p>喜欢音乐、电影，有空会写写博客。</p>
-                <p>感谢相遇...</p>
-                <p></p>
-				<p></p>
-            </div>
-            <p class="foot_txt">xiaoaiying&nbsp;&copy;&nbsp;AlanClay</p>
-        </div>
+
+<script src="/aiyblog/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <div class="container index">
+  <div class="post-list">
+    <!-- 遍历渲染文章 -->
     
+      <div class="post-item" title="hexo加git搭建个人博客">
+        <div class="time-m-d">2023-02-26</div>
+        <div class="title">
+          <a href="/aiyblog/2023/02/26/hexo%E5%8A%A0git%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+            
+              
+                <span>hexo加git搭建个人博客</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="关于s3">
+        <div class="time-m-d">2023-02-26</div>
+        <div class="title">
+          <a href="/aiyblog/2023/02/26/%E5%85%B3%E4%BA%8Es3/">
+            
+              
+                <span>关于s3</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="【Apache commons】vfs简单使用">
+        <div class="time-m-d">2023-02-26</div>
+        <div class="title">
+          <a href="/aiyblog/2023/02/26/%E3%80%90Apache%20commons%E3%80%91vfs%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+            
+              
+                <span>【Apache commons】vfs简单使用</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="java-maven打包部署">
+        <div class="time-m-d">2023-02-26</div>
+        <div class="title">
+          <a href="/aiyblog/2023/02/26/java/java-maven%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2/">
+            
+              
+                <span>java-maven打包部署</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="linux安全随机数">
+        <div class="time-m-d">2023-02-26</div>
+        <div class="title">
+          <a href="/aiyblog/2023/02/26/linux/linux%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%86%B5/">
+            
+              
+                <span>linux安全随机数</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="linux命令记录">
+        <div class="time-m-d">2023-02-26</div>
+        <div class="title">
+          <a href="/aiyblog/2023/02/26/linux/linux%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">
+            
+              
+                <span>linux命令记录</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="linux-crotab服务重启">
+        <div class="time-m-d">2023-02-26</div>
+        <div class="title">
+          <a href="/aiyblog/2023/02/26/linux/linux-crontab/">
+            
+              
+                <span>linux-crotab服务重启</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="windows相关">
+        <div class="time-m-d">2023-02-26</div>
+        <div class="title">
+          <a href="/aiyblog/2023/02/26/windows%E7%9B%B8%E5%85%B3/">
+            
+              
+                <span>windows相关</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="javaUML图">
+        <div class="time-m-d">2023-02-15</div>
+        <div class="title">
+          <a href="/aiyblog/2023/02/15/java2/javaUML%E5%9B%BE/">
+            
+              
+                <span>javaUML图</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="go中使用 Protobuf">
+        <div class="time-m-d">2022-12-26</div>
+        <div class="title">
+          <a href="/aiyblog/2022/12/26/go/go%E4%B8%AD%E4%BD%BF%E7%94%A8%20Protobuf/">
+            
+              
+                <span>go中使用 Protobuf</span>
+              
+            
+          </a>
+        </div>
+      </div>
+    
+  </div>
+  <nav class="post-navigation">
+    
+    <span class="page-num">1 / 9</span>
+    
+      <a href="/aiyblog/page/2/"><i class="iconfont icon-angleright"></i></a>
+    
+  </nav>
+</div>
 
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/xiaoaiying-i/aiyblog">Copyright © 2023 aiblog</a>
+        
     </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+</div>
 
-	
-</body>
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/aiyblog/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/aiyblog/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/aiyblog/js/colorscheme.js"></script>
+
+
+
+
+		
+        
+  
+  
+<script src="/aiyblog/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
 </html>

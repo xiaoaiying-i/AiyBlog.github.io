@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+	@charset "utf-8";
+	/* CSS Document */
+
+	body,ul,h1,h2,h3,h4,h5,h6,p
+	{
+		margin:0;
+		padding:0;
+		border:0;
+		font-family:Arial Helvetica,sans-serif,"宋体";
+	}
+	html,body
+	{
+		height:100%;
+	}
+	a{
+		text-decoration:none;
+	}
+	.all_div{/*总容器div样式*/
+		width:100%; 
+		height:100%; 
+		display:flex; 
+		flex-wrap:wrap;
+		align-items: flex-start;
+		#overflow-y: hidden;
+		scrollbar-track-color:#
+	}
+	
+	body::-webkit-scrollbar {
+		width:0.1px;
+	}
+
+	/*欢迎页第一个div样式*/
+	.firstPage{/*主页第一个div*/
+		width:100%;
+		height:100%;/*宽高用百分比让第一页随窗口的改变而自适应*/
+		background-image:url(./wecome1.jpg);
+		background-repeat:no-repeat;
+		background-size:100% 100%;
+		flex:0 0 auto;/*弹性布局*/
+		position:relative;
+		/*border:1px solid blue;*/
+		
+	}
+	.welcome{/*欢迎文字div的样式*/
+		height:60%;
+		text-align:center;
+		font-size:75px;
+		color:#969;
+		/*border:1px solid red;*/
+	}
+	.welcome p{
+		 width:90%; 
+		 margin:5% auto;
+		 color:#969;
+		 opacity:0.8;
+	}
+	.inter{/*主页第一div点击进入的div样式*/
+		margin:100px auto;
+		width:150px;; 
+		height:50px;
+		text-align:center;
+		opacity:0.5;
+		color:#CCC;
+		/*border:1px solid red;*/
+	}
+	.inter:hover{
+		border-bottom:1px solid #FFF;
+		background:#7b7b7b;
+		opacity:1;
+		color:#ff7467;
+	}
+
+	/*欢迎页第二个div样式*/
+	#div2{/*主页第二个div*/
+		width: 100%;
+		height: 100%;
+		background-image:url(./wecome2.jpg);
+		background-repeat:no-repeat;
+		background-size:100% 100%;
+		background-attachment: fixed;/*设置背景不随屏幕滚动，显示视觉差效果*/
+		flex:0 0 100%;
+		display:flex;
+	}
+	.content_block{/*主页第二个div内的小框样式*/
+		width:65%;
+		height:60%;
+		box-shadow:0px 0px 25px #639; 
+		border-radius:20px;
+		margin:8% auto;
+		padding-top:7%;
+		box-sizing:border-box;
+		
+	}
+	.content_block p{/*主页第二个div内的小框文字样式*/
+		text-align:center;
+		font-size:60px;
+		line-height:90px;
+		color:#639;
+	}
+
+	/*欢迎页第三个div样式*/
+	#div3{/*主页第三个div*/
+		width: 100%;
+		height: 100%;
+		background-image:url(./wecome3.jpg);
+		background-repeat:no-repeat;
+		background-size:100% 100%;
+		flex:0 0 100%;
+		position:relative;
+		text-align:center;
+		display:flex;
+		justify-content: center;
+		/*border:2px solid #F66;*/
+	}
+	.explain{/*主页第三div内容框div样式*/
+		width:80%;
+		height:70%; 
+		/* margin:50px 0px 0px 25%; */
+		text-align:center; 
+		color:#CCC;
+		padding-top:30px;
+		flex:0 0 100%;
+		/*border:2px solid #F66;*/
+	}
+	.explain p{
+		width:80%;
+		margin:0 auto;
+		font-size:20px;
+		line-height:30px;
+		margin-top:10px;
+		text-indent: 2em;/*段落空两格*/
+		text-align: justify;/*文本两端对齐*/
+		text-justify: inter-character;/*文本两端对齐，中文也起作用*/
+		/*border:2px solid #F66;*/
+	}
+	.foot_txt{
+		position:absolute; 
+		bottom:1%; 
+		left:47%; 
+		color:#FFF; 
+		font-size:15px;
+	}
+
+	@media screen and (max-width:600px){
+		.welcome{/*欢迎文字div的样式*/
+			font-size:35px;/*当屏幕小于600px把字体缩小*/
+		}
+		.content_block p{/*主页第二个div内的小框文字样式*/
+			font-size:30px;
+		}
+		.explain{
+			flex:0 0 50%;
+		}
+		.explain p{
+			font-size:13px;
+		}
+	}
+</style>
+<title>Ai Blog</title>
+</head>
+
+<body>
+
+	<div class="all_div">
+
+        <div class="firstPage" >
+        	<div class="welcome">
+            	<p>The world is beautiful. I hope you and I have a bright future, Welcome to the website of Ai-Blog</p>
+            </div>
+ 			<a href="/aiyblog">
+                <div class="inter" >
+                    <span style="font-size:30px;"><strong>点击进入</strong></span>
+                </div>
+            </a>
+        </div>
+        <div id="div2">
+        	<div class="content_block">
+            	<p>天行健，君子以自强不息</p>
+                <p>地势坤，君子以厚德载物</p>
+            </div>
+        
+        </div>
+        <div id="div3">
+        	<div class="explain">
+             	<h3 style="font-size:30px;">简介</h3></br>
+                <p>喜欢音乐、电影，有空会写写博客。</p>
+                <p>感谢相遇...</p>
+                <p></p>
+				<p></p>
+            </div>
+            <p class="foot_txt">xiaoaiying&nbsp;&copy;&nbsp;AlanClay</p>
+        </div>
+    
+
+    </div>
+
+	
+</body>
+</html>
