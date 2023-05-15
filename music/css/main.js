@@ -72,8 +72,8 @@ var vue = new Vue({
 			
 			// mv 状态时切换
             var that = this;
-			this.isShow: false;
-            this.mvUrl:"";
+			this.isShow = false;
+            this.mvUrl = "";
 			
 			this.curMusicId = musicId;
 			this.musicList.forEach((item, i) => {
